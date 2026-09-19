@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SASHA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: "Imperial";
+    src: url("imperialBetaV01-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --bg: #ffffff;
+    --ink: #111111;
+    --muted: #9a9a9a;
+    --pad: clamp(16px, 2.2vw, 28px);
+    --ui: "Golos Text", sans-serif;
+    --display: "Imperial", serif;
+    --ui-size: 16px;
+    --ui-lead: 1.35;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--ui);
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover { color: var(--muted); }
+
+  .is-active { color: var(--ink); }
+
+  /* —— Header (Figma) —— */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: 28px;
+    align-items: start;
+    padding: 18px var(--pad) 14px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+  }
+
+  .brand {
+    font-family: var(--ui);
+    font-size: var(--ui-size);
+    font-weight: 600;
+    line-height: var(--ui-lead);
+  }
+
+  .nav-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-weight: 600;
+  }
+
+  .clock {
+    justify-self: end;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* —— Intro —— */
+  .intro {
+    padding: 48px var(--pad) 72px;
+  }
+
+  .intro-copy {
+    margin: 0;
+    padding-left: min(468px, 34%);
+    font-family: var(--ui);
+    font-size: clamp(28px, 3.2vw, 48px);
+    line-height: 1.25;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  /* —— Projects / specimen rows —— */
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+    padding: 0 var(--pad) 72px;
+  }
+
+  .project-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .project-row img,
+  .project-full img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .project-full {
+    width: 100%;
+  }
+
+  /* —— Footer —— */
+  .contact {
+    padding: 48px var(--pad) 56px;
+  }
+
+  .contact-top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .contact-headline {
+    margin: 0;
+    font-family: var(--ui);
+    font-size: var(--ui-size);
+    font-weight: 600;
+    line-height: var(--ui-lead);
+  }
+
+  .contact-links {
+    grid-column: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-weight: 600;
+  }
+
+  .contact-clock {
+    justify-self: end;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 800px) {
+    .site-header,
+    .contact-top {
+      grid-template-columns: 1fr 1fr;
+      row-gap: 12px;
+    }
+
+    .clock,
+    .contact-clock {
+      justify-self: start;
+    }
+
+    .contact-links {
+      grid-column: 1 / -1;
+    }
+
+    .intro-copy {
+      padding-left: 0;
+    }
+
+    .project-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="brand" href="main.html">SASHA</a>
+    <nav class="nav-stack" aria-label="Primary">
+      <a href="index.html">Index</a>
+      <a href="#">Articles</a>
+    </nav>
+    <nav class="nav-stack" aria-label="Secondary">
+      <a href="about.html">About</a>
+    </nav>
+    <div class="clock" id="clock">Madison, —:— —</div>
+  </header>
+
+  <section class="intro">
+    <p class="intro-copy">
+      Sasha Smirnov — graphic designer specializes in work with letters and typography
+      ranging from neutral text to mad eye-catching logos
+    </p>
+  </section>
+
+  <section class="projects" aria-label="Work">
+    <div class="project-row">
+      <img src="preview/bora.svg" alt="Bora specimen" width="602" height="255">
+      <img src="preview/rante.svg" alt="Rante specimen" width="602" height="191">
+    </div>
+    <div class="project-row">
+      <img src="preview/audit.svg" alt="Audit specimen" width="602" height="169">
+      <img src="preview/bridge.svg" alt="Bridge specimen" width="633" height="159">
+    </div>
+    <div class="project-full">
+      <img src="preview/tangley.svg" alt="Tangley — Be catchy with loops" width="1266" height="554">
+    </div>
+  </section>
+
+  <footer class="contact" id="contact">
+    <div class="contact-top">
+      <h2 class="contact-headline">Contacts</h2>
+      <div></div>
+      <div class="contact-links">
+        <a href="mailto:you@email.com">you@email.com</a>
+      </div>
+      <div class="contact-clock" id="clock-foot">Madison, —:— —</div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const clocks = [
+        document.getElementById("clock"),
+        document.getElementById("clock-foot"),
+      ];
+      function tick() {
+        const time = new Date().toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+          timeZone: "America/Chicago",
+        });
+        const label = "Madison, " + time;
+        clocks.forEach((el) => {
+          if (el) el.textContent = label;
+        });
+      }
+      tick();
+      setInterval(tick, 30000);
+    })();
+  </script>
+
+</body>
+</html>

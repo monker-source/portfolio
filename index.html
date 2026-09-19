@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SASHA — Index</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: "Imperial";
+    src: url("imperialBetaV01-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --bg: #ffffff;
+    --ink: #111111;
+    --muted: #9a9a9a;
+    --pad: clamp(16px, 2.2vw, 28px);
+    --ui: "Golos Text", sans-serif;
+    --display: "Imperial", serif;
+    --ui-size: 16px;
+    --ui-lead: 1.35;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--ui);
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover { color: var(--muted); }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: 28px;
+    align-items: start;
+    padding: 18px var(--pad) 14px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+  }
+
+  .brand {
+    font-family: var(--ui);
+    font-size: var(--ui-size);
+    font-weight: 600;
+    line-height: var(--ui-lead);
+  }
+
+  .nav-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-weight: 600;
+  }
+
+  .nav-stack .is-active { font-weight: 600; }
+
+  .clock {
+    justify-self: end;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .index {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: 28px;
+    padding: 72px var(--pad) 72px;
+    align-items: start;
+  }
+
+  .projects {
+    grid-column: 3 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: var(--muted);
+  }
+
+  .project {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: start;
+    color: inherit;
+    transition: color 0.15s ease;
+    cursor: default;
+  }
+
+  a.project {
+    cursor: pointer;
+  }
+
+  .project:hover,
+  a.project:hover {
+    color: var(--ink);
+  }
+
+  .project-title {
+    margin: 0;
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 600;
+  }
+
+  .project-services {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 400;
+  }
+
+  .project-year {
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 400;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 800px) {
+    .site-header {
+      grid-template-columns: 1fr 1fr;
+      row-gap: 12px;
+    }
+
+    .clock { justify-self: start; }
+
+    .index {
+      grid-template-columns: 1fr;
+    }
+
+    .projects {
+      grid-column: 1;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="brand" href="main.html">SASHA</a>
+    <nav class="nav-stack" aria-label="Primary">
+      <a class="is-active" href="index.html">Index</a>
+      <a href="#">Articles</a>
+    </nav>
+    <nav class="nav-stack" aria-label="Secondary">
+      <a href="about.html">About</a>
+    </nav>
+    <div class="clock" id="clock">Madison, —:— —</div>
+  </header>
+
+  <main class="index">
+    <div class="projects" id="projects"></div>
+  </main>
+
+  <script src="projects.js"></script>
+  <script>
+    (function () {
+      const clock = document.getElementById("clock");
+      function tick() {
+        if (!clock) return;
+        const time = new Date().toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+          timeZone: "America/Chicago"
+        });
+        clock.textContent = "Madison, " + time;
+      }
+      tick();
+      setInterval(tick, 30000);
+
+      function renderProject(project) {
+        const linked = project.link !== false;
+        const el = document.createElement(linked ? "a" : "article");
+        el.className = "project";
+        if (linked) {
+          el.href = "projects/" + project.slug + ".html";
+        }
+
+        const body = document.createElement("div");
+        const title = document.createElement("h2");
+        title.className = "project-title";
+        title.textContent = project.title;
+
+        const services = document.createElement("ul");
+        services.className = "project-services";
+        (project.services || []).forEach(function (item) {
+          const li = document.createElement("li");
+          li.textContent = item;
+          services.appendChild(li);
+        });
+
+        body.appendChild(title);
+        body.appendChild(services);
+
+        const year = document.createElement("div");
+        year.className = "project-year";
+        year.textContent = project.year;
+
+        el.appendChild(body);
+        el.appendChild(year);
+        return el;
+      }
+
+      const list = document.getElementById("projects");
+      const projects = window.PROJECTS || [];
+      if (list) {
+        projects.forEach(function (project) {
+          list.appendChild(renderProject(project));
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

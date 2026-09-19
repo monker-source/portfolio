@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SASHA — About</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: "Imperial";
+    src: url("imperialBetaV01-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --bg: #ffffff;
+    --ink: #111111;
+    --muted: #9a9a9a;
+    --pad: clamp(16px, 2.2vw, 28px);
+    --ui: "Golos Text", sans-serif;
+    --display: "Imperial", serif;
+    --ui-size: 16px;
+    --ui-lead: 1.35;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--ui);
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover { color: var(--muted); }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: 28px;
+    align-items: start;
+    padding: 18px var(--pad) 14px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+  }
+
+  .brand {
+    font-family: var(--ui);
+    font-size: var(--ui-size);
+    font-weight: 600;
+    line-height: var(--ui-lead);
+  }
+
+  .nav-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-weight: 600;
+  }
+
+  .clock {
+    justify-self: end;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .about {
+    display: flex;
+    flex-direction: column;
+    gap: 52px;
+    padding: 48px var(--pad) 72px;
+  }
+
+  .about-lead {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .about-copy,
+  .about-bio {
+    margin: 0;
+    font-family: var(--ui);
+    font-size: clamp(28px, 3.2vw, 48px);
+    line-height: 1.25;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .about-copy {
+    grid-column: 2 / -1;
+  }
+
+  .about-bio {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1em;
+  }
+
+  .about-bio p {
+    margin: 0;
+  }
+
+  @media (max-width: 800px) {
+    .site-header {
+      grid-template-columns: 1fr 1fr;
+      row-gap: 12px;
+    }
+
+    .clock { justify-self: start; }
+
+    .about-lead {
+      grid-template-columns: 1fr;
+    }
+
+    .about-copy {
+      grid-column: 1;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="brand" href="main.html">SASHA</a>
+    <nav class="nav-stack" aria-label="Primary">
+      <a href="index.html">Index</a>
+      <a href="#">Articles</a>
+    </nav>
+    <nav class="nav-stack" aria-label="Secondary">
+      <a class="is-active" href="about.html">About</a>
+    </nav>
+    <div class="clock" id="clock">Madison, —:— —</div>
+  </header>
+
+  <main class="about">
+    <div class="about-lead">
+      <p class="about-copy">
+        Sasha Smirnov — graphic designer specializing in typography and lettering.
+      </p>
+    </div>
+
+    <div class="about-bio">
+      <p>
+        He designs logotypes and custom lettering — from restrained, editorial marks to bold, high-impact identities — and works on typefaces in both Cyrillic and Latin scripts.
+      </p>
+      <p>
+        He graduated as a book designer from the HSE Art and Design School and, in 2025, completed the Expert Class in Type Design at the Plantin Institute for Typography.
+      </p>
+      <p>
+        Freelancing since 2021, Sasha has collaborated with design agencies, publishing houses, and IT companies, including ABC Dinamo, Blaze Type, Tuman Agency and Playgama
+      </p>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      const clock = document.getElementById("clock");
+      function tick() {
+        if (!clock) return;
+        const time = new Date().toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+          timeZone: "America/Chicago"
+        });
+        clock.textContent = "Madison, " + time;
+      }
+      tick();
+      setInterval(tick, 30000);
+    })();
+  </script>
+
+</body>
+</html>
