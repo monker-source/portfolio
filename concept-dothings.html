@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SASHA — Type &amp; Lettering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: "Imperial";
+    src: url("imperialBetaV01-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --bg: #ffffff;
+    --ink: #111111;
+    --muted: #9a9a9a;
+    --pad: clamp(16px, 2.2vw, 28px);
+    --gap: clamp(16px, 2vw, 28px);
+    --ui: "Golos Text", sans-serif;
+    --display: "Imperial", serif;
+    --ui-size: 16px;
+    --ui-lead: 1.35;
+    --ui-stack-gap: 2px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--ui);
+    font-size: 17px;
+    line-height: 1.35;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .muted { color: var(--muted); }
+  .is-active { color: var(--ink); }
+
+  /* —— Header —— */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: var(--gap);
+    align-items: start;
+    padding: 18px var(--pad) 14px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+  }
+
+  .brand {
+    font-family: var(--display);
+    font-size: calc(var(--ui-size) * var(--ui-lead) * 2 + var(--ui-stack-gap));
+    letter-spacing: -0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .nav-stack,
+  .filter-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ui-stack-gap);
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+  }
+
+  .nav-stack a:hover,
+  .filter-stack a:hover,
+  .clock:hover {
+    color: var(--ink);
+  }
+
+  .sup {
+    font-size: 0.65em;
+    vertical-align: super;
+  }
+
+  .clock {
+    justify-self: end;
+    font-size: 16px;
+    padding-top: 6px;
+    white-space: nowrap;
+  }
+
+  /* —— Studio (first) —— */
+  .studio {
+    padding: 48px var(--pad) 72px;
+  }
+
+  .studio-copy,
+  .studio-continued {
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(28px, 3.6vw, 44px);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+  }
+
+  .studio-copy {
+    margin-left: var(--work-indent, 0px);
+    width: calc(100% - var(--work-indent, 0px));
+  }
+
+  .studio-copy .linkish {
+    border-bottom: 1px solid currentColor;
+  }
+
+  .studio-continued {
+    margin-top: 1.18em;
+  }
+
+  /* —— Selected works —— */
+  .index {
+    padding: 36px var(--pad) 72px;
+  }
+
+  .index-grid {
+    display: grid;
+    grid-template-columns: 180px 140px 1fr 72px;
+    gap: var(--gap);
+    align-items: start;
+  }
+
+  .focus-label,
+  .cat-label {
+    font-size: 16px;
+    margin: 0 0 18px;
+  }
+
+  .focus-shot {
+    width: 118px;
+    aspect-ratio: 3 / 4;
+    background:
+      linear-gradient(160deg, #f0e5d8, #d7c1aa 45%, #b89a7a);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+
+  .focus-shot span {
+    font-family: var(--display);
+    font-size: 92px;
+    line-height: 0.8;
+    color: #1c140e;
+    transform: translateY(6px);
+  }
+
+  .project-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 28px;
+  }
+
+  .project-list > li {
+    min-height: 5.5em;
+  }
+
+  .project-list.years {
+    justify-items: end;
+  }
+
+  .project-title {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(22px, 2.4vw, 30px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  .project-services {
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+
+  .project-year {
+    font-size: 16px;
+    text-align: right;
+    padding-top: 8px;
+  }
+
+  /* —— Footer / Contact —— */
+  .contact {
+    padding: 72px var(--pad) 40px;
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+  }
+
+  .contact-top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: var(--gap);
+    align-items: start;
+    margin-bottom: 48px;
+  }
+
+  .contact-headline {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(28px, 3.6vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ui-stack-gap);
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    grid-column: 3;
+  }
+
+  .contact-links a:hover {
+    color: var(--muted);
+  }
+
+  .giant-logo {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 100px; /* overridden by fit script */
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    font-weight: 400;
+    white-space: nowrap;
+    width: 100%;
+  }
+
+  @media (max-width: 980px) {
+    .site-header,
+    .contact-top {
+      grid-template-columns: 1fr 1fr;
+      row-gap: 12px;
+    }
+
+    .contact-links {
+      grid-column: 1 / -1;
+    }
+
+    .clock {
+      justify-self: start;
+    }
+
+    .index-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .index-grid > div:nth-child(3),
+    .index-grid > div:nth-child(4) {
+      grid-column: 1 / -1;
+    }
+
+    .project-list.years {
+      display: none;
+    }
+
+    .project-list > li {
+      position: relative;
+      padding-right: 56px;
+      min-height: 0;
+    }
+
+    .project-list > li:nth-child(1)::after { content: "2025"; }
+    .project-list > li:nth-child(2)::after { content: "2024"; }
+    .project-list > li:nth-child(3)::after { content: "2023"; }
+
+    .project-list > li::after {
+      position: absolute;
+      top: 8px;
+      right: 0;
+      font-size: 16px;
+      font-family: var(--ui);
+    }
+
+    .studio-copy {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="brand" href="#">SASHA</a>
+    <nav class="nav-stack" aria-label="Primary">
+      <a class="is-active" href="#work">Work<sup class="sup">3</sup></a>
+    </nav>
+    <nav class="filter-stack" aria-label="View">
+      <a class="muted" href="#contact">Contact</a>
+      <a class="is-active" href="#work">Index</a>
+    </nav>
+    <a class="clock" href="#contact" id="clock">[City] —:— —</a>
+  </header>
+
+  <section class="studio" id="studio">
+    <p class="studio-copy">
+      I design typefaces — mostly for reading, sometimes for shouting —
+      and I like the parts of the job most people never see: the spacing table,
+      the kerning pair, the third revision of a
+      <span class="linkish">lowercase g</span>.
+    </p>
+
+    <p class="studio-continued">
+      SASHA — type &amp; lettering designer, based in [City]. Previously at [Studio/Foundry].
+      My work sits between craft and utility: typefaces that hold up in a paragraph
+      and still have something to say at 200 points.
+    </p>
+  </section>
+
+  <section class="index" id="work">
+    <div class="index-grid">
+      <div>
+        <p class="focus-label">Selected works</p>
+        <div class="focus-shot" aria-hidden="true"><span>g</span></div>
+      </div>
+
+      <div>
+        <p class="cat-label">Display</p>
+      </div>
+
+      <div>
+        <ul class="project-list">
+          <li>
+            <h2 class="project-title">Custom display for [Client]</h2>
+            <ul class="project-services">
+              <li>Type design</li>
+              <li>Nine weights</li>
+              <li>Motion identity</li>
+            </ul>
+          </li>
+          <li>
+            <h2 class="project-title">Editorial text family</h2>
+            <ul class="project-services">
+              <li>Self-initiated</li>
+              <li>Small-size reading</li>
+            </ul>
+          </li>
+          <li>
+            <h2 class="project-title">Wordmark &amp; lettering, [Brand]</h2>
+            <ul class="project-services">
+              <li>Lettering</li>
+              <li>Logotype</li>
+              <li>Display cut</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <ul class="project-list years">
+          <li class="project-year">2025</li>
+          <li class="project-year">2024</li>
+          <li class="project-year">2023</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="contact" id="contact">
+    <div class="contact-top">
+      <h2 class="contact-headline">Contacts</h2>
+      <div class="contact-links">
+        <a href="mailto:you@email.com">you@email.com</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+    <p class="giant-logo">SASHA</p>
+  </footer>
+
+  <script>
+    (function () {
+      const clock = document.getElementById("clock");
+      const logo = document.querySelector(".giant-logo");
+
+      function tick() {
+        if (!clock) return;
+        const time = new Date().toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+          timeZone: "America/New_York"
+        });
+        clock.textContent = "[City] " + time;
+      }
+
+      function syncWorkIndent() {
+        const work = document.querySelector(".nav-stack a");
+        const studio = document.querySelector(".studio");
+        if (!work || !studio) return;
+        if (window.matchMedia("(max-width: 980px)").matches) {
+          document.documentElement.style.setProperty("--work-indent", "0px");
+          return;
+        }
+        const range = document.createRange();
+        range.selectNodeContents(work);
+        const workRight = range.getBoundingClientRect().right;
+        const studioPad = parseFloat(getComputedStyle(studio).paddingLeft) || 0;
+        document.documentElement.style.setProperty(
+          "--work-indent",
+          Math.max(0, workRight - studioPad) + "px"
+        );
+      }
+
+      function fitGiantLogo() {
+        if (!logo) return;
+        const target = logo.clientWidth;
+        if (!target) return;
+        logo.style.fontSize = "100px";
+        let measured = logo.scrollWidth || 1;
+        let size = (100 * target) / measured;
+        logo.style.fontSize = size + "px";
+        measured = logo.scrollWidth || 1;
+        if (measured !== target) {
+          size = size * (target / measured);
+          logo.style.fontSize = size + "px";
+        }
+      }
+
+      function syncAll() {
+        syncWorkIndent();
+        fitGiantLogo();
+      }
+
+      tick();
+      syncAll();
+      setInterval(tick, 30000);
+      window.addEventListener("resize", syncAll);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(syncAll);
+      }
+    })();
+  </script>
+
+</body>
+</html>

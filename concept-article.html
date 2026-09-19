@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Spacing is the work nobody sees</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @font-face {
+    font-family: "Imperial";
+    src: url("imperialBetaV01-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --bg: #ffffff;
+    --ink: #000000;
+    --muted: #7a7a7a;
+    --navy: #0b1f3a;
+    --navy-mid: #16325a;
+    --pad: clamp(24px, 4vw, 48px);
+    --note: 11.5rem;
+    --gap: clamp(1.25rem, 2.5vw, 2rem);
+    --measure: 44rem;
+    --type-lab-width: 0px;
+
+    /* Type lab defaults (desktop-ish starting points) */
+    --size-title: 96px;
+    --lead-title: 0.88;
+    --size-deck: 28px;
+    --lead-deck: 1.15;
+    --size-body: 23px;
+    --lead-body: 1.35;
+    --size-section: 23px;
+    --lead-section: 1.05;
+    --size-note: 14px;
+    --lead-note: 1.4;
+    --size-meta: 12px;
+    --lead-meta: 1.35;
+    --size-caption: 12px;
+    --lead-caption: 1.35;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    padding-right: var(--type-lab-width);
+    font-family: "Imperial", serif;
+    font-weight: 400;
+    color: var(--ink);
+    background: var(--bg);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* —— Header —— */
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 24px;
+    padding: 28px var(--pad);
+  }
+
+  .site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px 28px;
+    font-size: 16px;
+  }
+
+  .site-nav a {
+    position: relative;
+  }
+
+  .site-nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+
+  .site-nav a:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* —— Lead picture first —— */
+  .lead-visual {
+    position: relative;
+    min-height: min(72vh, 720px);
+    background:
+      radial-gradient(120% 90% at 70% 0%, var(--navy-mid) 0%, transparent 55%),
+      linear-gradient(180deg, #123056 0%, var(--navy) 48%, #060e1c 100%);
+    overflow: hidden;
+    animation: fade 1.1s ease both;
+  }
+
+  .lead-visual::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    opacity: 0.28;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  .lead-visual img {
+    position: relative;
+    width: 100%;
+    height: min(72vh, 720px);
+    object-fit: cover;
+  }
+
+  .lead-caption {
+    position: absolute;
+    left: var(--pad);
+    right: var(--pad);
+    bottom: 22px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: var(--size-meta);
+    line-height: var(--lead-meta);
+    letter-spacing: 0.04em;
+    max-width: 42ch;
+    z-index: 1;
+  }
+
+  /* —— Article —— */
+  .article {
+    padding: clamp(48px, 7vw, 88px) var(--pad) clamp(72px, 10vw, 120px);
+  }
+
+  .article-header {
+    max-width: calc(var(--note) + var(--gap) + var(--measure));
+    margin: 0 0 56px;
+    animation: rise 0.9s ease both;
+  }
+
+  .article-title {
+    margin: 0;
+    max-width: none;
+    width: 100%;
+    font-size: var(--size-title);
+    line-height: var(--lead-title);
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  .article-deck {
+    margin: 28px 0 0;
+    max-width: 34ch;
+    font-size: var(--size-deck);
+    line-height: var(--lead-deck);
+    letter-spacing: -0.015em;
+  }
+
+  .article-meta {
+    margin: 18px 0 0;
+    font-size: var(--size-meta);
+    line-height: var(--lead-meta);
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  /* —— Rows: note | body —— */
+  .row {
+    display: grid;
+    grid-template-columns: var(--note) minmax(0, var(--measure));
+    column-gap: var(--gap);
+    align-items: start;
+    margin: 0 0 1.35em;
+  }
+
+  .row-heading {
+    margin: 2.75em 0 1.1em;
+  }
+
+  .row-figure {
+    margin: 2.25em 0;
+  }
+
+  .note {
+    font-size: var(--size-note);
+    line-height: 1.25;
+    letter-spacing: 0.01em;
+    color: var(--muted);
+  }
+
+  .note p {
+    margin: 0;
+  }
+
+  .figure figcaption {
+    margin: 0.55em 0 0;
+    font-size: var(--size-caption);
+    line-height: var(--lead-caption);
+    letter-spacing: 0.02em;
+    color: var(--muted);
+  }
+
+  .body {
+    font-size: var(--size-body);
+    line-height: var(--lead-body);
+  }
+
+  .body > :first-child {
+    margin-top: 0;
+  }
+
+  .body > :last-child {
+    margin-bottom: 0;
+  }
+
+  .body p {
+    margin: 0 0 1.15em;
+  }
+
+  .body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .section-title {
+    margin: 0;
+    font-size: var(--size-section);
+    line-height: var(--lead-section);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  .figure {
+    margin: 0;
+  }
+
+  .figure img {
+    width: 100%;
+    background: #ececec;
+  }
+
+  .site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 12px 24px;
+    padding: 22px var(--pad) 40px;
+    font-size: 15px;
+    color: var(--muted);
+    border-top: 1px solid #e8e8e8;
+  }
+
+  .site-footer a:hover {
+    color: var(--ink);
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @media (max-width: 800px) {
+    .site-header {
+      justify-content: flex-start;
+    }
+
+    .row {
+      grid-template-columns: 1fr;
+      row-gap: 0.75em;
+      margin-bottom: 1.6em;
+    }
+
+    .note {
+      order: 2;
+      max-width: 28ch;
+    }
+
+    .body {
+      order: 1;
+    }
+
+    .row-heading .body {
+      order: 0;
+    }
+
+    .row-figure {
+      margin: 1.6em 0;
+    }
+
+    .row-figure .note {
+      order: 2;
+    }
+
+    .row-figure .body {
+      order: 1;
+    }
+
+    body {
+      padding-right: 0;
+    }
+
+    .type-lab {
+      display: none;
+    }
+  }
+
+  /* —— Type lab (testing) —— */
+  .type-lab {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: var(--type-lab-width);
+    z-index: 100;
+    overflow: auto;
+    padding: 16px 14px 28px;
+    background: #f4f4f4;
+    border-left: 1px solid #ddd;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 11px;
+    line-height: 1.3;
+    color: #222;
+  }
+
+  .type-lab h2 {
+    margin: 0 0 12px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .type-lab-group {
+    margin: 0 0 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .type-lab-group:last-of-type {
+    border-bottom: 0;
+  }
+
+  .type-lab-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 0 0 4px;
+    font-weight: 600;
+  }
+
+  .type-lab-label span:last-child {
+    font-weight: 400;
+    color: #666;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .type-lab label {
+    display: block;
+    margin: 8px 0 0;
+  }
+
+  .type-lab label > span {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2px;
+    color: #555;
+  }
+
+  .type-lab input[type="range"] {
+    width: 100%;
+    margin: 0;
+    accent-color: #0b1f3a;
+  }
+
+  .type-lab-reset {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    padding: 8px 10px;
+    border: 1px solid #bbb;
+    background: #fff;
+    font: inherit;
+    font-size: 11px;
+    cursor: pointer;
+  }
+
+  .type-lab-reset:hover {
+    background: #eee;
+  }
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary">
+      <a href="concept-arkis.html#work">Work</a>
+      <a href="concept-arkis.html#about">About</a>
+      <a href="concept-arkis.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="lead-visual">
+    <img
+      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23123056'/%3E%3Cstop offset='1' stop-color='%23060e1c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23g)' width='1600' height='900'/%3E%3Ctext x='800' y='470' fill='rgba(255,255,255,0.88)' font-family='Georgia,serif' font-size='56' text-anchor='middle'%3ELead picture%3C/text%3E%3C/svg%3E"
+      alt="Proof sheet detail — lowercase g revisions">
+    <div class="lead-caption">Proof sheet detail — lowercase g revisions, 2024</div>
+  </div>
+
+  <article class="article">
+    <header class="article-header">
+      <h1 class="article-title">Spacing is the work nobody sees</h1>
+      <p class="article-deck">A short look at sidebearings, kerning, and the quiet labor that makes a paragraph hold together.</p>
+      <p class="article-meta">March 2026 · 8 min read</p>
+    </header>
+
+    <div class="row">
+      <aside class="note">
+        <p>Most readers never notice spacing. Designers notice almost nothing else.</p>
+      </aside>
+      <div class="body">
+        <p>A typeface is not only the shapes of letters. It is the air between them — the table of sidebearings, the kerning pairs, the third revision of a lowercase g that finally sits still in a paragraph. This note walks through that invisible labor with pictures that interrupt the text and notes that sit beside it.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <aside class="note"></aside>
+      <div class="body">
+        <p>What follows is placeholder copy so you can judge measure, rhythm, and how notes relate to the main column. Swap it for real writing when you have an essay ready.</p>
+      </div>
+    </div>
+
+    <div class="row row-heading">
+      <aside class="note"></aside>
+      <div class="body">
+        <h2 class="section-title">Sidebearings</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <aside class="note">
+        <p>Early versions of the g were still too wide on the right.</p>
+      </aside>
+      <div class="body">
+        <p>Sidebearings set how much empty space sits on each side of a glyph before kerning begins. Too tight and the word clenches; too loose and the line frays. The left margin holds short notes only — no pictures there.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <aside class="note"></aside>
+      <div class="body">
+        <p>When the same letter repeats, optical rhythm matters more than mathematical equality. Two n’s in “running” need slightly different treatment than an n beside an o. That is where kerning starts — and where most of the hours go.</p>
+      </div>
+    </div>
+
+    <div class="row row-figure">
+      <aside class="note">
+        <p>Main pictures live in the text column. Use them sparingly.</p>
+      </aside>
+      <figure class="figure">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='640' viewBox='0 0 1200 640'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23123056'/%3E%3Cstop offset='1' stop-color='%23060e1c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23g)' width='1200' height='640'/%3E%3Ctext x='600' y='330' fill='rgba(255,255,255,0.85)' font-family='Georgia,serif' font-size='42' text-anchor='middle'%3EMain figure%3C/text%3E%3C/svg%3E" alt="Spacing table excerpt">
+        <figcaption>Spacing table excerpt — sidebearings for lowercase, first pass</figcaption>
+      </figure>
+    </div>
+
+    <div class="row row-heading">
+      <aside class="note"></aside>
+      <div class="body">
+        <h2 class="section-title">Kerning</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <aside class="note">
+        <p>Classic pair: T and o. Notes stay text-only.</p>
+      </aside>
+      <div class="body">
+        <p>Kerning is exception handling. You fix the pairs that sidebearings cannot: T+o, L+y, f+i. Large pictures interrupt the reading column; side notes annotate it without competing for attention.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <aside class="note"></aside>
+      <div class="body">
+        <p>On a screen, the same decisions hold — only the resolution and the reading distance change. A text face that works at 16px still needs the discipline of print: consistent color, quiet rhythm, no sudden holes in the line.</p>
+      </div>
+    </div>
+
+    <div class="row row-figure">
+      <aside class="note"></aside>
+      <figure class="figure">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='720' viewBox='0 0 1200 720'%3E%3Crect fill='%230b1f3a' width='1200' height='720'/%3E%3Ctext x='600' y='370' fill='rgba(255,255,255,0.85)' font-family='Georgia,serif' font-size='42' text-anchor='middle'%3EMain figure%3C/text%3E%3C/svg%3E" alt="Before and after kerning">
+        <figcaption>Before / after kerning on a display size</figcaption>
+      </figure>
+    </div>
+
+    <div class="row">
+      <aside class="note">
+        <p>Keep the left column short — one thought, not a second essay.</p>
+      </aside>
+      <div class="body">
+        <p>That is the template: a lead picture, then a large title and short intro, then plain text with occasional figures and left-side notes. On narrow screens, each note drops directly under the paragraph it belongs to.</p>
+      </div>
+    </div>
+  </article>
+
+  <footer class="site-footer">
+    <span>
+      <a href="mailto:you@email.com">you@email.com</a>
+      —
+      <a href="#">Instagram</a>
+    </span>
+  </footer>
+
+  <aside class="type-lab" aria-label="Typography testing controls">
+    <h2>Type lab</h2>
+
+    <div class="type-lab-group" data-group="title">
+      <div class="type-lab-label"><span>Title</span><span class="type-lab-summary"></span></div>
+      <label>
+        <span>Size <output data-for="size-title"></output></span>
+        <input type="range" data-var="size-title" data-unit="px" min="40" max="160" step="1" value="96">
+      </label>
+      <label>
+        <span>Leading <output data-for="lead-title"></output></span>
+        <input type="range" data-var="lead-title" data-unit="" min="0.7" max="1.4" step="0.01" value="0.88">
+      </label>
+    </div>
+
+    <div class="type-lab-group" data-group="deck">
+      <div class="type-lab-label"><span>Deck</span><span class="type-lab-summary"></span></div>
+      <label>
+        <span>Size <output data-for="size-deck"></output></span>
+        <input type="range" data-var="size-deck" data-unit="px" min="16" max="48" step="1" value="28">
+      </label>
+      <label>
+        <span>Leading <output data-for="lead-deck"></output></span>
+        <input type="range" data-var="lead-deck" data-unit="" min="1" max="1.6" step="0.01" value="1.15">
+      </label>
+    </div>
+
+    <div class="type-lab-group" data-group="body">
+      <div class="type-lab-label"><span>Body</span><span class="type-lab-summary"></span></div>
+      <label>
+        <span>Size <output data-for="size-body"></output></span>
+        <input type="range" data-var="size-body" data-unit="px" min="14" max="32" step="1" value="23">
+      </label>
+      <label>
+        <span>Leading <output data-for="lead-body"></output></span>
+        <input type="range" data-var="lead-body" data-unit="" min="1.1" max="1.8" step="0.01" value="1.35">
+      </label>
+    </div>
+
+    <div class="type-lab-group" data-group="section">
+      <div class="type-lab-label"><span>Section</span><span class="type-lab-summary"></span></div>
+      <label>
+        <span>Size <output data-for="size-section"></output></span>
+        <input type="range" data-var="size-section" data-unit="px" min="18" max="64" step="1" value="23">
+      </label>
+      <label>
+        <span>Leading <output data-for="lead-section"></output></span>
+        <input type="range" data-var="lead-section" data-unit="" min="0.9" max="1.5" step="0.01" value="1.05">
+      </label>
+    </div>
+
+    <div class="type-lab-group" data-group="note">
+      <div class="type-lab-label"><span>Note</span><span class="type-lab-summary"></span></div>
+      <label>
+        <span>Size <output data-for="size-note"></output></span>
+        <input type="range" data-var="size-note" data-unit="px" min="10" max="22" step="1" value="14">
+      </label>
+      <label>
+        <span>Leading <output data-for="lead-note"></output></span>
+        <input type="range" data-var="lead-note" data-unit="" min="1.1" max="1.8" step="0.01" value="1.4">
+      </label>
+    </div>
+
+    <div class="type-lab-group" data-group="meta">
+      <div class="type-lab-label"><span>Meta</span><span class="type-lab-summary"></span></div>
+      <label>
+        <span>Size <output data-for="size-meta"></output></span>
+        <input type="range" data-var="size-meta" data-unit="px" min="10" max="22" step="1" value="12">
+      </label>
+      <label>
+        <span>Leading <output data-for="lead-meta"></output></span>
+        <input type="range" data-var="lead-meta" data-unit="" min="1.1" max="1.8" step="0.01" value="1.35">
+      </label>
+    </div>
+
+    <div class="type-lab-group" data-group="caption">
+      <div class="type-lab-label"><span>Caption</span><span class="type-lab-summary"></span></div>
+      <label>
+        <span>Size <output data-for="size-caption"></output></span>
+        <input type="range" data-var="size-caption" data-unit="px" min="10" max="22" step="1" value="12">
+      </label>
+      <label>
+        <span>Leading <output data-for="lead-caption"></output></span>
+        <input type="range" data-var="lead-caption" data-unit="" min="1.1" max="1.8" step="0.01" value="1.35">
+      </label>
+    </div>
+
+    <button type="button" class="type-lab-reset">Reset</button>
+  </aside>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const lab = document.querySelector(".type-lab");
+      const inputs = [...lab.querySelectorAll("input[type=range]")];
+      const defaults = Object.fromEntries(
+        inputs.map((input) => [input.dataset.var, input.value])
+      );
+
+      function formatValue(input) {
+        const unit = input.dataset.unit || "";
+        if (unit === "px") return `${input.value}px`;
+        return Number(input.value).toFixed(2);
+      }
+
+      function apply(input) {
+        const name = `--${input.dataset.var}`;
+        const unit = input.dataset.unit || "";
+        const value = unit === "px" ? `${input.value}px` : input.value;
+        root.style.setProperty(name, value);
+
+        const out = lab.querySelector(`output[data-for="${input.dataset.var}"]`);
+        if (out) out.textContent = formatValue(input);
+
+        const group = input.closest(".type-lab-group");
+        if (group) {
+          const size = group.querySelector('input[data-var^="size-"]');
+          const lead = group.querySelector('input[data-var^="lead-"]');
+          const summary = group.querySelector(".type-lab-summary");
+          if (summary && size && lead) {
+            summary.textContent = `${size.value}px / ${Number(lead.value).toFixed(2)}`;
+          }
+        }
+      }
+
+      inputs.forEach((input) => {
+        apply(input);
+        input.addEventListener("input", () => apply(input));
+      });
+
+      lab.querySelector(".type-lab-reset").addEventListener("click", () => {
+        inputs.forEach((input) => {
+          input.value = defaults[input.dataset.var];
+          apply(input);
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
