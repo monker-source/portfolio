@@ -29,14 +29,22 @@
 
   * { box-sizing: border-box; }
 
+  html {
+    height: 100%;
+  }
+
   body {
     margin: 0;
+    min-height: 100%;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
     background: var(--bg);
     color: var(--ink);
     font-family: var(--ui);
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
-    font-weight: 400;
+    font-weight: 600;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
@@ -49,6 +57,7 @@
   a:hover { color: var(--muted); }
 
   .site-header {
+    flex: 0 0 auto;
     position: sticky;
     top: 0;
     z-index: 20;
@@ -85,28 +94,32 @@
     display: flex;
     flex-direction: column;
     gap: 52px;
-    padding: 48px var(--pad) 72px;
+    flex: 1 1 auto;
+    padding: 48px var(--pad) 80px;
   }
 
   .about-lead {
     display: grid;
     grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
     gap: 28px;
+    row-gap: 1.1em;
     align-items: start;
   }
 
   .about-copy,
-  .about-bio {
+  .about-bio,
+  .about-services {
     margin: 0;
     font-family: var(--ui);
-    font-size: clamp(28px, 3.2vw, 48px);
-    line-height: 1.25;
-    font-weight: 400;
-    letter-spacing: -0.01em;
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 600;
   }
 
-  .about-copy {
-    grid-column: 2 / -1;
+  .about-copy,
+  .about-bio,
+  .about-services {
+    grid-column: 3 / -1;
   }
 
   .about-bio {
@@ -115,23 +128,72 @@
     gap: 1.1em;
   }
 
-  .about-bio p {
+  .about-bio p,
+  .about-services p {
     margin: 0;
   }
 
+  .contact {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 15;
+    padding: 14px var(--pad) 18px;
+    background: var(--bg);
+  }
+
+  .contact-top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .contact-headline {
+    margin: 0;
+    font-size: var(--ui-size);
+    font-weight: 600;
+    line-height: var(--ui-lead);
+  }
+
+  .contact-links {
+    grid-column: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-weight: 600;
+  }
+
+  .contact-clock {
+    justify-self: end;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
   @media (max-width: 800px) {
-    .site-header {
-      grid-template-columns: 1fr 1fr;
+    .site-header,
+    .contact-top {
+      grid-template-columns: 1fr;
       row-gap: 12px;
     }
 
-    .clock { justify-self: start; }
+    .clock,
+    .contact-clock {
+      justify-self: start;
+    }
+
+    .contact-links {
+      grid-column: 1;
+    }
 
     .about-lead {
       grid-template-columns: 1fr;
     }
 
-    .about-copy {
+    .about-copy,
+    .about-bio,
+    .about-services {
       grid-column: 1;
     }
   }
@@ -156,38 +218,61 @@
       <p class="about-copy">
         Sasha Smirnov — graphic designer specializing in typography and lettering.
       </p>
-    </div>
-
-    <div class="about-bio">
-      <p>
-        He designs logotypes and custom lettering — from restrained, editorial marks to bold, high-impact identities — and works on typefaces in both Cyrillic and Latin scripts.
-      </p>
-      <p>
-        He graduated as a book designer from the HSE Art and Design School and, in 2025, completed the Expert Class in Type Design at the Plantin Institute for Typography.
-      </p>
-      <p>
-        Freelancing since 2021, Sasha has collaborated with design agencies, publishing houses, and IT companies, including ABC Dinamo, Blaze Type, Tuman Agency and Playgama
+      <div class="about-bio">
+        <p>
+          He designs logotypes and custom lettering — from restrained, editorial marks to bold, high-impact identities — and works on typefaces in both Cyrillic and Latin scripts.
+        </p>
+        <p>
+          He graduated as a book designer from the HSE Art and Design School and, in 2025, completed the Expert Class in Type Design at the Plantin Institute for Typography.
+        </p>
+        <p>
+          Freelancing since 2021, Sasha has collaborated with design agencies, publishing houses, and IT companies, including ABC Dinamo, Blaze Type, Tuman Agency and Playgama
+        </p>
+      </div>
+      <p class="about-services">
+        Sasha provides following services<br>
+        Custom typeface design<br>
+        Custom letterings and logos<br>
+        Customisation of typeface<br>
+        Typeface revivals from source
       </p>
     </div>
   </main>
 
+  <footer class="contact" id="contact">
+    <div class="contact-top">
+      <h2 class="contact-headline">Contacts</h2>
+      <div></div>
+      <div class="contact-links">
+        <a href="mailto:you@email.com">you@email.com</a>
+      </div>
+      <div class="contact-clock" id="clock-foot">Madison, —:— —</div>
+    </div>
+  </footer>
+
   <script>
     (function () {
-      const clock = document.getElementById("clock");
+      const clocks = [
+        document.getElementById("clock"),
+        document.getElementById("clock-foot"),
+      ];
       function tick() {
-        if (!clock) return;
         const time = new Date().toLocaleTimeString("en-US", {
           hour: "2-digit",
           minute: "2-digit",
           hour12: false,
           timeZone: "America/Chicago"
         });
-        clock.textContent = "Madison, " + time;
+        const label = "Madison, " + time;
+        clocks.forEach(function (el) {
+          if (el) el.textContent = label;
+        });
       }
       tick();
       setInterval(tick, 30000);
     })();
   </script>
 
+<script src="draw.js"></script>
 </body>
 </html>
