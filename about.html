@@ -25,13 +25,13 @@
     --display: "Imperial", serif;
     --ui-size: 16px;
     --ui-lead: 1.35;
+    --cols: 1.4fr 1fr 1fr 1.2fr;
+    --col-gap: 28px;
   }
 
   * { box-sizing: border-box; }
 
-  html {
-    height: 100%;
-  }
+  html { height: 100%; }
 
   body {
     margin: 0;
@@ -60,14 +60,28 @@
     flex: 0 0 auto;
     position: sticky;
     top: 0;
-    z-index: 20;
-    display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
-    gap: 28px;
-    align-items: start;
+    z-index: 30;
     padding: 18px var(--pad) 14px;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(8px);
+    background: transparent;
+    mix-blend-mode: difference;
+    color: #fff;
+  }
+
+  .site-nav {
+    display: grid;
+    grid-template-columns: var(--cols);
+    gap: var(--col-gap);
+    align-items: baseline;
+    font-weight: 600;
+  }
+
+  .site-nav a {
+    color: #fff;
+  }
+
+  .site-nav a:hover {
+    color: #fff;
+    opacity: 0.45;
   }
 
   .brand {
@@ -75,19 +89,6 @@
     font-size: var(--ui-size);
     font-weight: 600;
     line-height: var(--ui-lead);
-  }
-
-  .nav-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    font-weight: 600;
-  }
-
-  .clock {
-    justify-self: end;
-    font-weight: 600;
-    white-space: nowrap;
   }
 
   .about {
@@ -100,8 +101,8 @@
 
   .about-lead {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
-    gap: 28px;
+    grid-template-columns: var(--cols);
+    gap: var(--col-gap);
     row-gap: 1.1em;
     align-items: start;
   }
@@ -114,12 +115,7 @@
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
-  }
-
-  .about-copy,
-  .about-bio,
-  .about-services {
-    grid-column: 3 / -1;
+    grid-column: 4;
   }
 
   .about-bio {
@@ -128,8 +124,7 @@
     gap: 1.1em;
   }
 
-  .about-bio p,
-  .about-services p {
+  .about-bio p {
     margin: 0;
   }
 
@@ -145,8 +140,8 @@
 
   .contact-top {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
-    gap: 28px;
+    grid-template-columns: var(--cols);
+    gap: var(--col-gap);
     align-items: start;
   }
 
@@ -172,107 +167,55 @@
   }
 
   @media (max-width: 800px) {
-    .site-header,
+    .site-nav,
+    .about-lead,
     .contact-top {
       grid-template-columns: 1fr;
       row-gap: 12px;
     }
 
-    .clock,
-    .contact-clock {
-      justify-self: start;
-    }
-
+    .about-copy,
+    .about-bio,
+    .about-services,
     .contact-links {
       grid-column: 1;
     }
 
-    .about-lead {
-      grid-template-columns: 1fr;
-    }
-
-    .about-copy,
-    .about-bio,
-    .about-services {
-      grid-column: 1;
+    .contact-clock {
+      justify-self: start;
     }
   }
 </style>
 </head>
 <body>
 
-  <header class="site-header">
-    <a class="brand" href="main.html">SASHA</a>
-    <nav class="nav-stack" aria-label="Primary">
-      <a href="index.html">Index</a>
-      <a href="#">Articles</a>
-    </nav>
-    <nav class="nav-stack" aria-label="Secondary">
-      <a class="is-active" href="about.html">About</a>
-    </nav>
-    <div class="clock" id="clock">Madison, —:— —</div>
-  </header>
-
   <main class="about">
     <div class="about-lead">
       <p class="about-copy">
-        Sasha Smirnov — graphic designer specializing in typography and lettering.
+        Sasha&nbsp;Smirnov&nbsp;— graphic designer specializing in&nbsp;typography and&nbsp;lettering.
       </p>
       <div class="about-bio">
         <p>
-          He designs logotypes and custom lettering — from restrained, editorial marks to bold, high-impact identities — and works on typefaces in both Cyrillic and Latin scripts.
+          He designs logotypes and&nbsp;custom lettering&nbsp;— from&nbsp;restrained, editorial marks to&nbsp;bold, high-impact identities&nbsp;— and&nbsp;works on&nbsp;typefaces in&nbsp;both Cyrillic and&nbsp;Latin scripts.
         </p>
         <p>
-          He graduated as a book designer from the HSE Art and Design School and, in 2025, completed the Expert Class in Type Design at the Plantin Institute for Typography.
+          He graduated as&nbsp;a&nbsp;book designer from&nbsp;the HSE Art and&nbsp;Design School and, in&nbsp;2025, completed the Expert&nbsp;Class in&nbsp;Type&nbsp;Design at&nbsp;the Plantin&nbsp;Institute for&nbsp;Typography.
         </p>
         <p>
-          Freelancing since 2021, Sasha has collaborated with design agencies, publishing houses, and IT companies, including ABC Dinamo, Blaze Type, Tuman Agency and Playgama
+          Freelancing since&nbsp;2021, Sasha has collaborated with&nbsp;design agencies, publishing houses, and&nbsp;IT companies, including&nbsp;ABC&nbsp;Dinamo, Blaze&nbsp;Type, Tuman&nbsp;Agency and&nbsp;Playgama
         </p>
       </div>
       <p class="about-services">
         Sasha provides following services<br>
         Custom typeface design<br>
-        Custom letterings and logos<br>
-        Customisation of typeface<br>
-        Typeface revivals from source
+        Custom letterings and&nbsp;logos<br>
+        Customisation of&nbsp;typeface<br>
+        Typeface revivals from&nbsp;source
       </p>
     </div>
   </main>
 
-  <footer class="contact" id="contact">
-    <div class="contact-top">
-      <h2 class="contact-headline">Contacts</h2>
-      <div></div>
-      <div class="contact-links">
-        <a href="mailto:you@email.com">you@email.com</a>
-      </div>
-      <div class="contact-clock" id="clock-foot">Madison, —:— —</div>
-    </div>
-  </footer>
-
-  <script>
-    (function () {
-      const clocks = [
-        document.getElementById("clock"),
-        document.getElementById("clock-foot"),
-      ];
-      function tick() {
-        const time = new Date().toLocaleTimeString("en-US", {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-          timeZone: "America/Chicago"
-        });
-        const label = "Madison, " + time;
-        clocks.forEach(function (el) {
-          if (el) el.textContent = label;
-        });
-      }
-      tick();
-      setInterval(tick, 30000);
-    })();
-  </script>
-
-<script src="draw.js"></script>
+  <script src="site.js"></script>
+  <script src="draw.js"></script>
 </body>
 </html>

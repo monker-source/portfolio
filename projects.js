@@ -1,38 +1,49 @@
 window.PROJECTS = [
   {
     "title": "Tangley",
+    "kind": "Type design",
+    "info": ["Display typeface"],
     "year": "2025",
-    "services": ["Type design", "Display typeface"],
-    "slug": "tangley"
+    "slug": "tangley",
+    "preview": "preview/tangley.svg"
   },
   {
     "title": "Standon",
+    "kind": "Type design",
+    "info": ["Roman+Italic", "6 weights"],
     "year": "2025",
-    "services": ["Type design", "Roman+Italic", "6 weights"],
     "slug": "standon"
   },
   {
     "title": "Rante",
+    "kind": "Logo",
+    "info": ["Optical variations", "Cyrillic"],
     "year": "2025",
-    "services": ["Logotype", "Optical variations", "Cyrillic"],
-    "slug": "rante"
+    "slug": "rante",
+    "preview": "preview/rante.svg"
   },
   {
     "title": "Bridges",
+    "kind": "Logo",
+    "info": ["Consulting"],
     "year": "2025",
-    "services": ["Logotype", "Consulting"],
-    "slug": "bridges"
+    "slug": "bridges",
+    "preview": "preview/bridge.svg"
   },
   {
     "title": "Audit",
+    "kind": "Logo",
+    "info": ["Cyrillic"],
     "year": "2025",
-    "services": ["Logotype", "Cyrillic"],
-    "slug": "audit"
+    "slug": "audit",
+    "preview": "preview/audit.svg"
   },
   {
     "title": "Bora",
+    "kind": "Logo",
+    "info": ["Optical variations", "Cyrillic"],
     "year": "2025",
-    "services": ["Logotype", "Optical variations", "Cyrillic"],
-    "slug": "bora"
+    "slug": "bora",
+    "preview": "preview/bora.svg"
   }
 ];

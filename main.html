@@ -52,20 +52,34 @@
 
   a:hover { color: var(--muted); }
 
-  .is-active { color: var(--ink); }
+  .is-active { color: inherit; }
 
-  /* —— Header —— */
+  /* —— Menu (shared site.js + mix-blend) —— */
   .site-header {
     position: sticky;
     top: 0;
-    z-index: 20;
+    z-index: 30;
+    padding: 18px var(--pad) 14px;
+    background: transparent;
+    mix-blend-mode: difference;
+    color: #fff;
+  }
+
+  .site-nav {
     display: grid;
     grid-template-columns: var(--cols);
     gap: var(--col-gap);
-    align-items: start;
-    padding: 18px var(--pad) 14px;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(8px);
+    align-items: baseline;
+    font-weight: 600;
+  }
+
+  .site-nav a {
+    color: #fff;
+  }
+
+  .site-nav a:hover {
+    color: #fff;
+    opacity: 0.45;
   }
 
   .brand {
@@ -75,69 +89,126 @@
     line-height: var(--ui-lead);
   }
 
-  .nav-stack {
+  /* —— Index / works —— */
+  .works {
+    position: relative;
+    isolation: isolate;
+    min-height: min(72vh, 720px);
+    padding: 48px var(--pad) 72px;
+  }
+
+  .works-preview {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.28s ease;
+  }
+
+  .works-preview.is-on {
+    opacity: 1;
+  }
+
+  .works-preview img {
+    display: block;
+    width: min(78vw, 920px);
+    height: auto;
+    max-height: 68vh;
+    object-fit: contain;
+  }
+
+  .projects {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    font-weight: 600;
+    gap: 0;
+    width: 100%;
+    color: var(--muted);
   }
 
-  .clock {
-    justify-self: end;
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  /* Content starts at About column → right edge */
-  .rail {
+  .project {
     display: grid;
-    grid-template-columns: var(--cols);
+    grid-template-columns: 1.4fr 1fr 1.2fr;
     gap: var(--col-gap);
-    padding-left: var(--pad);
-    padding-right: var(--pad);
+    align-items: start;
+    padding: 14px 0;
+    border-top: 1px solid rgba(17, 17, 17, 0.12);
+    color: inherit;
+    transition: color 0.15s ease;
+    cursor: default;
+    background: transparent;
   }
 
-  .rail > * {
-    grid-column: 3 / -1;
+  .project:last-child {
+    border-bottom: 1px solid rgba(17, 17, 17, 0.12);
   }
 
-  /* —— Intro —— */
-  .intro {
-    padding-top: 48px;
-    padding-bottom: 72px;
+  .project:hover,
+  .project.is-active {
+    color: var(--ink);
   }
 
-  .intro p {
+  .project-title {
     margin: 0;
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
   }
 
-  /* —— Projects —— */
-  .projects {
+  .project-kind,
+  .project-info {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 600;
+  }
+
+  .project-kind {
+    margin: 0;
+  }
+
+  /* —— About —— */
+  .about {
     display: flex;
     flex-direction: column;
-    gap: 72px;
-    padding: 0 var(--pad) 72px;
+    gap: 52px;
+    padding: 48px var(--pad) 80px;
   }
 
-  .project-row {
+  .about-lead {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    align-items: center;
+    grid-template-columns: var(--cols);
+    gap: var(--col-gap);
+    row-gap: 1.1em;
+    align-items: start;
   }
 
-  .project-row img,
-  .project-full img {
-    display: block;
-    width: 100%;
-    height: auto;
+  .about-copy,
+  .about-bio,
+  .about-services {
+    margin: 0;
+    font-family: var(--ui);
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 600;
+    grid-column: 4;
   }
 
-  .project-full {
-    width: 100%;
+  .about-bio {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1em;
+  }
+
+  .about-bio p {
+    margin: 0;
   }
 
   /* —— Footer —— */
@@ -174,98 +245,151 @@
   }
 
   @media (max-width: 800px) {
-    .site-header,
-    .contact-top,
-    .rail {
+    .site-nav,
+    .project,
+    .about-lead,
+    .contact-top {
       grid-template-columns: 1fr;
       row-gap: 12px;
     }
 
-    .rail > *,
+    .about-copy,
+    .about-bio,
+    .about-services,
     .contact-links {
       grid-column: 1;
     }
 
-    .clock,
     .contact-clock {
       justify-self: start;
     }
 
-    .project-row {
-      grid-template-columns: 1fr;
+    .works {
+      min-height: 0;
+    }
+
+    .works-preview img {
+      width: min(92vw, 520px);
+      max-height: 42vh;
     }
   }
 </style>
 </head>
 <body>
 
-  <header class="site-header">
-    <a class="brand" href="main.html">SASHA</a>
-    <nav class="nav-stack" aria-label="Primary">
-      <a href="index.html">Index</a>
-      <a href="#">Articles</a>
-    </nav>
-    <nav class="nav-stack" aria-label="Secondary">
-      <a href="about.html">About</a>
-    </nav>
-    <div class="clock" id="clock">Madison, —:— —</div>
-  </header>
-
-  <section class="intro rail">
-    <p>
-      Sasha Smirnov — graphic designer specializes in work with letters and typography
-      ranging from neutral text to mad eye-catching logos
-    </p>
+  <section class="works" id="index" aria-label="Index">
+    <div class="works-preview" id="works-preview" aria-hidden="true">
+      <img id="works-preview-img" alt="" width="920" height="520">
+    </div>
+    <div class="projects" id="projects"></div>
   </section>
 
-  <section class="projects" aria-label="Work">
-    <div class="project-row">
-      <img src="preview/bora.svg" alt="Bora specimen" width="602" height="255">
-      <img src="preview/rante.svg" alt="Rante specimen" width="602" height="191">
-    </div>
-    <div class="project-row">
-      <img src="preview/audit.svg" alt="Audit specimen" width="602" height="169">
-      <img src="preview/bridge.svg" alt="Bridge specimen" width="633" height="159">
-    </div>
-    <div class="project-full">
-      <img src="preview/tangley.svg" alt="Tangley — Be catchy with loops" width="1266" height="554">
-    </div>
-  </section>
-
-  <footer class="contact" id="contact">
-    <div class="contact-top">
-      <h2 class="contact-headline">Contacts</h2>
-      <div></div>
-      <div class="contact-links">
-        <a href="mailto:you@email.com">you@email.com</a>
+  <main class="about" id="about">
+    <div class="about-lead">
+      <p class="about-copy">
+        Sasha&nbsp;Smirnov&nbsp;— graphic designer specializing in&nbsp;typography and&nbsp;lettering.
+      </p>
+      <div class="about-bio">
+        <p>
+          He designs logotypes and&nbsp;custom lettering&nbsp;— from&nbsp;restrained, editorial marks to&nbsp;bold, high-impact identities&nbsp;— and&nbsp;works on&nbsp;typefaces in&nbsp;both Cyrillic and&nbsp;Latin scripts.
+        </p>
+        <p>
+          He graduated as&nbsp;a&nbsp;book designer from&nbsp;the HSE Art and&nbsp;Design School and, in&nbsp;2025, completed the Expert&nbsp;Class in&nbsp;Type&nbsp;Design at&nbsp;the Plantin&nbsp;Institute for&nbsp;Typography.
+        </p>
+        <p>
+          Freelancing since&nbsp;2021, Sasha has collaborated with&nbsp;design agencies, publishing houses, and&nbsp;IT companies, including&nbsp;ABC&nbsp;Dinamo, Blaze&nbsp;Type, Tuman&nbsp;Agency and&nbsp;Playgama
+        </p>
       </div>
-      <div class="contact-clock" id="clock-foot">Madison, —:— —</div>
+      <p class="about-services">
+        Sasha provides following services<br>
+        Custom typeface design<br>
+        Custom letterings and&nbsp;logos<br>
+        Customisation of&nbsp;typeface<br>
+        Typeface revivals from&nbsp;source
+      </p>
     </div>
-  </footer>
+  </main>
 
+  <script src="site.js"></script>
+  <script src="projects.js"></script>
   <script>
     (function () {
-      const clocks = [
-        document.getElementById("clock"),
-        document.getElementById("clock-foot"),
-      ];
-      function tick() {
-        const time = new Date().toLocaleTimeString("en-US", {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-          timeZone: "America/Chicago",
+      const list = document.getElementById("projects");
+      const preview = document.getElementById("works-preview");
+      const previewImg = document.getElementById("works-preview-img");
+      const projects = window.PROJECTS || [];
+
+      function showPreview(src, title) {
+        if (!src || !preview || !previewImg) return;
+        if (previewImg.getAttribute("src") !== src) {
+          previewImg.src = src;
+          previewImg.alt = title || "";
+        }
+        preview.classList.add("is-on");
+      }
+
+      function hidePreview() {
+        if (!preview) return;
+        preview.classList.remove("is-on");
+      }
+
+      function renderProject(project) {
+        const el = document.createElement("article");
+        el.className = "project";
+        if (project.preview) {
+          el.dataset.preview = project.preview;
+          el.tabIndex = 0;
+        }
+
+        const title = document.createElement("h2");
+        title.className = "project-title";
+        title.textContent = project.title;
+
+        const kind = document.createElement("p");
+        kind.className = "project-kind";
+        kind.textContent = project.kind || "";
+
+        const info = document.createElement("ul");
+        info.className = "project-info";
+        (project.info || []).forEach(function (item) {
+          const li = document.createElement("li");
+          li.textContent = item;
+          info.appendChild(li);
         });
-        const label = "Madison, " + time;
-        clocks.forEach((el) => {
-          if (el) el.textContent = label;
+
+        el.appendChild(title);
+        el.appendChild(kind);
+        el.appendChild(info);
+
+        el.addEventListener("mouseenter", function () {
+          el.classList.add("is-active");
+          if (project.preview) showPreview(project.preview, project.title);
+          else hidePreview();
+        });
+        el.addEventListener("mouseleave", function () {
+          el.classList.remove("is-active");
+          hidePreview();
+        });
+        el.addEventListener("focus", function () {
+          el.classList.add("is-active");
+          if (project.preview) showPreview(project.preview, project.title);
+        });
+        el.addEventListener("blur", function () {
+          el.classList.remove("is-active");
+          hidePreview();
+        });
+
+        return el;
+      }
+
+      if (list) {
+        projects.forEach(function (project) {
+          list.appendChild(renderProject(project));
         });
       }
-      tick();
-      setInterval(tick, 30000);
     })();
   </script>
 
-<script src="draw.js"></script>
+  <script src="draw.js"></script>
 </body>
 </html>
