@@ -25,13 +25,15 @@
     --display: "Imperial", serif;
     --ui-size: 16px;
     --ui-lead: 1.35;
-    --cols: 1.4fr 1fr 1fr 1.2fr;
-    --col-gap: 28px;
+    --desc-max: 320px;
   }
 
   * { box-sizing: border-box; }
 
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    background: var(--bg);
+  }
 
   body {
     margin: 0;
@@ -60,25 +62,51 @@
     z-index: 40;
     padding: 18px var(--pad) 14px;
     background: transparent;
-    mix-blend-mode: difference;
-    color: #fff;
+    color: var(--ink);
   }
 
   .site-nav {
     display: grid;
-    grid-template-columns: var(--cols);
+    grid-template-columns: var(--cols) auto;
     gap: var(--col-gap);
     align-items: baseline;
     font-weight: 600;
   }
 
   .site-nav a {
-    color: #fff;
+    color: var(--ink);
   }
 
   .site-nav a:hover {
-    color: #fff;
-    opacity: 0.45;
+    color: var(--muted);
+  }
+
+  .theme-swatches {
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    align-self: center;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .theme-swatch {
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+    padding: 0;
+    border-radius: 100%;
+    border: 1px solid var(--ink);
+    background: var(--swatch);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .theme-swatch[aria-pressed="true"] {
+    outline: 1px solid var(--ink);
+    outline-offset: 2px;
   }
 
   .brand {
@@ -100,7 +128,6 @@
     flex-direction: column;
     gap: 0;
     width: 100%;
-    max-width: 1200px;
     margin: 0 auto;
     min-height: 40vh;
   }
@@ -109,26 +136,37 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
     z-index: 1;
+    padding: calc(var(--ui-size) * 2);
+    background: #fff;
+    color: #111;
+    border-radius: 8px;
   }
 
   .project:hover {
     z-index: 5;
   }
 
-  /* Natural image — no forced aspect box */
   .project-media {
     display: block;
     line-height: 0;
     width: 100%;
+    aspect-ratio: var(--ratio, 3 / 2);
   }
 
   .project-media img {
     display: block;
     width: 100%;
-    height: auto;
-    border-radius: 10px;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .project-media:has(.project-fallback) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: normal;
   }
 
   .project-fallback {
@@ -141,13 +179,15 @@
   }
 
   .project-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    max-width: 28em;
+    display: grid;
+    grid-template-columns: max-content minmax(0, var(--desc-max));
+    column-gap: 28px;
+    align-items: start;
   }
 
   .project-title {
+    grid-column: 1;
+    grid-row: 1;
     margin: 0;
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
@@ -155,64 +195,69 @@
   }
 
   .project-kind {
+    grid-column: 1;
+    grid-row: 2;
     margin: 0;
-    color: var(--muted);
+    color: #7a7a7a;
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
   }
 
   .project-description {
-    margin: 6px 0 0;
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin: 0;
+    max-width: var(--desc-max);
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
   }
 
-  /* Scatter positions — vertical flow, offset like Olivia */
+  /* Scatter positions — larger, pushed to the edges */
   .project[data-place="0"] {
-    width: min(58%, 640px);
+    width: min(64%, 780px);
     align-self: flex-start;
-    margin-left: 4%;
+    margin-left: 0;
     margin-bottom: -4vh;
   }
 
   .project[data-place="1"] {
-    width: min(42%, 460px);
+    width: min(50%, 600px);
     align-self: flex-end;
-    margin-right: 6%;
+    margin-right: 0;
     margin-top: 8vh;
     margin-bottom: -6vh;
   }
 
   .project[data-place="2"] {
-    width: min(52%, 560px);
-    align-self: center;
-    margin-left: -8%;
+    width: min(58%, 700px);
+    align-self: flex-start;
+    margin-left: 8%;
     margin-top: 10vh;
     margin-bottom: -3vh;
   }
 
   .project[data-place="3"] {
-    width: min(48%, 520px);
-    align-self: flex-start;
-    margin-left: 18%;
+    width: min(54%, 640px);
+    align-self: flex-end;
+    margin-right: 6%;
     margin-top: 6vh;
     margin-bottom: -5vh;
   }
 
   .project[data-place="4"] {
-    width: min(44%, 480px);
-    align-self: flex-end;
-    margin-right: 12%;
+    width: min(52%, 620px);
+    align-self: flex-start;
+    margin-left: 4%;
     margin-top: 8vh;
     margin-bottom: -4vh;
   }
 
   .project[data-place="5"] {
-    width: min(56%, 600px);
-    align-self: flex-start;
-    margin-left: 8%;
+    width: min(62%, 740px);
+    align-self: flex-end;
+    margin-right: 0;
     margin-top: 10vh;
   }
 
@@ -222,7 +267,7 @@
     flex-direction: column;
     gap: 52px;
     padding: 48px var(--pad) 80px;
-    background: #fff;
+    background: var(--bg);
   }
 
   .about-lead {
@@ -256,7 +301,7 @@
 
   .contact {
     padding: 14px var(--pad) 18px;
-    background: #fff;
+    background: var(--bg);
   }
 
   .contact-top {
@@ -295,6 +340,10 @@
       row-gap: 12px;
     }
 
+    .theme-swatches {
+      justify-self: start;
+    }
+
     .about-copy,
     .about-bio,
     .about-services,
@@ -311,6 +360,17 @@
       align-self: center;
       margin: 0 0 48px;
     }
+
+    .project-meta {
+      grid-template-columns: 1fr;
+    }
+
+    .project-title,
+    .project-kind,
+    .project-description {
+      grid-column: 1;
+      grid-row: auto;
+    }
   }
 </style>
 </head>
@@ -318,10 +378,6 @@
 
   <section class="works" id="index" aria-label="Usual stuff">
     <div class="projects" id="projects"></div>
-  </section>
-
-  <section class="works fun-stuff" id="fun-stuff" aria-label="Fun stuff">
-    <div class="projects" id="fun-stuff-list"></div>
   </section>
 
   <main class="about" id="about">
@@ -352,38 +408,40 @@
 
   <script src="site.js"></script>
   <script src="projects.js?v=3"></script>
-  <script src="fun-stuff.js"></script>
   <script>
     (function () {
-      function renderItem(item, index, options) {
-        options = options || {};
+      const list = document.getElementById("projects");
+      const projects = window.PROJECTS || [];
+
+      function renderProject(project, index) {
         const el = document.createElement("article");
         el.className = "project";
         el.dataset.place = String(index % 6);
 
-        const mediaTag = item.file ? "a" : "div";
-        const media = document.createElement(mediaTag);
+        const media = document.createElement("div");
         media.className = "project-media";
-        if (item.file) {
-          media.href = item.file;
-          if (/\.pdf$/i.test(item.file)) media.target = "_blank";
-          media.rel = "noopener";
+
+        if (project.width && project.height) {
+          media.style.setProperty(
+            "--ratio",
+            project.width + " / " + project.height
+          );
         }
 
-        if (item.preview) {
+        if (project.preview) {
           const img = document.createElement("img");
-          img.src = item.preview;
-          img.alt = item.title;
+          img.src = project.preview;
+          img.alt = project.title;
           img.loading = "lazy";
-          if (item.width && item.height) {
-            img.width = item.width;
-            img.height = item.height;
+          if (project.width && project.height) {
+            img.width = project.width;
+            img.height = project.height;
           }
           media.appendChild(img);
         } else {
           const fallback = document.createElement("p");
           fallback.className = "project-fallback";
-          fallback.textContent = item.title;
+          fallback.textContent = project.title;
           media.appendChild(fallback);
         }
 
@@ -392,41 +450,29 @@
 
         const title = document.createElement("h2");
         title.className = "project-title";
-        title.textContent = item.title;
+        title.textContent = project.title;
+
+        const description = document.createElement("p");
+        description.className = "project-description";
+        description.textContent =
+          project.description || "Placeholder description for this project.";
 
         const kind = document.createElement("p");
         kind.className = "project-kind";
-        kind.textContent = item.kind || "";
+        kind.textContent = project.kind || "";
 
         meta.appendChild(title);
         meta.appendChild(kind);
-
-        if (options.showDescription !== false) {
-          const description = document.createElement("p");
-          description.className = "project-description";
-          description.textContent =
-            item.description || "Placeholder description for this project.";
-          meta.appendChild(description);
-        }
+        meta.appendChild(description);
 
         el.appendChild(media);
         el.appendChild(meta);
         return el;
       }
 
-      const list = document.getElementById("projects");
       if (list) {
-        (window.PROJECTS || []).forEach(function (project, index) {
-          list.appendChild(renderItem(project, index));
-        });
-      }
-
-      const funList = document.getElementById("fun-stuff-list");
-      if (funList) {
-        (window.FUN_STUFF || []).forEach(function (item, index) {
-          funList.appendChild(
-            renderItem(item, index, { showDescription: false })
-          );
+        projects.forEach(function (project, index) {
+          list.appendChild(renderProject(project, index));
         });
       }
     })();

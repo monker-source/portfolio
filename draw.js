@@ -10,6 +10,22 @@
     HIDE_ON_MOBILE: true,
   };
 
+  function inkColor() {
+    const v = getComputedStyle(document.documentElement).getPropertyValue("--ink").trim();
+    return v || CFG.LINE_COLOR;
+  }
+
+  function syncDrawColors() {
+    const ink = inkColor();
+    CFG.LINE_COLOR = ink;
+    CFG.BTN_COLOR = ink;
+    const btn = document.getElementById("site-draw-toggle");
+    if (btn) btn.style.color = ink;
+  }
+
+  document.addEventListener("site-theme", syncDrawColors);
+  syncDrawColors();
+
   if (CFG.HIDE_ON_MOBILE && window.matchMedia(`(max-width:${CFG.MOBILE_MAX}px)`).matches) {
     return;
   }

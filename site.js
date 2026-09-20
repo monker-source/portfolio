@@ -6,7 +6,7 @@
       { label: "SASHA", href: "main.html", brand: true },
       { label: "Usual stuff", href: "main.html#index" },
       { label: "Articles", href: "#" },
-      { label: "Fun stuff", href: "main.html#fun-stuff" },
+      { label: "Fun stuff", href: "fun-stuff.html" },
     ],
     footer: {
       id: "contact",
@@ -17,6 +17,32 @@
     },
   };
 
+  const THEME_KEY = "site-theme";
+  const THEMES = [
+    {
+      id: "paper",
+      label: "Paper",
+      bg: "#f2f2f0",
+      swatch: "#ffffff",
+      ink: "#111111",
+      muted: "#7a7a7a",
+    },
+    {
+      id: "black",
+      label: "Black",
+      bg: "#191919",
+      ink: "#fafafa",
+      muted: "#8a8a8a",
+    },
+    {
+      id: "blue",
+      label: "Blue",
+      bg: "#0000ff",
+      ink: "#ffff00",
+      muted: "#a0a0ff",
+    },
+  ];
+
   function currentFile() {
     const parts = location.pathname.split("/");
     return parts[parts.length - 1] || "index.html";
@@ -26,6 +52,92 @@
     if (item.brand || !item.href || item.href === "#") return false;
     const file = item.href.split("/").pop().split("?")[0].split("#")[0];
     return file === current;
+  }
+
+  function findTheme(id) {
+    for (let i = 0; i < THEMES.length; i++) {
+      if (THEMES[i].id === id) return THEMES[i];
+    }
+    return THEMES[0];
+  }
+
+  function applyTheme(theme) {
+    const root = document.documentElement;
+    root.style.setProperty("--bg", theme.bg);
+    root.style.setProperty("--ink", theme.ink);
+    root.style.setProperty("--muted", theme.muted);
+    root.setAttribute("data-theme", theme.id);
+    try {
+      localStorage.setItem(THEME_KEY, theme.id);
+    } catch (_) {}
+    document.dispatchEvent(
+      new CustomEvent("site-theme", { detail: theme })
+    );
+  }
+
+  function injectThemeStyles() {
+    if (document.getElementById("site-theme-styles")) return;
+    const style = document.createElement("style");
+    style.id = "site-theme-styles";
+    style.textContent = [
+      ".site-header{position:sticky;top:0;z-index:40}",
+      ".site-nav{position:relative}",
+      ".theme-swatches{",
+      "display:flex;align-items:center;justify-self:end;align-self:center;",
+      "gap:2px;margin:0;padding:0;list-style:none;",
+      "mix-blend-mode:normal;isolation:isolate;position:relative;z-index:1;",
+      "}",
+      ".theme-swatch{",
+      "width:10px;height:10px;margin:5px;padding:0;border-radius:100%;",
+      "border:1px solid var(--ink);background:var(--swatch);",
+      "cursor:pointer;appearance:none;-webkit-appearance:none;",
+      "mix-blend-mode:normal;",
+      "}",
+      ".theme-swatch[aria-pressed='true']{outline:1px solid var(--ink);outline-offset:2px}",
+      ".site-nav{grid-template-columns:var(--cols) auto}",
+      "@media (max-width:800px){",
+      ".site-nav{grid-template-columns:1fr}",
+      ".theme-swatches{justify-self:start}",
+      "}",
+    ].join("");
+    document.head.appendChild(style);
+  }
+
+  function buildThemeSwatches() {
+    const wrap = document.createElement("div");
+    wrap.className = "theme-swatches";
+    wrap.setAttribute("role", "group");
+    wrap.setAttribute("aria-label", "Site colour");
+
+    const saved = (function () {
+      try {
+        return localStorage.getItem(THEME_KEY);
+      } catch (_) {
+        return null;
+      }
+    })();
+    const active = findTheme(saved);
+
+    THEMES.forEach(function (theme) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "theme-swatch";
+      btn.style.setProperty("--swatch", theme.swatch || theme.bg);
+      btn.setAttribute("aria-label", theme.label);
+      btn.setAttribute("aria-pressed", theme.id === active.id ? "true" : "false");
+      btn.addEventListener("click", function () {
+        applyTheme(theme);
+        wrap.querySelectorAll(".theme-swatch").forEach(function (el) {
+          el.setAttribute(
+            "aria-pressed",
+            el === btn ? "true" : "false"
+          );
+        });
+      });
+      wrap.appendChild(btn);
+    });
+
+    return wrap;
   }
 
   function buildHeader() {
@@ -46,6 +158,7 @@
       nav.appendChild(a);
     });
 
+    nav.appendChild(buildThemeSwatches());
     header.appendChild(nav);
     return header;
   }
@@ -111,6 +224,7 @@
   }
 
   function mount() {
+    injectThemeStyles();
     document.body.prepend(buildHeader());
 
     if (document.body.getAttribute("data-footer") !== "false") {
@@ -121,6 +235,16 @@
   }
 
   window.SITE = SITE;
+  window.SITE_THEMES = THEMES;
+  window.applySiteTheme = applyTheme;
+
+  (function restoreTheme() {
+    let id = null;
+    try {
+      id = localStorage.getItem(THEME_KEY);
+    } catch (_) {}
+    applyTheme(findTheme(id));
+  })();
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", mount);
