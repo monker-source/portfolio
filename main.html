@@ -56,6 +56,9 @@
 
   a:hover { color: var(--muted); }
 
+  a.project { color: inherit; }
+  a.project:hover { color: inherit; }
+
   .is-active { color: inherit; }
 
   .site-header {
@@ -377,7 +380,7 @@
 </head>
 <body>
 
-  <section class="works" id="index" aria-label="Usual stuff">
+  <section class="works" id="index" aria-label="Works">
     <div class="projects" id="projects"></div>
   </section>
 
@@ -415,9 +418,11 @@
       const projects = window.PROJECTS || [];
 
       function renderProject(project, index) {
-        const el = document.createElement("article");
+        const linked = project.slug === "tangley";
+        const el = document.createElement(linked ? "a" : "article");
         el.className = "project";
         el.dataset.place = String(index % 6);
+        if (linked) el.href = "projects/" + project.slug + ".html";
 
         const media = document.createElement("div");
         media.className = "project-media";

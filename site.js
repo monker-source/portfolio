@@ -4,9 +4,9 @@
     timeZone: "America/Chicago",
     nav: [
       { label: "SASHA", href: "main.html", brand: true },
-      { label: "Usual stuff", href: "main.html#index" },
-      { label: "Articles", href: "#" },
-      { label: "Fun stuff", href: "fun-stuff.html" },
+      { label: "Works", href: "main.html#index" },
+      { label: "Notes", href: "#" },
+      { label: "Fun", href: "fun-stuff.html" },
     ],
     footer: {
       id: "contact",
@@ -42,6 +42,24 @@
       muted: "#a0a0ff",
     },
   ];
+
+  function assetBase() {
+    const scripts = document.querySelectorAll("script[src]");
+    for (let i = 0; i < scripts.length; i++) {
+      const src = scripts[i].getAttribute("src") || "";
+      if (/site\.js(\?|$)/.test(src)) {
+        return src.replace(/site\.js(\?.*)?$/, "");
+      }
+    }
+    return "";
+  }
+
+  function siteHref(href) {
+    if (!href || href === "#" || /^(https?:|mailto:|\/|#)/.test(href)) {
+      return href;
+    }
+    return assetBase() + href;
+  }
 
   function currentFile() {
     const parts = location.pathname.split("/");
@@ -153,7 +171,7 @@
 
     SITE.nav.forEach(function (item) {
       const a = document.createElement("a");
-      a.href = item.href;
+      a.href = siteHref(item.href);
       a.textContent = item.label;
       if (item.brand) a.classList.add("brand");
       if (isActive(item, current)) a.classList.add("is-active");

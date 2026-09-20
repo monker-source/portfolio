@@ -158,7 +158,7 @@
   <script>
     (function () {
       function renderProject(project) {
-        const linked = project.link !== false && project.slug;
+        const linked = project.slug === "tangley";
         const el = document.createElement(linked ? "a" : "article");
         el.className = "project";
         if (linked) {
