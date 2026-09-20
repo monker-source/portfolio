@@ -17,9 +17,9 @@
   }
 
   :root {
-    --bg: #ffffff;
+    --bg: #f2f2f0;
     --ink: #111111;
-    --muted: #9a9a9a;
+    --muted: #7a7a7a;
     --pad: clamp(16px, 2.2vw, 28px);
     --ui: "Golos Text", sans-serif;
     --display: "Imperial", serif;
@@ -54,11 +54,10 @@
 
   .is-active { color: inherit; }
 
-  /* —— Menu (shared site.js + mix-blend) —— */
   .site-header {
     position: sticky;
     top: 0;
-    z-index: 30;
+    z-index: 40;
     padding: 18px var(--pad) 14px;
     background: transparent;
     mix-blend-mode: difference;
@@ -89,68 +88,63 @@
     line-height: var(--ui-lead);
   }
 
-  /* —— Index / works —— */
+  /* —— Scattered projects —— */
   .works {
-    position: relative;
-    isolation: isolate;
-    min-height: min(72vh, 720px);
-    padding: 48px var(--pad) 72px;
-  }
-
-  .works-preview {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.28s ease;
-  }
-
-  .works-preview.is-on {
-    opacity: 1;
-  }
-
-  .works-preview img {
-    display: block;
-    width: min(78vw, 920px);
-    height: auto;
-    max-height: 68vh;
-    object-fit: contain;
+    padding: 48px var(--pad) 80px;
+    overflow: hidden;
   }
 
   .projects {
     position: relative;
-    z-index: 1;
     display: flex;
     flex-direction: column;
     gap: 0;
     width: 100%;
-    color: var(--muted);
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 40vh;
   }
 
   .project {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr 1.2fr;
-    gap: var(--col-gap);
-    align-items: start;
-    padding: 14px 0;
-    border-top: 1px solid rgba(17, 17, 17, 0.12);
-    color: inherit;
-    transition: color 0.15s ease;
-    cursor: default;
-    background: transparent;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1;
   }
 
-  .project:last-child {
-    border-bottom: 1px solid rgba(17, 17, 17, 0.12);
+  .project:hover {
+    z-index: 5;
   }
 
-  .project:hover,
-  .project.is-active {
-    color: var(--ink);
+  /* Natural image — no forced aspect box */
+  .project-media {
+    display: block;
+    line-height: 0;
+    width: 100%;
+  }
+
+  .project-media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .project-fallback {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(40px, 7vw, 72px);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  .project-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-width: 28em;
   }
 
   .project-title {
@@ -160,18 +154,66 @@
     font-weight: 600;
   }
 
-  .project-kind,
-  .project-info {
+  .project-kind {
     margin: 0;
-    padding: 0;
-    list-style: none;
+    color: var(--muted);
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
   }
 
-  .project-kind {
-    margin: 0;
+  .project-description {
+    margin: 6px 0 0;
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 600;
+  }
+
+  /* Scatter positions — vertical flow, offset like Olivia */
+  .project[data-place="0"] {
+    width: min(58%, 640px);
+    align-self: flex-start;
+    margin-left: 4%;
+    margin-bottom: -4vh;
+  }
+
+  .project[data-place="1"] {
+    width: min(42%, 460px);
+    align-self: flex-end;
+    margin-right: 6%;
+    margin-top: 8vh;
+    margin-bottom: -6vh;
+  }
+
+  .project[data-place="2"] {
+    width: min(52%, 560px);
+    align-self: center;
+    margin-left: -8%;
+    margin-top: 10vh;
+    margin-bottom: -3vh;
+  }
+
+  .project[data-place="3"] {
+    width: min(48%, 520px);
+    align-self: flex-start;
+    margin-left: 18%;
+    margin-top: 6vh;
+    margin-bottom: -5vh;
+  }
+
+  .project[data-place="4"] {
+    width: min(44%, 480px);
+    align-self: flex-end;
+    margin-right: 12%;
+    margin-top: 8vh;
+    margin-bottom: -4vh;
+  }
+
+  .project[data-place="5"] {
+    width: min(56%, 600px);
+    align-self: flex-start;
+    margin-left: 8%;
+    margin-top: 10vh;
   }
 
   /* —— About —— */
@@ -180,6 +222,7 @@
     flex-direction: column;
     gap: 52px;
     padding: 48px var(--pad) 80px;
+    background: #fff;
   }
 
   .about-lead {
@@ -211,9 +254,9 @@
     margin: 0;
   }
 
-  /* —— Footer —— */
   .contact {
     padding: 14px var(--pad) 18px;
+    background: #fff;
   }
 
   .contact-top {
@@ -246,7 +289,6 @@
 
   @media (max-width: 800px) {
     .site-nav,
-    .project,
     .about-lead,
     .contact-top {
       grid-template-columns: 1fr;
@@ -264,24 +306,22 @@
       justify-self: start;
     }
 
-    .works {
-      min-height: 0;
-    }
-
-    .works-preview img {
-      width: min(92vw, 520px);
-      max-height: 42vh;
+    .project[data-place] {
+      width: min(92%, 520px);
+      align-self: center;
+      margin: 0 0 48px;
     }
   }
 </style>
 </head>
 <body>
 
-  <section class="works" id="index" aria-label="Index">
-    <div class="works-preview" id="works-preview" aria-hidden="true">
-      <img id="works-preview-img" alt="" width="920" height="520">
-    </div>
+  <section class="works" id="index" aria-label="Usual stuff">
     <div class="projects" id="projects"></div>
+  </section>
+
+  <section class="works fun-stuff" id="fun-stuff" aria-label="Fun stuff">
+    <div class="projects" id="fun-stuff-list"></div>
   </section>
 
   <main class="about" id="about">
@@ -311,80 +351,82 @@
   </main>
 
   <script src="site.js"></script>
-  <script src="projects.js"></script>
+  <script src="projects.js?v=3"></script>
+  <script src="fun-stuff.js"></script>
   <script>
     (function () {
-      const list = document.getElementById("projects");
-      const preview = document.getElementById("works-preview");
-      const previewImg = document.getElementById("works-preview-img");
-      const projects = window.PROJECTS || [];
-
-      function showPreview(src, title) {
-        if (!src || !preview || !previewImg) return;
-        if (previewImg.getAttribute("src") !== src) {
-          previewImg.src = src;
-          previewImg.alt = title || "";
-        }
-        preview.classList.add("is-on");
-      }
-
-      function hidePreview() {
-        if (!preview) return;
-        preview.classList.remove("is-on");
-      }
-
-      function renderProject(project) {
+      function renderItem(item, index, options) {
+        options = options || {};
         const el = document.createElement("article");
         el.className = "project";
-        if (project.preview) {
-          el.dataset.preview = project.preview;
-          el.tabIndex = 0;
+        el.dataset.place = String(index % 6);
+
+        const mediaTag = item.file ? "a" : "div";
+        const media = document.createElement(mediaTag);
+        media.className = "project-media";
+        if (item.file) {
+          media.href = item.file;
+          if (/\.pdf$/i.test(item.file)) media.target = "_blank";
+          media.rel = "noopener";
         }
+
+        if (item.preview) {
+          const img = document.createElement("img");
+          img.src = item.preview;
+          img.alt = item.title;
+          img.loading = "lazy";
+          if (item.width && item.height) {
+            img.width = item.width;
+            img.height = item.height;
+          }
+          media.appendChild(img);
+        } else {
+          const fallback = document.createElement("p");
+          fallback.className = "project-fallback";
+          fallback.textContent = item.title;
+          media.appendChild(fallback);
+        }
+
+        const meta = document.createElement("div");
+        meta.className = "project-meta";
 
         const title = document.createElement("h2");
         title.className = "project-title";
-        title.textContent = project.title;
+        title.textContent = item.title;
 
         const kind = document.createElement("p");
         kind.className = "project-kind";
-        kind.textContent = project.kind || "";
+        kind.textContent = item.kind || "";
 
-        const info = document.createElement("ul");
-        info.className = "project-info";
-        (project.info || []).forEach(function (item) {
-          const li = document.createElement("li");
-          li.textContent = item;
-          info.appendChild(li);
-        });
+        meta.appendChild(title);
+        meta.appendChild(kind);
 
-        el.appendChild(title);
-        el.appendChild(kind);
-        el.appendChild(info);
+        if (options.showDescription !== false) {
+          const description = document.createElement("p");
+          description.className = "project-description";
+          description.textContent =
+            item.description || "Placeholder description for this project.";
+          meta.appendChild(description);
+        }
 
-        el.addEventListener("mouseenter", function () {
-          el.classList.add("is-active");
-          if (project.preview) showPreview(project.preview, project.title);
-          else hidePreview();
-        });
-        el.addEventListener("mouseleave", function () {
-          el.classList.remove("is-active");
-          hidePreview();
-        });
-        el.addEventListener("focus", function () {
-          el.classList.add("is-active");
-          if (project.preview) showPreview(project.preview, project.title);
-        });
-        el.addEventListener("blur", function () {
-          el.classList.remove("is-active");
-          hidePreview();
-        });
-
+        el.appendChild(media);
+        el.appendChild(meta);
         return el;
       }
 
+      const list = document.getElementById("projects");
       if (list) {
-        projects.forEach(function (project) {
-          list.appendChild(renderProject(project));
+        (window.PROJECTS || []).forEach(function (project, index) {
+          list.appendChild(renderItem(project, index));
+        });
+      }
+
+      const funList = document.getElementById("fun-stuff-list");
+      if (funList) {
+        (window.FUN_STUFF || []).forEach(function (item, index) {
+          funList.appendChild(
+            renderItem(item, index, { showDescription: false })
+          );
         });
       }
     })();

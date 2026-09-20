@@ -4,9 +4,9 @@
     timeZone: "America/Chicago",
     nav: [
       { label: "SASHA", href: "main.html", brand: true },
-      { label: "Index", href: "index.html" },
+      { label: "Usual stuff", href: "main.html#index" },
       { label: "Articles", href: "#" },
-      { label: "About", href: "about.html" },
+      { label: "Fun stuff", href: "main.html#fun-stuff" },
     ],
     footer: {
       id: "contact",
@@ -23,8 +23,8 @@
   }
 
   function isActive(item, current) {
-    if (!item.href || item.href === "#") return false;
-    const file = item.href.split("/").pop().split("?")[0];
+    if (item.brand || !item.href || item.href === "#") return false;
+    const file = item.href.split("/").pop().split("?")[0].split("#")[0];
     return file === current;
   }
 
