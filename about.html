@@ -68,7 +68,7 @@
 
   .site-nav {
     display: grid;
-    grid-template-columns: var(--cols);
+    grid-template-columns: var(--cols) auto;
     gap: var(--col-gap);
     align-items: baseline;
     font-weight: 600;
@@ -165,7 +165,6 @@
   }
 
   @media (max-width: 800px) {
-    .site-nav,
     .about-lead,
     .contact-top {
       grid-template-columns: 1fr;

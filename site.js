@@ -81,7 +81,11 @@
     style.id = "site-theme-styles";
     style.textContent = [
       ".site-header{position:sticky;top:0;z-index:40}",
-      ".site-nav{position:relative}",
+      ".site-nav{",
+      "position:relative;display:grid;",
+      "grid-template-columns:1.4fr 1fr 1fr 1.2fr auto;",
+      "gap:28px;align-items:baseline;",
+      "}",
       ".theme-swatches{",
       "display:flex;align-items:center;justify-self:end;align-self:center;",
       "gap:2px;margin:0;padding:0;list-style:none;",
@@ -94,10 +98,8 @@
       "mix-blend-mode:normal;",
       "}",
       ".theme-swatch[aria-pressed='true']{outline:1px solid var(--ink);outline-offset:2px}",
-      ".site-nav{grid-template-columns:var(--cols) auto}",
       "@media (max-width:800px){",
-      ".site-nav{grid-template-columns:1fr}",
-      ".theme-swatches{justify-self:start}",
+      ".theme-swatches{justify-self:end}",
       "}",
     ].join("");
     document.head.appendChild(style);
