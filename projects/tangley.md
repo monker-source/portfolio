@@ -1,10 +1,10 @@
-The font started in November 2020. I had almost finished my diploma visual research and was supposed to move on to the diploma typeface. Right then a Type elective appeared for the third year, taught by Nik Nedashkovsky. I started going too.
-
-The assignment for the module was to make a typeface based on a modular ruler. I drew this sheet, and I still remember thinking, looking at it: “and what am I supposed to do with you?”
-
 ![The very first sketch of Tangley](tangley/sketch.jpg)
 
-Then came the search for how to get any letters at all out of that abstraction, and, more importantly, how to derive them from the ruler. To make my life a little easier I started with the capitals, and in a couple of days the whole set came together. Then came the turning point — lowercase had to be added to the typeface.
+Work on the typeface started in November 2020. Back then i was 4 year student preparing diploma project. Suddenly a type course was announced for 3 year students. It was first type couse in the university and was led by famous Nik Nedashkovsky. So i enrolled there as fast as i could.
+
+The assignment for the course was to make a typeface based on a modular ruler. I created this one particular piece. I was looking at it thinking “and what am I supposed to do with you?”
+
+Then came the search for how to get any letters at all out of that abstract artwork.To make my life a little easier I started with the capitals, and in a couple of days the whole set came together. Then came the turning point — lowercase had to be added to the typeface.
 
 I really wanted to bring the characteristic loops from the capitals into them, and I had to go to a lot of trouble to get them in. When a minimal character set appeared I immediately saw Cy Twombly’s paintings in them. But that only made things harder and raised the question: do I want to make an homage, or just something inspired? That’s always how it is with typefaces — you never know where you’ll end up following a particular decision.
 
