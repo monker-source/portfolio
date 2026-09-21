@@ -23,9 +23,10 @@
     "title": "Rante",
     "kind": "Logo",
     "info": ["Optical variations", "Cyrillic"],
-    "description": "Placeholder description for Rante — a short note about the project goes here.",
+    "description": "Personal logo for Berlin-based art‑director to stand out among designers",
     "year": "2025",
     "slug": "rante",
+    "href": "projects/rante/",
     "preview": "projects/preview/rante.svg",
     "width": 602,
     "height": 191

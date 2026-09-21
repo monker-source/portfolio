@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SASHA — Bora</title>
+<title>SASHA — Rante</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -145,20 +145,82 @@
     font-weight: 600;
   }
 
-  .intro-more {
-    margin-top: 20px;
+  .intro-copy p + p {
+    margin-top: 14px;
   }
 
-  .intro-more a {
-    font-size: 16px;
-    font-weight: 600;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  .intro-more[hidden],
   .slideshow[hidden] {
     display: none;
+  }
+
+  .story {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin: 0 0 48px;
+  }
+
+  .story p {
+    margin: 0 auto;
+    max-width: 36em;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+
+  .story em {
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .story-figure {
+    margin: 0 auto;
+    width: min(68%, 880px);
+  }
+
+  .story-figure--wide,
+  .story-figure--pair,
+  .story-figure--grid {
+    width: 100%;
+  }
+
+  .story-figure--pair,
+  .story-figure--grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--col-gap);
+    align-items: start;
+  }
+
+  .story-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 42.5vh;
+    object-fit: contain;
+    object-position: center top;
+    background: transparent;
+    border-radius: 8px;
+  }
+
+  .story-figure--wide img,
+  .story-figure--pair img,
+  .story-figure--grid img {
+    max-height: none;
+  }
+
+  .story-figure figcaption {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.35;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .story-figure--pair figcaption,
+  .story-figure--grid figcaption {
+    grid-column: 1 / -1;
   }
 
   .slideshow {
@@ -253,10 +315,14 @@
     }
 
     .intro-copy p,
-    .intro-more,
     .intro-meta,
     .contact-links {
       grid-column: 1;
+    }
+
+    .story-figure--pair,
+    .story-figure--grid {
+      grid-template-columns: 1fr;
     }
 
     .contact-clock {
@@ -270,27 +336,28 @@
   <main class="project-page">
     <section class="intro" aria-label="Project">
       <div class="grid intro-menu">
-        <h1>Bora</h1>
+        <h1>Rante</h1>
         <ul class="intro-meta">
-          <li><span class="label">Year</span><span>2026</span></li>
-          <li><span class="label">Client</span><span>Bora</span></li>
-          <li><span class="label">Art&#8209;director</span><span>Rante Blagaya</span></li>
-          <li><span class="label">Deliverables</span><span>Logo, identity</span></li>
+          <li><span class="label">Year</span><span>2025</span></li>
+          <li><span class="label">Client</span><span>Rante Blagaya</span></li>
+          <li><span class="label">Deliverables</span><span>Logo</span></li>
         </ul>
       </div>
       <div class="grid intro-copy">
         <p>
-          Placeholder description for Bora — a short note about the project goes here.
+          Rante is a Berlin-based brand designer, art&#8209;director, educator &amp; researcher. Most importantly — dear friend. She commissioned her personal logo for freelance work that would differ her from faceless design contractors crowd.
         </p>
-      </div>
-      <div class="grid intro-more" hidden>
-        <a href="history/">How it was done</a>
+        <p>
+          Logo comes in two optical sizes in Latin and Cyrillic.
+        </p>
       </div>
     </section>
 
+    <article class="story" id="story" aria-label="Story"></article>
+
     <section
       class="slideshow"
-      aria-label="Bora gallery"
+      aria-label="Rante gallery"
       data-slideshow
       data-folder="slideshow/"
       data-manifest="slideshow/slides.json"
@@ -298,6 +365,10 @@
   </main>
 
   <script src="../../site.js"></script>
+  <script src="../../story-md.js"></script>
+  <script>
+    StoryMd.load(document.getElementById("story"), "history/story.md", "history/");
+  </script>
   <script src="../../slideshow.js"></script>
   <script src="../../draw.js"></script>
 </body>
