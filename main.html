@@ -203,22 +203,22 @@
     font-weight: 600;
   }
 
-  .project-kind {
-    grid-column: 1;
-    grid-row: 2;
+  .project-description {
+    grid-column: 2;
+    grid-row: 1;
     margin: 0;
-    color: #7a7a7a;
+    max-width: var(--desc-max);
+    color: #111;
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
   }
 
-  .project-description {
+  .project-kind {
     grid-column: 2;
-    grid-row: 1 / span 2;
+    grid-row: 2;
     margin: 0;
-    max-width: var(--desc-max);
-    color: #111;
+    color: #7a7a7a;
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
@@ -364,9 +364,14 @@
       justify-self: start;
     }
 
+    .works {
+      padding-left: var(--pad);
+      padding-right: var(--pad);
+    }
+
     .project[data-place] {
-      width: min(92%, 520px);
-      align-self: center;
+      width: 100%;
+      align-self: stretch;
       margin: 0 0 48px;
     }
 
@@ -375,8 +380,8 @@
     }
 
     .project-title,
-    .project-kind,
-    .project-description {
+    .project-description,
+    .project-kind {
       grid-column: 1;
       grid-row: auto;
     }
@@ -471,8 +476,8 @@
         kind.textContent = project.kind || "";
 
         meta.appendChild(title);
-        meta.appendChild(kind);
         meta.appendChild(description);
+        meta.appendChild(kind);
 
         el.appendChild(media);
         el.appendChild(meta);
