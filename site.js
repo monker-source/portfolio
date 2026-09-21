@@ -98,7 +98,9 @@
     const style = document.createElement("style");
     style.id = "site-theme-styles";
     style.textContent = [
-      ".site-header{position:sticky;top:0;z-index:40}",
+      ".site-header{top:0;z-index:40;background:transparent}",
+      "body:not([data-nav-reveal]) .site-header{position:sticky}",
+      "body[data-nav-reveal] .site-header{position:fixed;left:0;right:0}",
       ".site-nav{",
       "position:relative;display:grid;",
       "grid-template-columns:1.4fr 1fr 1fr 1.2fr auto;",
@@ -243,6 +245,22 @@
     }
   }
 
+  function setupNavReveal() {
+    if (!document.body.hasAttribute("data-nav-reveal")) return;
+    const header = document.querySelector(".site-header");
+    if (!header) return;
+
+    const threshold = 72;
+    function update() {
+      const show = window.scrollY > threshold;
+      header.classList.toggle("is-visible", show);
+      header.setAttribute("aria-hidden", show ? "false" : "true");
+    }
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+  }
+
   function mount() {
     injectThemeStyles();
     document.body.prepend(buildHeader());
@@ -252,6 +270,7 @@
     }
 
     startClocks();
+    setupNavReveal();
   }
 
   const PROJECTS_URL = "projects.json";

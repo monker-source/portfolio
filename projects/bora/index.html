@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SASHA — Bora</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f2f2f0;
+    --ink: #111111;
+    --muted: #7a7a7a;
+    --pad: clamp(16px, 2.2vw, 28px);
+    --ui: "Golos Text", sans-serif;
+    --ui-size: 16px;
+    --ui-lead: 1.35;
+    --cols: 1.4fr 1fr 1fr 1.2fr;
+    --col-gap: 28px;
+    --card: #fff;
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--bg);
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--ui);
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 600;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover { color: var(--muted); }
+
+  body > .site-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    padding: 18px var(--pad) 14px;
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  .site-nav {
+    display: grid;
+    grid-template-columns: var(--cols) auto;
+    gap: var(--col-gap);
+    align-items: baseline;
+    font-weight: 600;
+  }
+
+  .site-nav a { color: var(--ink); }
+  .site-nav a:hover { color: var(--muted); }
+
+  .brand {
+    font-family: var(--ui);
+    font-size: var(--ui-size);
+    font-weight: 600;
+    line-height: var(--ui-lead);
+  }
+
+  .project-page {
+    padding: 48px var(--pad) 80px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: var(--cols);
+    gap: var(--col-gap);
+    align-items: start;
+  }
+
+  .grid p,
+  .grid h1 {
+    margin: 0;
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 600;
+  }
+
+  .intro {
+    margin: 0 0 40px;
+  }
+
+  .intro-menu {
+    align-items: start;
+  }
+
+  .intro-menu h1 {
+    font-family: var(--ui);
+    font-size: clamp(40px, 5.5vw, 72px);
+    line-height: 1.02;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+
+  .project-kind {
+    color: var(--muted);
+    align-self: center;
+  }
+
+  .intro-credits {
+    grid-column: 4;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 600;
+  }
+
+  .intro-credits li {
+    display: flex;
+    gap: 0.35em;
+  }
+
+  .intro-credits .label {
+    color: var(--muted);
+  }
+
+  .intro-copy {
+    margin-top: 28px;
+  }
+
+  .intro-copy p {
+    grid-column: 1 / 3;
+    max-width: 36em;
+    font-size: 18px;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+
+  .intro-more {
+    margin-top: 20px;
+  }
+
+  .intro-more a {
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .intro-more[hidden],
+  .slideshow[hidden] {
+    display: none;
+  }
+
+  .slideshow {
+    --slideshow-slide-w: 720px;
+    margin: 28px 0 56px;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    overflow: visible;
+  }
+
+  .slideshow-scroller {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    cursor: grab;
+    outline: none;
+  }
+
+  .slideshow-scroller::-webkit-scrollbar { display: none; }
+  .slideshow-scroller.is-dragging { cursor: grabbing; }
+
+  .slideshow-track {
+    display: flex;
+    gap: 12px;
+    width: max-content;
+    padding-inline: var(--pad);
+  }
+
+  .slideshow-set {
+    display: flex;
+    gap: 12px;
+    flex: 0 0 auto;
+  }
+
+  .slideshow-slide {
+    position: relative;
+    flex: 0 0 var(--slideshow-slide-w);
+    width: var(--slideshow-slide-w);
+    margin: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: var(--card);
+  }
+
+  .slideshow-slide img {
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .contact {
+    padding: 14px var(--pad) 18px;
+    background: var(--bg);
+  }
+
+  .contact-top {
+    display: grid;
+    grid-template-columns: var(--cols);
+    gap: var(--col-gap);
+    align-items: start;
+  }
+
+  .contact-headline {
+    margin: 0;
+    font-size: var(--ui-size);
+    font-weight: 600;
+    line-height: var(--ui-lead);
+  }
+
+  .contact-links {
+    grid-column: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-weight: 600;
+  }
+
+  .contact-clock {
+    justify-self: end;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 800px) {
+    .grid,
+    .contact-top {
+      grid-template-columns: 1fr;
+      row-gap: 12px;
+    }
+
+    .intro-copy p,
+    .intro-more,
+    .intro-credits,
+    .contact-links {
+      grid-column: 1;
+    }
+
+    .contact-clock {
+      justify-self: start;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <main class="project-page">
+    <section class="intro" aria-label="Project">
+      <div class="grid intro-menu">
+        <h1>Bora</h1>
+        <p class="project-kind">Logo</p>
+        <ul class="intro-credits">
+          <li><span class="label">Year</span> 2026</li>
+          <li><span class="label">Client</span> Bora</li>
+          <li><span class="label">Art-director</span> Rante Blagaya</li>
+        </ul>
+      </div>
+      <div class="grid intro-copy">
+        <p>
+          Placeholder description for Bora — a short note about the project goes here.
+        </p>
+      </div>
+      <div class="grid intro-more" hidden>
+        <a href="history/">How it was done</a>
+      </div>
+    </section>
+
+    <section
+      class="slideshow"
+      aria-label="Bora gallery"
+      data-slideshow
+      data-folder="slideshow/"
+      data-manifest="slideshow/slides.json"
+      data-slide-size="720"></section>
+  </main>
+
+  <script src="../../site.js"></script>
+  <script src="../../slideshow.js"></script>
+  <script src="../../draw.js"></script>
+</body>
+</html>

@@ -157,12 +157,10 @@
   <script>
     (function () {
       function renderProject(project) {
-        const linked = project.slug === "tangley";
-        const el = document.createElement(linked ? "a" : "article");
+        const href = project.href || null;
+        const el = document.createElement(href ? "a" : "article");
         el.className = "project";
-        if (linked) {
-          el.href = "projects/" + project.slug + ".html";
-        }
+        if (href) el.href = href;
 
         const title = document.createElement("h2");
         title.className = "project-title";

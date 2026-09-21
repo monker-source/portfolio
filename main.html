@@ -72,6 +72,22 @@
     color: var(--ink);
   }
 
+  body[data-nav-reveal] .site-header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  body[data-nav-reveal] .site-header.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+
   .site-nav {
     display: grid;
     grid-template-columns: var(--cols) auto;
@@ -121,6 +137,28 @@
     font-size: var(--ui-size);
     font-weight: 600;
     line-height: var(--ui-lead);
+  }
+
+  /* —— Intro (name + bio) —— */
+  .intro {
+    padding: 28px var(--pad) 64px;
+    display: grid;
+    grid-template-columns: var(--cols);
+    gap: var(--col-gap);
+  }
+
+  .intro-copy {
+    grid-column: 1 / -1;
+    margin: 0;
+    max-width: 52rem;
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .intro-name {
+    color: var(--ink);
   }
 
   /* —— Scattered projects —— */
@@ -188,9 +226,10 @@
 
   .project-meta {
     display: grid;
-    grid-template-columns: minmax(0, var(--desc-max));
+    grid-template-columns: minmax(0, var(--desc-max)) 1fr max-content;
     column-gap: 28px;
     align-items: start;
+    justify-content: space-between;
   }
 
   .project-title {
@@ -214,13 +253,15 @@
   }
 
   .project-kind {
-    grid-column: 1;
-    grid-row: 2;
+    grid-column: 3;
+    grid-row: 1;
     margin: 0;
+    justify-self: end;
     color: #7a7a7a;
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
+    white-space: nowrap;
   }
 
   /* Scatter positions — larger, pushed to the edges */
@@ -270,44 +311,6 @@
     margin-top: 10vh;
   }
 
-  /* —— About —— */
-  .about {
-    display: flex;
-    flex-direction: column;
-    gap: 52px;
-    padding: 48px var(--pad) 80px;
-    background: var(--bg);
-  }
-
-  .about-lead {
-    display: grid;
-    grid-template-columns: var(--cols);
-    gap: var(--col-gap);
-    row-gap: 1.1em;
-    align-items: start;
-  }
-
-  .about-copy,
-  .about-bio,
-  .about-services {
-    margin: 0;
-    font-family: var(--ui);
-    font-size: var(--ui-size);
-    line-height: var(--ui-lead);
-    font-weight: 600;
-    grid-column: 4;
-  }
-
-  .about-bio {
-    display: flex;
-    flex-direction: column;
-    gap: 1.1em;
-  }
-
-  .about-bio p {
-    margin: 0;
-  }
-
   .contact {
     padding: 14px var(--pad) 18px;
     background: var(--bg);
@@ -342,7 +345,6 @@
   }
 
   @media (max-width: 800px) {
-    .about-lead,
     .contact-top {
       grid-template-columns: 1fr;
       row-gap: 12px;
@@ -352,9 +354,6 @@
       justify-self: start;
     }
 
-    .about-copy,
-    .about-bio,
-    .about-services,
     .contact-links {
       grid-column: 1;
     }
@@ -387,49 +386,33 @@
   }
 </style>
 </head>
-<body>
+<body data-nav-reveal>
+
+  <section class="intro" aria-label="About">
+    <p class="intro-copy">
+      <span class="intro-name">SASHA</span>
+      is a graphic designer specializing in typography and lettering.
+      He designs logotypes and custom lettering — from restrained, editorial marks to bold, high-impact identities — and works on typefaces in both Cyrillic and Latin scripts.
+      He graduated as a book designer from the HSE Art and Design School and, in 2025, completed the Expert Class in Type Design at the Plantin Institute for Typography.
+      Freelancing since 2021, Sasha has collaborated with design agencies, publishing houses, and IT companies, including ABC Dinamo, Blaze Type, Tuman Agency and Playgama.
+    </p>
+  </section>
 
   <section class="works" id="index" aria-label="Works">
     <div class="projects" id="projects"></div>
   </section>
 
-  <main class="about" id="about">
-    <div class="about-lead">
-      <p class="about-copy">
-        Sasha&nbsp;Smirnov&nbsp;— graphic designer specializing in&nbsp;typography and&nbsp;lettering.
-      </p>
-      <div class="about-bio">
-        <p>
-          He designs logotypes and&nbsp;custom lettering&nbsp;— from&nbsp;restrained, editorial marks to&nbsp;bold, high-impact identities&nbsp;— and&nbsp;works on&nbsp;typefaces in&nbsp;both Cyrillic and&nbsp;Latin scripts.
-        </p>
-        <p>
-          He graduated as&nbsp;a&nbsp;book designer from&nbsp;the HSE Art and&nbsp;Design School and, in&nbsp;2025, completed the Expert&nbsp;Class in&nbsp;Type&nbsp;Design at&nbsp;the Plantin&nbsp;Institute for&nbsp;Typography.
-        </p>
-        <p>
-          Freelancing since&nbsp;2021, Sasha has collaborated with&nbsp;design agencies, publishing houses, and&nbsp;IT companies, including&nbsp;ABC&nbsp;Dinamo, Blaze&nbsp;Type, Tuman&nbsp;Agency and&nbsp;Playgama
-        </p>
-      </div>
-      <p class="about-services">
-        Sasha provides following services<br>
-        Custom typeface design<br>
-        Custom letterings and&nbsp;logos<br>
-        Customisation of&nbsp;typeface<br>
-        Typeface revivals from&nbsp;source
-      </p>
-    </div>
-  </main>
-
-  <script src="site.js"></script>
+  <script src="site.js?v=9"></script>
   <script>
     (function () {
       const list = document.getElementById("projects");
 
       function renderProject(project, index) {
-        const linked = project.slug === "tangley";
-        const el = document.createElement(linked ? "a" : "article");
+        const href = project.href || null;
+        const el = document.createElement(href ? "a" : "article");
         el.className = "project";
         el.dataset.place = String(index % 6);
-        if (linked) el.href = "projects/" + project.slug + ".html";
+        if (href) el.href = href;
 
         const media = document.createElement("div");
         media.className = "project-media";
