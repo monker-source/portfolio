@@ -12,13 +12,8 @@ Then came the turning point — lowercase had to be added to the typeface. I rea
 
 ![Tests of Upper and Lower case together](tangley/Knoff.jpeg)+(tangley/Plun.jpeg)
 
+I made a very small change — increased the height of the lowercase, but the typeface completely changed its image. Line spacing could be cut in half, and that way you got a texture exactly like the paintings. 
 
-I made a very small change — increased the height of the lowercase, but the typeface completely changed its image. Line spacing could be cut in half, and that way you got a texture exactly like the paintings.
+![Tests of different setting textures](tangley/texture-tests.jpg)+(tangley/texture.jpeg)
 
-![Tests of different setting textures](tangley/texture-tests.jpg)
-
-![Texture of lowercase](tangley/texture.jpeg)
-
-At that point the module ended, but I was too shy to bring the typeface to that review. Still, I now knew exactly what I had to do — finish what I’d started. Because of work on the diploma typeface I didn’t touch Tangley for about nine months. And even though I consider my diploma very weak from a type point of view — I learned a lot and could look at this project in a completely new way. When you understand how italic works, it’s much easier to draw. Who would have thought.
-
-After that it was a small matter — correct the letter shapes, tighten the letter-spacing, and draw two and a half hundred characters :) There’s even a schwa in the typeface now, who knows why…
+After several different tests of how tight i can make the letters, how skewed i moved on to expand characterset. At that point the course ended, but I was too shy to bring the typeface to that review. Still, I wanted to finish this weird journey. Because of work on the diploma typeface I didn’t touch Tangley for months. After that it was a small matter — correct the letter shapes, tighten the letter-spacing, and draw two and a half hundred more characters. There’s even a schwa in the typeface now, who knows why…

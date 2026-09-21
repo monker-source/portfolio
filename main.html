@@ -10,7 +10,7 @@
 <style>
   @font-face {
     font-family: "Imperial";
-    src: url("imperialBetaV01-Regular.woff2") format("woff2");
+    src: url("fonts/imperialBetaV01-Regular.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -56,8 +56,10 @@
 
   a:hover { color: var(--muted); }
 
-  a.project { color: inherit; }
-  a.project:hover { color: inherit; }
+  a.project,
+  a.project:hover {
+    color: #111;
+  }
 
   .is-active { color: inherit; }
 
@@ -147,6 +149,7 @@
     background: #fff;
     color: #111;
     border-radius: 8px;
+    container-type: inline-size;
   }
 
   .project:hover {
@@ -157,7 +160,7 @@
     display: block;
     line-height: 0;
     width: 100%;
-    aspect-ratio: var(--ratio, 3 / 2);
+    aspect-ratio: var(--ratio, auto);
   }
 
   .project-media img {
@@ -168,19 +171,19 @@
   }
 
   .project-media:has(.project-fallback) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     line-height: normal;
   }
 
   .project-fallback {
     margin: 0;
+    width: max-content;
     font-family: var(--display);
-    font-size: clamp(40px, 7vw, 72px);
+    color: #111;
+    font-size: 18cqw;
     font-weight: 400;
     letter-spacing: -0.02em;
-    line-height: 1.05;
+    line-height: 0.9;
+    white-space: nowrap;
   }
 
   .project-meta {
@@ -194,6 +197,7 @@
     grid-column: 1;
     grid-row: 1;
     margin: 0;
+    color: #111;
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
@@ -214,6 +218,7 @@
     grid-row: 1 / span 2;
     margin: 0;
     max-width: var(--desc-max);
+    color: #111;
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
@@ -411,11 +416,9 @@
   </main>
 
   <script src="site.js"></script>
-  <script src="projects.js?v=3"></script>
   <script>
     (function () {
       const list = document.getElementById("projects");
-      const projects = window.PROJECTS || [];
 
       function renderProject(project, index) {
         const linked = project.slug === "tangley";
@@ -436,7 +439,7 @@
 
         if (project.preview) {
           const img = document.createElement("img");
-          img.src = project.preview;
+          img.src = project.preview + "?v=" + (project.width || 0) + "x" + (project.height || 0);
           img.alt = project.title;
           img.loading = "lazy";
           if (project.width && project.height) {
@@ -476,11 +479,39 @@
         return el;
       }
 
-      if (list) {
+      window.loadProjects().then(function (projects) {
+        if (!list) return;
+
         projects.forEach(function (project, index) {
           list.appendChild(renderProject(project, index));
         });
-      }
+
+        function fitFallbacks() {
+          list.querySelectorAll(".project-fallback").forEach(function (el) {
+            const parent = el.parentElement;
+            const parentW = parent.clientWidth;
+            if (!parentW) return;
+            el.style.width = "max-content";
+            el.style.fontSize = "100px";
+            const textW = el.getBoundingClientRect().width;
+            if (!textW) return;
+            el.style.fontSize = (100 * parentW) / textW + "px";
+          });
+        }
+
+        function scheduleFit() {
+          requestAnimationFrame(function () {
+            fitFallbacks();
+            requestAnimationFrame(fitFallbacks);
+          });
+        }
+
+        scheduleFit();
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(scheduleFit);
+        }
+        window.addEventListener("resize", scheduleFit);
+      });
     })();
   </script>
 

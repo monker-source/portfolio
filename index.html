@@ -10,7 +10,7 @@
 <style>
   @font-face {
     font-family: "Imperial";
-    src: url("imperialBetaV01-Regular.woff2") format("woff2");
+    src: url("fonts/imperialBetaV01-Regular.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -153,8 +153,7 @@
     <div class="projects" id="projects"></div>
   </main>
 
-  <script src="site.js"></script>
-  <script src="projects.js"></script>
+  <script src="site.js?v=7"></script>
   <script>
     (function () {
       function renderProject(project) {
@@ -188,12 +187,12 @@
       }
 
       const list = document.getElementById("projects");
-      const projects = window.PROJECTS || [];
-      if (list) {
+      window.loadProjects().then(function (projects) {
+        if (!list) return;
         projects.forEach(function (project) {
           list.appendChild(renderProject(project));
         });
-      }
+      });
     })();
   </script>
 

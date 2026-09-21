@@ -254,9 +254,26 @@
     startClocks();
   }
 
+  const PROJECTS_URL = "projects.json";
+
   window.SITE = SITE;
   window.SITE_THEMES = THEMES;
   window.applySiteTheme = applyTheme;
+  window.PROJECTS_URL = PROJECTS_URL;
+  window.PROJECTS = [];
+
+  window.loadProjects = function () {
+    return fetch(PROJECTS_URL)
+      .then(function (res) {
+        if (!res.ok) throw new Error("Could not load projects");
+        return res.json();
+      })
+      .then(function (data) {
+        const list = Array.isArray(data) ? data : [];
+        window.PROJECTS = list;
+        return list;
+      });
+  };
 
   (function restoreTheme() {
     let id = null;
