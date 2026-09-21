@@ -193,18 +193,36 @@
   }
 
   .story-figure {
-    margin: 0;
+    margin: 0 auto;
+    width: min(68%, 880px);
+  }
+
+  .story-figure--wide,
+  .story-figure--pair {
+    width: 100%;
+  }
+
+  .story-figure--pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--col-gap);
+    align-items: start;
   }
 
   .story-figure img {
     display: block;
     width: 100%;
     height: auto;
-    max-height: 85vh;
+    max-height: 42.5vh;
     object-fit: contain;
-    object-position: left top;
+    object-position: center top;
     background: var(--card);
     border-radius: 8px;
+  }
+
+  .story-figure--wide img,
+  .story-figure--pair img {
+    max-height: none;
   }
 
   .story-figure figcaption {
@@ -213,6 +231,11 @@
     font-size: 12px;
     line-height: 1.35;
     font-weight: 600;
+    text-align: center;
+  }
+
+  .story-figure--pair figcaption {
+    grid-column: 1 / -1;
   }
 
   .contact {
@@ -261,6 +284,10 @@
       grid-column: 1;
     }
 
+    .story-figure--pair {
+      grid-template-columns: 1fr;
+    }
+
     .contact-clock {
       justify-self: start;
     }
@@ -307,7 +334,48 @@
       function renderMarkdown(md) {
         const blocks = md.trim().split(/\n\s*\n/);
         blocks.forEach(function (block) {
-          const img = block.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)\s*$/);
+          const text = block.trim();
+          if (!text) return;
+
+          const pair = text.match(
+            /^!\[([^\]]*)\]\(([^)]+)\)\s*\+\s*\(([^)]+)\)\s*$/
+          );
+          if (pair) {
+            const fig = document.createElement("figure");
+            fig.className = "story-figure story-figure--pair";
+            [pair[2], pair[3]].forEach(function (src, i) {
+              const image = document.createElement("img");
+              image.src = src;
+              image.alt = i === 0 ? pair[1] : "";
+              fig.appendChild(image);
+            });
+            if (pair[1]) {
+              const cap = document.createElement("figcaption");
+              cap.textContent = pair[1];
+              fig.appendChild(cap);
+            }
+            mount.appendChild(fig);
+            return;
+          }
+
+          const wide = text.match(/^!\[([^\]]*)\]\(([^)]+)\)\s*\+\s*$/);
+          if (wide) {
+            const fig = document.createElement("figure");
+            fig.className = "story-figure story-figure--wide";
+            const image = document.createElement("img");
+            image.src = wide[2];
+            image.alt = wide[1];
+            fig.appendChild(image);
+            if (wide[1]) {
+              const cap = document.createElement("figcaption");
+              cap.textContent = wide[1];
+              fig.appendChild(cap);
+            }
+            mount.appendChild(fig);
+            return;
+          }
+
+          const img = text.match(/^!\[([^\]]*)\]\(([^)]+)\)\s*$/);
           if (img) {
             const fig = document.createElement("figure");
             fig.className = "story-figure";
@@ -323,8 +391,9 @@
             mount.appendChild(fig);
             return;
           }
+
           const p = document.createElement("p");
-          p.textContent = block.trim().replace(/\s*\n\s*/g, " ");
+          p.textContent = text.replace(/\s*\n\s*/g, " ");
           mount.appendChild(p);
         });
       }
