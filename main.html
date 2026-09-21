@@ -188,14 +188,13 @@
 
   .project-meta {
     display: grid;
-    grid-template-columns: max-content minmax(0, var(--desc-max));
+    grid-template-columns: minmax(0, var(--desc-max));
     column-gap: 28px;
     align-items: start;
   }
 
   .project-title {
-    grid-column: 1;
-    grid-row: 1;
+    display: none;
     margin: 0;
     color: #111;
     font-size: var(--ui-size);
@@ -204,7 +203,7 @@
   }
 
   .project-description {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 1;
     margin: 0;
     max-width: var(--desc-max);
@@ -215,7 +214,7 @@
   }
 
   .project-kind {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 2;
     margin: 0;
     color: #7a7a7a;
