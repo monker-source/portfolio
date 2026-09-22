@@ -12,7 +12,7 @@
       id: "contact",
       headline: "Contacts",
       links: [
-        { label: "you@email.com", href: "mailto:you@email.com" },
+        { label: "sasha.sm-v@ya.ru", href: "mailto:sasha.sm-v@ya.ru" },
       ],
     },
   };
@@ -20,12 +20,11 @@
   const THEME_KEY = "site-theme";
   const THEMES = [
     {
+      // Default: no inline colours — tokens.css owns the palette
       id: "paper",
       label: "Paper",
-      bg: "#f2f2f0",
+      fromTokens: true,
       swatch: "#ffffff",
-      ink: "#111111",
-      muted: "#7a7a7a",
     },
     {
       id: "black",
@@ -81,12 +80,29 @@
 
   function applyTheme(theme) {
     const root = document.documentElement;
-    root.style.setProperty("--color-bg", theme.bg);
-    root.style.setProperty("--color-ink", theme.ink);
-    root.style.setProperty("--color-muted", theme.muted);
-    root.style.setProperty("--bg", theme.bg);
-    root.style.setProperty("--ink", theme.ink);
-    root.style.setProperty("--muted", theme.muted);
+    const keys = [
+      "--color-bg",
+      "--color-ink",
+      "--color-muted",
+      "--bg",
+      "--ink",
+      "--muted",
+    ];
+
+    if (theme.fromTokens) {
+      // Clear inline overrides so tokens.css (and page :root) win
+      keys.forEach(function (key) {
+        root.style.removeProperty(key);
+      });
+    } else {
+      root.style.setProperty("--color-bg", theme.bg);
+      root.style.setProperty("--color-ink", theme.ink);
+      root.style.setProperty("--color-muted", theme.muted);
+      root.style.setProperty("--bg", theme.bg);
+      root.style.setProperty("--ink", theme.ink);
+      root.style.setProperty("--muted", theme.muted);
+    }
+
     root.setAttribute("data-theme", theme.id);
     try {
       localStorage.setItem(THEME_KEY, theme.id);
@@ -101,9 +117,10 @@
     const style = document.createElement("style");
     style.id = "site-theme-styles";
     style.textContent = [
-      ".site-header{top:0;z-index:40;background:transparent}",
-      "body:not([data-nav-reveal]) .site-header{position:sticky}",
-      "body[data-nav-reveal] .site-header{position:fixed;left:0;right:0}",
+      "body > .site-header, .site-header{",
+      "position:fixed!important;top:0;left:0;right:0;z-index:40;",
+      "background:transparent!important;background-color:transparent!important;",
+      "}",
       ".site-nav{",
       "position:relative;display:grid;",
       "grid-template-columns:var(--cols) auto;",

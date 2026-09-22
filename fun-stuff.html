@@ -41,11 +41,14 @@
   .is-active { color: inherit; }
 
   .site-header {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 40;
-    padding: 18px var(--pad) 14px;
-    background: transparent;
+    padding: var(--header-pad-top) var(--pad) var(--header-pad-bottom);
+    background: transparent !important;
+    background-color: transparent !important;
     color: var(--ink);
   }
 
@@ -92,7 +95,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: var(--gap-media);
     z-index: 1;
   }
 
@@ -110,7 +113,7 @@
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: var(--radius);
   }
 
   .project[data-place="0"] {
@@ -145,7 +148,7 @@
   }
 
   .contact {
-    padding: 14px var(--pad) 18px;
+    padding: var(--footer-pad-top) var(--pad) var(--footer-pad-bottom);
     background: var(--bg);
   }
 
@@ -194,7 +197,7 @@
     .project[data-place] {
       width: min(96%, 720px);
       align-self: center;
-      margin: 0 0 48px;
+      margin: 0 0 var(--gap-section);
     }
   }
 </style>

@@ -36,13 +36,14 @@
   a:hover { color: var(--muted); }
 
   body > .site-header {
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 40;
-    padding: 18px var(--pad) 14px;
-    background: transparent;
+    padding: var(--header-pad-top) var(--pad) var(--header-pad-bottom);
+    background: transparent !important;
+    background-color: transparent !important;
     color: var(--ink);
   }
 
@@ -72,7 +73,7 @@
   .story-head h1 {
     margin: 0 0 8px;
     font-size: clamp(28px, 4vw, 40px);
-    line-height: 1.1;
+    line-height: var(--lead-heading);
     font-weight: 600;
     letter-spacing: -0.02em;
   }
@@ -103,7 +104,7 @@
   }
 
   .story-figure {
-    margin: 0 auto;
+    margin: 0 auto calc(var(--gap-after-media) - var(--gap-block));
     width: min(68%, 880px);
   }
 
@@ -127,7 +128,7 @@
     object-fit: contain;
     object-position: center top;
     background: var(--card);
-    border-radius: 8px;
+    border-radius: var(--radius);
   }
 
   .story-figure--wide img,
@@ -149,7 +150,7 @@
   }
 
   .contact {
-    padding: 14px var(--pad) 18px;
+    padding: var(--footer-pad-top) var(--pad) var(--footer-pad-bottom);
     background: var(--bg);
   }
 

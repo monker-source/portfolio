@@ -49,17 +49,20 @@
 
   a.project,
   a.project:hover {
-    color: #111;
+    color: var(--card-ink);
   }
 
   .is-active { color: inherit; }
 
   .site-header {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 40;
-    padding: 18px var(--pad) 14px;
-    background: transparent;
+    padding: var(--header-pad-top) var(--pad) var(--header-pad-bottom);
+    background: transparent !important;
+    background-color: transparent !important;
     color: var(--ink);
   }
 
@@ -172,12 +175,12 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--gap-card);
     z-index: 1;
     padding: calc(var(--ui-size) * 2);
-    background: #fff;
-    color: #111;
-    border-radius: 8px;
+    background: var(--card);
+    color: var(--card-ink);
+    border-radius: var(--radius);
     container-type: inline-size;
   }
 
@@ -207,7 +210,7 @@
     margin: 0;
     width: max-content;
     font-family: var(--display);
-    color: #111;
+    color: var(--card-ink);
     font-size: 18cqw;
     font-weight: 400;
     letter-spacing: -0.02em;
@@ -226,7 +229,7 @@
   .project-title {
     display: none;
     margin: 0;
-    color: #111;
+    color: var(--card-ink);
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
@@ -237,7 +240,7 @@
     grid-row: 1;
     margin: 0;
     max-width: var(--desc-max);
-    color: #111;
+    color: var(--card-ink);
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
@@ -248,7 +251,7 @@
     grid-row: 1;
     margin: 0;
     justify-self: end;
-    color: #7a7a7a;
+    color: var(--card-muted);
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
@@ -303,7 +306,7 @@
   }
 
   .contact {
-    padding: 14px var(--pad) 18px;
+    padding: var(--footer-pad-top) var(--pad) var(--footer-pad-bottom);
     background: var(--bg);
   }
 
@@ -361,7 +364,7 @@
     .project[data-place] {
       width: 100%;
       align-self: stretch;
-      margin: 0 0 48px;
+      margin: 0 0 var(--gap-section);
     }
 
     .project-meta {
