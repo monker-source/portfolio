@@ -35,12 +35,13 @@
     "title": "Audit",
     "kind": "Logo",
     "info": ["Cyrillic"],
-    "description": "Placeholder description for Audit — a short note about the project goes here.",
+    "description": "Logo for an internal audit division, reflecting the ongoing, investigative nature of fraud detection and compliance work.",
     "year": "2025",
     "slug": "audit",
-    "preview": "projects/preview/audit.svg",
-    "width": 602,
-    "height": 169
+    "href": "projects/audit/",
+    "preview": "projects/audit/audit-hero.png",
+    "width": 2160,
+    "height": 1350
   },
   {
     "title": "Tangley",

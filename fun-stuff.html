@@ -116,6 +116,14 @@
     border-radius: var(--radius);
   }
 
+  .project-fallback {
+    margin: 0;
+    padding: var(--gap-card);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--ink);
+  }
+
   .project[data-place="0"] {
     width: min(72%, 820px);
     align-self: flex-start;
@@ -209,37 +217,7 @@
   </section>
 
   <script src="site.js"></script>
-  <script src="fun-stuff/fun-stuff.js"></script>
-  <script>
-    (function () {
-      const list = document.getElementById("fun-stuff-list");
-      if (!list) return;
-
-      (window.FUN_STUFF || []).forEach(function (item, index) {
-        const el = document.createElement("article");
-        el.className = "project";
-        el.dataset.place = String(index % 4);
-
-        const media = document.createElement("a");
-        media.className = "project-media";
-        media.href = item.file;
-        if (/\.pdf$/i.test(item.file)) media.target = "_blank";
-        media.rel = "noopener";
-
-        if (item.preview) {
-          const img = document.createElement("img");
-          img.src = item.preview;
-          img.alt = item.title;
-          img.loading = "lazy";
-          media.appendChild(img);
-        }
-
-        el.appendChild(media);
-        list.appendChild(el);
-      });
-    })();
-  </script>
-
+  <script src="fun.js?v=1"></script>
   <script src="draw.js"></script>
 </body>
 </html>

@@ -66,6 +66,22 @@
         return;
       }
 
+      const compactPair = text.match(
+        /^!\[([^\]]*)\]\(([^)\s+]+)\+([^)\s+]+)\)\s*$/
+      );
+      if (compactPair) {
+        const fig = document.createElement("figure");
+        fig.className = "story-figure story-figure--pair";
+        appendImages(
+          fig,
+          [compactPair[2], compactPair[3]],
+          compactPair[1],
+          assetBase
+        );
+        mount.appendChild(fig);
+        return;
+      }
+
       const img = text.match(/^!\[([^\]]*)\]\(([^)]+)\)\s*$/);
       if (img) {
         const fig = document.createElement("figure");

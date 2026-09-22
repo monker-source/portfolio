@@ -1,0 +1,19 @@
+---
+description: Project page metadata required for new work
+alwaysApply: true
+---
+
+# Project page credits
+
+When creating a new project page that is **not** a type project, the intro meta must always include all four fields, in this order:
+
+1. Year
+2. Client
+3. Art-direction
+4. Deliverables
+
+Match existing markup (`Art&#8209;direction` non-breaking hyphen). Use Bora as the template. Ask for any unknown values instead of omitting a field.
+
+Type projects (e.g. Tangley) skip this credit list.
+
+On project pages, only hero SVGs follow `--ink` when the theme changes. Story and other project images keep their original colours. To skip theming on a hero SVG, add `data-keep-color` to the `img` or a parent.

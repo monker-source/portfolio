@@ -65,8 +65,24 @@
     line-height: var(--ui-lead);
   }
 
+  .hero {
+    display: flex;
+    align-items: flex-end;
+    margin: 0;
+    padding: 0 var(--pad) var(--gap-page);
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--bg);
+  }
+
+  .hero img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   .project-page {
-    padding: var(--gap-section) var(--pad) var(--gap-page);
+    padding: 0 var(--pad) var(--gap-page);
   }
 
   .grid {
@@ -321,6 +337,10 @@
 </style>
 </head>
 <body>
+
+  <section class="hero" aria-label="Rante">
+    <img src="rante.svg" alt="Rante" width="602" height="191">
+  </section>
 
   <main class="project-page">
     <section class="intro" aria-label="Project">

@@ -19,4 +19,12 @@ So the mass was the right, and i went further to see what things can be matched 
 
 ![](draft-5.jpeg)
 
-So the logo was found but later Rante asked for low contrast and cyrillic version to be able to use the logo in all possible sizes and context. Low contrast does not differ much: thin strokes become thicker in order not to dissapear, letters were spaced far liberally to increase legibility
+So the logo was found but later Rante asked for low contrast and cyrillic version to be able to use the logo in all possible sizes and context. Low contrast does not differ much: thin strokes become thicker in order not to dissapear, letters were spaced far liberally to increase legibility.
+
+![Can you spot the difference?](rante-HighContrast.svg)+(rante-LowContrast.svg)
+
+Cyrillic version already has two letters from latin so task was not that hard. Main question was about H letter. Latin /n/ has characteristic rounding which is hard to do in rigid Н, so there were many experiments how to match the style of both. 
+
+![](rante-cyr-test.jpeg) 
+
+![Final result](rante-final.svg)+
