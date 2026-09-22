@@ -81,6 +81,9 @@
 
   function applyTheme(theme) {
     const root = document.documentElement;
+    root.style.setProperty("--color-bg", theme.bg);
+    root.style.setProperty("--color-ink", theme.ink);
+    root.style.setProperty("--color-muted", theme.muted);
     root.style.setProperty("--bg", theme.bg);
     root.style.setProperty("--ink", theme.ink);
     root.style.setProperty("--muted", theme.muted);
@@ -103,12 +106,12 @@
       "body[data-nav-reveal] .site-header{position:fixed;left:0;right:0}",
       ".site-nav{",
       "position:relative;display:grid;",
-      "grid-template-columns:1.4fr 1fr 1fr 1.2fr auto;",
-      "gap:28px;align-items:baseline;",
+      "grid-template-columns:var(--cols) auto;",
+      "gap:var(--col-gap);align-items:baseline;",
       "}",
       ".theme-swatches{",
       "display:flex;align-items:center;justify-self:end;align-self:center;",
-      "gap:2px;margin:0;padding:0;list-style:none;",
+      "gap:var(--gap-stack);margin:0;padding:0;list-style:none;",
       "mix-blend-mode:normal;isolation:isolate;position:relative;z-index:1;",
       "}",
       ".theme-swatch{",

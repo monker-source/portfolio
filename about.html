@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
 <style>
   @font-face {
     font-family: "Imperial";
@@ -17,16 +18,8 @@
   }
 
   :root {
-    --bg: #ffffff;
-    --ink: #111111;
-    --muted: #9a9a9a;
-    --pad: clamp(16px, 2.2vw, 28px);
-    --ui: "Golos Text", sans-serif;
-    --display: "Imperial", serif;
-    --ui-size: 16px;
-    --ui-lead: 1.35;
-    --cols: 1.4fr 1fr 1fr 1.2fr;
-    --col-gap: 28px;
+    --color-bg: #ffffff;
+    --color-muted: #9a9a9a;
   }
 
   * { box-sizing: border-box; }
@@ -92,9 +85,9 @@
   .about {
     display: flex;
     flex-direction: column;
-    gap: 52px;
+    gap: var(--gap-section);
     flex: 1 1 auto;
-    padding: 48px var(--pad) 80px;
+    padding: var(--gap-section) var(--pad) var(--gap-page);
   }
 
   .about-lead {
@@ -154,7 +147,7 @@
     grid-column: 3;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: var(--gap-stack);
     font-weight: 600;
   }
 
@@ -168,7 +161,7 @@
     .about-lead,
     .contact-top {
       grid-template-columns: 1fr;
-      row-gap: 12px;
+      row-gap: var(--gap-media);
     }
 
     .about-copy,

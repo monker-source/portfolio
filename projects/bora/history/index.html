@@ -7,20 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../tokens.css">
 <style>
-  :root {
-    --bg: #f2f2f0;
-    --ink: #111111;
-    --muted: #7a7a7a;
-    --pad: clamp(16px, 2.2vw, 28px);
-    --ui: "Golos Text", sans-serif;
-    --ui-size: 16px;
-    --ui-lead: 1.35;
-    --cols: 1.4fr 1fr 1fr 1.2fr;
-    --col-gap: 28px;
-    --card: #fff;
-  }
-
   * { box-sizing: border-box; }
 
   html {
@@ -64,11 +52,11 @@
   }
 
   .project-page {
-    padding: 32px var(--pad) 80px;
+    padding: var(--space-32) var(--pad) var(--gap-page);
   }
 
   .story-head {
-    margin: 0 0 40px;
+    margin: 0 0 var(--space-40);
   }
 
   .story-head h1 {
@@ -80,7 +68,7 @@
   }
 
   .story-back {
-    font-size: 14px;
+    font-size: var(--text-sm);
     font-weight: 600;
     color: var(--muted);
   }
@@ -90,15 +78,15 @@
   .story {
     display: flex;
     flex-direction: column;
-    gap: 28px;
-    margin: 0 0 56px;
+    gap: var(--gap-block);
+    margin: 0 0 var(--space-56);
   }
 
   .story p {
     margin: 0 auto;
     max-width: 36em;
-    font-size: 16px;
-    line-height: 1.5;
+    font-size: var(--text-md);
+    line-height: var(--lead-body);
     font-weight: 600;
   }
 
@@ -136,10 +124,10 @@
   }
 
   .story-figure figcaption {
-    margin: 10px 0 0;
+    margin: var(--space-10) 0 0;
     color: var(--muted);
-    font-size: 12px;
-    line-height: 1.35;
+    font-size: var(--text-xs);
+    line-height: var(--lead-ui);
     font-weight: 600;
     text-align: center;
   }
@@ -171,7 +159,7 @@
     grid-column: 3;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: var(--gap-stack);
     font-weight: 600;
   }
 
@@ -184,7 +172,7 @@
   @media (max-width: 800px) {
     .contact-top {
       grid-template-columns: 1fr;
-      row-gap: 12px;
+      row-gap: var(--gap-media);
     }
 
     .story-figure--pair {

@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
 <style>
   @font-face {
     font-family: "Imperial";
@@ -17,16 +18,6 @@
   }
 
   :root {
-    --bg: #f2f2f0;
-    --ink: #111111;
-    --muted: #7a7a7a;
-    --pad: clamp(16px, 2.2vw, 28px);
-    --ui: "Golos Text", sans-serif;
-    --display: "Imperial", serif;
-    --ui-size: 16px;
-    --ui-lead: 1.35;
-    --cols: 1.4fr 1fr 1fr 1.2fr;
-    --col-gap: 28px;
     --desc-max: 320px;
   }
 
@@ -109,7 +100,7 @@
     align-items: center;
     justify-self: end;
     align-self: center;
-    gap: 2px;
+    gap: var(--gap-stack);
     margin: 0;
     padding: 0;
   }
@@ -141,7 +132,7 @@
 
   /* —— Intro (name + bio) —— */
   .intro {
-    padding: 28px var(--pad) 64px;
+    padding: var(--gap-block) var(--pad) var(--space-64);
     display: grid;
     grid-template-columns: var(--cols);
     gap: var(--col-gap);
@@ -163,7 +154,7 @@
 
   /* —— Scattered projects —— */
   .works {
-    padding: 48px var(--pad) 80px;
+    padding: var(--gap-section) var(--pad) var(--gap-page);
     overflow: hidden;
   }
 
@@ -227,7 +218,7 @@
   .project-meta {
     display: grid;
     grid-template-columns: minmax(0, var(--desc-max)) 1fr max-content;
-    column-gap: 28px;
+    column-gap: var(--col-gap);
     align-items: start;
     justify-content: space-between;
   }
@@ -334,7 +325,7 @@
     grid-column: 3;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: var(--gap-stack);
     font-weight: 600;
   }
 
@@ -347,7 +338,7 @@
   @media (max-width: 800px) {
     .contact-top {
       grid-template-columns: 1fr;
-      row-gap: 12px;
+      row-gap: var(--gap-media);
     }
 
     .theme-swatches {

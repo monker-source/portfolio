@@ -7,20 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../tokens.css">
 <style>
-  :root {
-    --bg: #f2f2f0;
-    --ink: #111111;
-    --muted: #7a7a7a;
-    --pad: clamp(16px, 2.2vw, 28px);
-    --ui: "Golos Text", sans-serif;
-    --ui-size: 16px;
-    --ui-lead: 1.35;
-    --cols: 1.4fr 1fr 1fr 1.2fr;
-    --col-gap: 28px;
-    --card: #fff;
-  }
-
   * { box-sizing: border-box; }
 
   html {
@@ -77,7 +65,7 @@
   }
 
   .project-page {
-    padding: 48px var(--pad) 80px;
+    padding: var(--gap-section) var(--pad) var(--gap-page);
   }
 
   .grid {
@@ -96,7 +84,7 @@
   }
 
   .intro {
-    margin: 0 0 40px;
+    margin: 0 0 var(--space-40);
   }
 
   .intro-menu {
@@ -105,8 +93,8 @@
 
   .intro-menu h1 {
     font-family: var(--ui);
-    font-size: clamp(40px, 5.5vw, 72px);
-    line-height: 1.02;
+    font-size: var(--text-xl);
+    line-height: var(--lead-tight);
     font-weight: 600;
     letter-spacing: -0.03em;
   }
@@ -134,23 +122,23 @@
   }
 
   .intro-copy {
-    margin-top: 28px;
+    margin-top: var(--gap-block);
   }
 
   .intro-copy p {
     grid-column: 1 / 3;
     max-width: 36em;
-    font-size: 18px;
+    font-size: var(--text-lg);
     line-height: 1.3;
     font-weight: 600;
   }
 
   .intro-more {
-    margin-top: 20px;
+    margin-top: var(--space-20);
   }
 
   .intro-more a {
-    font-size: 16px;
+    font-size: var(--text-md);
     font-weight: 600;
     text-decoration: underline;
     text-underline-offset: 3px;
@@ -163,7 +151,7 @@
 
   .slideshow {
     --slideshow-slide-w: 720px;
-    margin: 28px 0 56px;
+    margin: var(--gap-block) 0 var(--space-56);
     width: 100vw;
     margin-left: calc(50% - 50vw);
     overflow: visible;
@@ -183,14 +171,14 @@
 
   .slideshow-track {
     display: flex;
-    gap: 12px;
+    gap: var(--gap-media);
     width: max-content;
     padding-inline: var(--pad);
   }
 
   .slideshow-set {
     display: flex;
-    gap: 12px;
+    gap: var(--gap-media);
     flex: 0 0 auto;
   }
 
@@ -235,7 +223,7 @@
     grid-column: 3;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: var(--gap-stack);
     font-weight: 600;
   }
 
@@ -249,7 +237,7 @@
     .grid,
     .contact-top {
       grid-template-columns: 1fr;
-      row-gap: 12px;
+      row-gap: var(--gap-media);
     }
 
     .intro-copy p,
