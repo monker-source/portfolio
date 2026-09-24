@@ -1,5 +1,5 @@
 (function (global) {
-  var FOLDER = "fun-stuff/";
+  var FOLDER = "./";
   var SKIP_RE = /\.(js|json|html|css|md|txt|map)$/i;
   var IMAGE_RE = /\.(jpe?g|png|webp|gif|avif|svg)$/i;
   var PDF_RE = /\.pdf$/i;

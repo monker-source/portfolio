@@ -4,14 +4,31 @@
 */
 
 :root {
-  /* —— Colour —— */
-  --color-bg: #f3f3f3;
-  --color-ink: #111111;
-  --color-muted: #7a7a7a;
+  /* —— Themes (edit these) —— */
+  --theme-paper-bg: #f3f3f3;
+  --theme-paper-ink: #111111;
+  --theme-paper-muted: #7a7a7a;
+  --theme-paper-swatch: #ffffff;
+  --theme-paper-rule: rgba(17, 17, 17, 0.12);
+
+  --theme-black-bg: #191919;
+  --theme-black-ink: #fafafa;
+  --theme-black-muted: #8a8a8a;
+  --theme-black-rule: rgba(250, 250, 250, 0.16);
+
+  --theme-colour-bg: #006aff;
+  --theme-colour-ink: #ffff00;
+  --theme-colour-muted: #a0a0ff;
+  --theme-colour-rule: rgba(255, 255, 0, 0.35);
+
+  /* —— Colour (paper is the default) —— */
+  --color-bg: var(--theme-paper-bg);
+  --color-ink: var(--theme-paper-ink);
+  --color-muted: var(--theme-paper-muted);
   --color-card: #ffffff;
   --color-card-ink: #111111;
   --color-card-muted: #7a7a7a;
-  --color-rule: rgba(17, 17, 17, 0.12);
+  --color-rule: var(--theme-paper-rule);
 
   --bg: var(--color-bg);
   --ink: var(--color-ink);
@@ -85,3 +102,21 @@
   --col-gap: var(--gap-col);
   --cols: 1.4fr 1fr 1fr 1.2fr;
 }
+
+html[data-theme="black"] {
+  --color-bg: var(--theme-black-bg);
+  --color-ink: var(--theme-black-ink);
+  --color-muted: var(--theme-black-muted);
+  --color-rule: var(--theme-black-rule);
+}
+
+html[data-theme="colour"] {
+  --color-bg: var(--theme-colour-bg);
+  --color-ink: var(--theme-colour-ink);
+  --color-muted: var(--theme-colour-muted);
+  --color-rule: var(--theme-colour-rule);
+}
+
+.theme-swatch[data-theme="paper"] { --swatch: var(--theme-paper-swatch); }
+.theme-swatch[data-theme="black"] { --swatch: var(--theme-black-bg); }
+.theme-swatch[data-theme="colour"] { --swatch: var(--theme-colour-bg); }

@@ -1,19 +1,30 @@
 ---
-description: Project page metadata required for new work
+description: How to create project pages from the dedicated templates
 alwaysApply: true
 ---
 
-# Project page credits
+# Project pages
 
-When creating a new project page that is **not** a type project, the intro meta must always include all four fields, in this order:
+Copy a template folder to `projects/<slug>/`. Do not copy Bora, Tangley, or any other live project.
+
+- Identity, logo, and other non-type work: `templates/project/`
+- Type design: `templates/type/`
+
+Each live page names its template in the first HTML comment. Keep that comment.
+
+## Non-type intro credits
+
+`templates/project/` intro meta always includes all four fields, in this order:
 
 1. Year
 2. Client
 3. Art-direction
 4. Deliverables
 
-Match existing markup (`Art&#8209;direction` non-breaking hyphen). Use Bora as the template. Ask for any unknown values instead of omitting a field.
+Match the template markup (`Art&#8209;direction` non-breaking hyphen). Ask for any unknown values instead of omitting a field.
 
-Type projects (e.g. Tangley) skip this credit list.
+Type pages from `templates/type/` skip this credit list.
+
+## Images
 
 On project pages, only hero SVGs follow `--ink` when the theme changes. Story and other project images keep their original colours. To skip theming on a hero SVG, add `data-keep-color` to the `img` or a parent.

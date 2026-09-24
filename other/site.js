@@ -3,10 +3,10 @@
     city: "Madison",
     timeZone: "America/Chicago",
     nav: [
-      { label: "SASHA", href: "main.html", brand: true },
-      { label: "Works", href: "main.html#index" },
+      { label: "SASHA", href: "index.html", brand: true },
+      { label: "Works", href: "index.html#index" },
       { label: "Notes", href: "#" },
-      { label: "Fun", href: "fun-stuff.html" },
+      { label: "Fun", href: "fun-stuff/" },
     ],
     footer: {
       id: "contact",
@@ -19,36 +19,29 @@
 
   const THEME_KEY = "site-theme";
   const THEMES = [
-    {
-      // Default: no inline colours — tokens.css owns the palette
-      id: "paper",
-      label: "Paper",
-      fromTokens: true,
-      swatch: "#ffffff",
-    },
-    {
-      id: "black",
-      label: "Black",
-      bg: "#191919",
-      ink: "#fafafa",
-      muted: "#8a8a8a",
-    },
-    {
-      id: "blue",
-      label: "Blue",
-      bg: "#0000ff",
-      ink: "#ffff00",
-      muted: "#a0a0ff",
-    },
+    { id: "paper", label: "Paper" },
+    { id: "black", label: "Black" },
+    { id: "colour", label: "Colour" },
   ];
+
+  function pathFromTo(fromDir, toDir) {
+    const from = fromDir.replace(/\/$/, "").split("/");
+    const to = toDir.replace(/\/$/, "").split("/");
+    let i = 0;
+    while (i < from.length && i < to.length && from[i] === to[i]) i++;
+    return "../".repeat(from.length - i) + to.slice(i).map(function (part) {
+      return part + "/";
+    }).join("");
+  }
 
   function assetBase() {
     const scripts = document.querySelectorAll("script[src]");
     for (let i = 0; i < scripts.length; i++) {
-      const src = scripts[i].getAttribute("src") || "";
-      if (/site\.js(\?|$)/.test(src)) {
-        return src.replace(/site\.js(\?.*)?$/, "");
-      }
+      const abs = scripts[i].src || "";
+      if (!/\/other\/site\.js(\?|$)/.test(abs)) continue;
+      const siteRoot = abs.replace(/other\/site\.js(\?.*)?$/, "");
+      const pageDir = location.href.split("#")[0].split("?")[0].replace(/[^/]*$/, "");
+      return pathFromTo(pageDir, siteRoot);
     }
     return "";
   }
@@ -60,18 +53,29 @@
     return assetBase() + href;
   }
 
-  function currentFile() {
-    const parts = location.pathname.split("/");
-    return parts[parts.length - 1] || "index.html";
+  function pageFolder() {
+    const ups = (assetBase().match(/\.\.\//g) || []).length;
+    const parts = location.pathname.split("/").filter(Boolean);
+    if (parts.length && /\.[a-z0-9]+$/i.test(parts[parts.length - 1])) {
+      parts.pop();
+    }
+    if (!ups) return "";
+    return parts.slice(parts.length - ups).join("/");
   }
 
-  function isActive(item, current) {
+  function navFolder(href) {
+    const path = href.split("#")[0].split("?")[0].replace(/\/$/, "");
+    if (!path || path === "index.html") return "";
+    return path.replace(/\/index\.html$/, "");
+  }
+
+  function isActive(item) {
     if (item.brand || !item.href || item.href === "#") return false;
-    const file = item.href.split("/").pop().split("?")[0].split("#")[0];
-    return file === current;
+    return navFolder(item.href) === pageFolder();
   }
 
   function findTheme(id) {
+    if (id === "blue") id = "colour";
     for (let i = 0; i < THEMES.length; i++) {
       if (THEMES[i].id === id) return THEMES[i];
     }
@@ -80,28 +84,17 @@
 
   function applyTheme(theme) {
     const root = document.documentElement;
-    const keys = [
+    [
       "--color-bg",
       "--color-ink",
       "--color-muted",
+      "--color-rule",
       "--bg",
       "--ink",
       "--muted",
-    ];
-
-    if (theme.fromTokens) {
-      // Clear inline overrides so tokens.css (and page :root) win
-      keys.forEach(function (key) {
-        root.style.removeProperty(key);
-      });
-    } else {
-      root.style.setProperty("--color-bg", theme.bg);
-      root.style.setProperty("--color-ink", theme.ink);
-      root.style.setProperty("--color-muted", theme.muted);
-      root.style.setProperty("--bg", theme.bg);
-      root.style.setProperty("--ink", theme.ink);
-      root.style.setProperty("--muted", theme.muted);
-    }
+    ].forEach(function (key) {
+      root.style.removeProperty(key);
+    });
 
     root.setAttribute("data-theme", theme.id);
     try {
@@ -170,7 +163,7 @@
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "theme-swatch";
-      btn.style.setProperty("--swatch", theme.swatch || theme.bg);
+      btn.setAttribute("data-theme", theme.id);
       btn.setAttribute("aria-label", theme.label);
       btn.setAttribute("aria-pressed", theme.id === active.id ? "true" : "false");
       btn.addEventListener("click", function () {
@@ -189,7 +182,6 @@
   }
 
   function buildHeader() {
-    const current = currentFile();
     const header = document.createElement("header");
     header.className = "site-header";
 
@@ -202,7 +194,7 @@
       a.href = siteHref(item.href);
       a.textContent = item.label;
       if (item.brand) a.classList.add("brand");
-      if (isActive(item, current)) a.classList.add("is-active");
+      if (isActive(item)) a.classList.add("is-active");
       nav.appendChild(a);
     });
 
@@ -305,7 +297,9 @@
     if (img.dataset.inkSvg === "1" || shouldKeepSvgColor(img)) return;
     const original = svgImgSrc(img);
     if (!original) return;
-    if (!img.closest(".hero")) return;
+    const heroOnProject = isProjectPage() && img.closest(".hero");
+    const themeBack = img.classList.contains("project-back");
+    if (!heroOnProject && !themeBack) return;
 
     function apply(url, w, h) {
       img.dataset.inkSvg = "1";
@@ -346,7 +340,7 @@
   }
 
   function paintProjectSvgs(root) {
-    if (!isProjectPage() || !root) return;
+    if (!root) return;
     const scope = root.querySelectorAll ? root : document;
     if (scope.tagName === "IMG") {
       paintInkSvg(scope);
@@ -356,17 +350,26 @@
   }
 
   function observeProjectSvgs() {
-    if (!isProjectPage() || !document.body) return;
+    if (!document.body) return;
     paintProjectSvgs(document);
     const mo = new MutationObserver(function (records) {
       records.forEach(function (rec) {
+        if (rec.type === "attributes" && rec.target && rec.target.tagName === "IMG") {
+          paintInkSvg(rec.target);
+          return;
+        }
         rec.addedNodes.forEach(function (node) {
           if (node.nodeType !== 1) return;
           paintProjectSvgs(node);
         });
       });
     });
-    mo.observe(document.body, { childList: true, subtree: true });
+    mo.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["src"],
+    });
   }
 
   function mount() {
@@ -382,7 +385,7 @@
     observeProjectSvgs();
   }
 
-  const PROJECTS_URL = "projects.json";
+  const PROJECTS_URL = assetBase() + "projects/projects.json";
 
   window.SITE = SITE;
   window.SITE_THEMES = THEMES;

@@ -1,15 +1,23 @@
-<!-- Template: templates/project/index.html -->
+<!-- Template for type-design project pages. Copy this folder to projects/<slug>/. Put the trial font in source/. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SASHA — Bora</title>
+<title>SASHA — Project</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../other/tokens.css">
 <style>
+  @font-face {
+    font-family: "Project Trial";
+    src: url("source/ProjectTrial-Regular.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
   * { box-sizing: border-box; }
 
   html {
@@ -56,8 +64,13 @@
     font-weight: 600;
   }
 
-  .site-nav a { color: var(--ink); }
-  .site-nav a:hover { color: var(--muted); }
+  .site-nav a {
+    color: var(--ink);
+  }
+
+  .site-nav a:hover {
+    color: var(--muted);
+  }
 
   .brand {
     font-family: var(--ui);
@@ -78,19 +91,16 @@
   }
 
   .grid p,
-  .grid h1 {
+  .grid h1,
+  .grid h2 {
     margin: 0;
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
   }
 
-  .intro {
-    margin: 0 0 var(--space-40);
-  }
-
   .intro-menu {
-    align-items: start;
+    align-items: center;
   }
 
   .intro-menu h1 {
@@ -101,26 +111,58 @@
     letter-spacing: -0.03em;
   }
 
-  .intro-meta {
+  .intro-menu .btn-accent {
     grid-column: 4;
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    column-gap: 1.25em;
-    row-gap: 0;
+    justify-self: start;
+  }
+
+  .project-kind[hidden] {
+    display: none;
+  }
+
+  .hero {
+    position: relative;
     margin: 0;
     padding: 0;
-    list-style: none;
-    font-size: var(--ui-size);
-    line-height: var(--ui-lead);
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--ink);
+    color: var(--card-ink);
+  }
+
+  .hero iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .intro {
+    margin: 0 0 var(--space-40);
+  }
+
+  .btn-accent:empty {
+    display: none;
+  }
+
+  .btn-accent {
+    display: inline-block;
+    padding: var(--space-6) var(--space-14);
+    border: 0;
+    border-radius: var(--radius);
+    background: var(--ink);
+    color: var(--bg);
+    font: inherit;
     font-weight: 600;
+    line-height: var(--lead-tight);
+    cursor: pointer;
   }
 
-  .intro-meta li {
-    display: contents;
-  }
-
-  .intro-meta .label {
-    color: var(--muted);
+  a.btn-accent:hover {
+    color: var(--bg);
+    opacity: 0.82;
   }
 
   .intro-copy {
@@ -146,17 +188,16 @@
     text-underline-offset: 3px;
   }
 
-  .intro-more[hidden],
-  .slideshow[hidden] {
-    display: none;
-  }
-
   .slideshow {
     --slideshow-slide-w: 720px;
-    margin: var(--gap-block) 0 var(--space-56);
+    margin: var(--gap-block) 0 var(--gap-section);
     width: 100vw;
     margin-left: calc(50% - 50vw);
     overflow: visible;
+  }
+
+  .slideshow[hidden] {
+    display: none;
   }
 
   .slideshow-scroller {
@@ -166,10 +207,17 @@
     scrollbar-width: none;
     cursor: grab;
     outline: none;
+    scroll-snap-type: none;
   }
 
-  .slideshow-scroller::-webkit-scrollbar { display: none; }
-  .slideshow-scroller.is-dragging { cursor: grabbing; }
+  .slideshow-scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .slideshow-scroller.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
+  }
 
   .slideshow-track {
     display: flex;
@@ -200,6 +248,110 @@
     height: auto;
     pointer-events: none;
     user-select: none;
+  }
+
+  .tester-section {
+    margin: 0 0 0;
+    overflow: visible;
+    width: 100%;
+  }
+
+  .type-tester {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow: visible;
+  }
+
+  .type-tester-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-20) var(--gap-col);
+    margin: var(--gap-block) 0 0;
+    font-size: var(--text-xs);
+    line-height: var(--lead-ui);
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .type-tester-control {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-media);
+  }
+
+  .type-tester-control-label {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--space-4);
+    white-space: nowrap;
+  }
+
+  .type-tester-range {
+    width: min(180px, 36vw);
+    accent-color: var(--ink);
+    cursor: pointer;
+  }
+
+  .type-tester-field {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0.45em 0.08em;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--ink);
+    font-weight: 400;
+    letter-spacing: normal;
+    text-align: center;
+    resize: none;
+    overflow: visible;
+    outline: none;
+    field-sizing: content;
+  }
+
+  .type-tester-field::placeholder {
+    color: var(--muted);
+  }
+
+  .tester-note {
+    margin: var(--space-20) auto var(--space-56);
+    max-width: 36em;
+    text-align: center;
+    font-size: var(--text-xs);
+    line-height: var(--lead-caption);
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .tester-note a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .specimen-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--col-gap);
+    margin: 0;
+  }
+
+  .specimen-grid figure {
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: var(--card);
+  }
+
+  .specimen-grid img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   .contact {
@@ -244,9 +396,13 @@
 
     .intro-copy p,
     .intro-more,
-    .intro-meta,
+    .intro-menu .btn-accent,
     .contact-links {
       grid-column: 1;
+    }
+
+    .specimen-grid {
+      grid-template-columns: 1fr;
     }
 
     .contact-clock {
@@ -257,25 +413,63 @@
 </head>
 <body>
 
+  <section class="hero" aria-label="Project">
+    <iframe
+      src=""
+      title="Project"
+      allow="autoplay; fullscreen; picture-in-picture"
+      allowfullscreen></iframe>
+  </section>
+
   <main class="project-page">
     <section class="intro" data-project aria-label="Project">
       <div class="grid intro-menu">
         <h1></h1>
-        <ul class="intro-meta"></ul>
+        <p class="project-kind" hidden></p>
+        <a
+          class="btn-accent"
+          href=""
+          target="_blank"
+          rel="noopener noreferrer"></a>
       </div>
       <div class="grid intro-copy"></div>
-      <div class="grid intro-more" hidden>
+      <div class="grid intro-more">
         <a href="history/">How it was done</a>
       </div>
     </section>
 
+    <!-- Slideshow hidden for now
     <section
       class="slideshow"
-      aria-label="Bora gallery"
+      aria-label="Project specimens"
       data-slideshow
       data-folder="slideshow/"
       data-manifest="slideshow/slides.json"
       data-slide-size="720"></section>
+    -->
+
+    <section
+      class="tester-section"
+      aria-label="Type tester"
+      data-type-tester
+      data-font="Project Trial"
+      data-sample="The quick brown fox jumps"
+      data-size="256"
+      data-size-mobile="76"
+      data-min="28"
+      data-max="400"
+      data-lead="1.25"
+      data-lead-min="0.5"
+      data-lead-max="2"></section>
+    <p class="tester-note">
+      Tester only covers the trial character set.
+      For the full set see the store page at
+      <a data-project-link href="" target="_blank" rel="noopener noreferrer">Foundry</a>.
+    </p>
+
+    <div class="specimen-grid" aria-label="Project specimens">
+      <figure><img src="slideshow/specimen-1.png" alt="Project specimen"></figure>
+    </div>
   </main>
 
   <script src="../../other/site.js"></script>
@@ -283,7 +477,7 @@
   <script>
     ProjectMd.mount(document.querySelector("[data-project]"), "Project.md");
   </script>
-  <script src="../../other/slideshow.js"></script>
+  <script src="../../other/type-tester.js"></script>
   <script src="../../other/draw.js"></script>
 </body>
 </html>

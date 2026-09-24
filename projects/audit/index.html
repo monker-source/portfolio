@@ -1,3 +1,4 @@
+<!-- Template: templates/project/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../../other/tokens.css">
 <style>
   * { box-sizing: border-box; }
 
@@ -213,28 +214,20 @@
   </section>
 
   <main class="project-page">
-    <section class="intro" aria-label="Project">
+    <section class="intro" data-project aria-label="Project">
       <div class="grid intro-menu">
-        <h1>Audit</h1>
-        <ul class="intro-meta">
-          <li><span class="label">Year</span><span>2025</span></li>
-          <li><span class="label">Client</span><span>Yandex</span></li>
-          <li><span class="label">Art&#8209;direction</span><span>Holystic studio</span></li>
-          <li><span class="label">Deliverables</span><span>Logo</span></li>
-        </ul>
+        <h1></h1>
+        <ul class="intro-meta"></ul>
       </div>
-      <div class="grid intro-copy">
-        <p>
-          Yandex Audit is a division responsible for combating fraud and ensuring compliance. The logo's letterforms are built from continuous strokes interrupted by small cuts — as if the surface were sliced open to reveal the mechanism underneath. This reflects the core idea of an audit: opening up a system to examine how it actually works.
-        </p>
-        <p>
-          The handwritten character of the typeface evokes margin notes and field observations — the small, manual marks of someone documenting anomalies in real time. It reinforces the idea that auditing isn't a one-off check, but a living, ongoing process.
-        </p>
-      </div>
+      <div class="grid intro-copy"></div>
     </section>
   </main>
 
-  <script src="../../site.js"></script>
-  <script src="../../draw.js"></script>
+  <script src="../../other/site.js"></script>
+  <script src="../../other/project-md.js"></script>
+  <script>
+    ProjectMd.mount(document.querySelector("[data-project]"), "Project.md");
+  </script>
+  <script src="../../other/draw.js"></script>
 </body>
 </html>

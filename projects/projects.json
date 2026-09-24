@@ -56,14 +56,16 @@
     "height": 800
   },
   {
-    "title": "Bridges",
+    "title": "Bridge",
     "kind": "Logo",
-    "info": ["Consulting"],
-    "description": "Placeholder description for Bridges — a short note about the project goes here.",
+    "info": ["Logo", "Icon"],
+    "description": "Logo for SDK that will bridge developers and publishers",
     "year": "2025",
-    "slug": "bridges",
-    "preview": "projects/preview/bridge.svg",
-    "width": 633,
-    "height": 159
+    "slug": "bridge",
+    "href": "projects/bridge/",
+    "preview": "projects/bridge/Bridge-preview.png",
+    "illustration": "projects/bridge/bridge-illustration-01.svg",
+    "width": 1019,
+    "height": 546
   }
 ]

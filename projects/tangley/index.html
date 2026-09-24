@@ -1,3 +1,4 @@
+<!-- Template: templates/type/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../../other/tokens.css">
 <style>
   @font-face {
     font-family: "Tangley Trial";
@@ -140,6 +141,10 @@
 
   .intro {
     margin: 0 0 var(--space-40);
+  }
+
+  .btn-accent:empty {
+    display: none;
   }
 
   .btn-accent {
@@ -329,6 +334,26 @@
     text-underline-offset: 2px;
   }
 
+  .specimen-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--col-gap);
+    margin: 0;
+  }
+
+  .specimen-grid figure {
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: var(--card);
+  }
+
+  .specimen-grid img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   .contact {
     padding: var(--footer-pad-top) var(--pad) var(--footer-pad-bottom);
     background: var(--bg);
@@ -376,6 +401,10 @@
       grid-column: 1;
     }
 
+    .specimen-grid {
+      grid-template-columns: 1fr;
+    }
+
     .contact-clock {
       justify-self: start;
     }
@@ -393,26 +422,23 @@
   </section>
 
   <main class="project-page">
-    <section class="intro" aria-label="Project">
+    <section class="intro" data-project aria-label="Project">
       <div class="grid intro-menu">
-        <h1>Tangley</h1>
-        <p class="project-kind" hidden>Type design</p>
+        <h1></h1>
+        <p class="project-kind" hidden></p>
         <a
           class="btn-accent"
-          href="https://blazetype.eu/typefaces/tangley/"
+          href=""
           target="_blank"
-          rel="noopener noreferrer">Available on Blazetype</a>
+          rel="noopener noreferrer"></a>
       </div>
-      <div class="grid intro-copy">
-        <p>
-          The Tangley font is a loose interpretation of the Cy Twombly's graphic in the untitled series. The type has the characteristic loopiness of the letters, minimal spacing and the ability to typeset with zero or even negative leading. The height of the lowercase Tangley letters is made as high as possible to reduce the height difference in the title case and to increase the graphic loopy uniformity of the lines relative to each other.
-        </p>
-      </div>
+      <div class="grid intro-copy"></div>
       <div class="grid intro-more">
         <a href="history/">How it was done</a>
       </div>
     </section>
 
+    <!-- Slideshow hidden for now
     <section
       class="slideshow"
       aria-label="Tangley specimens"
@@ -420,6 +446,7 @@
       data-folder="slideshow/"
       data-manifest="slideshow/slides.json"
       data-slide-size="720"></section>
+    -->
 
     <section
       class="tester-section"
@@ -437,13 +464,28 @@
     <p class="tester-note">
       Tester only covers basic Latin, proportional numbers and several punctuation signs.
       For the full set see the store page at
-      <a href="https://blazetype.eu/typefaces/tangley/" target="_blank" rel="noopener noreferrer">Blaze</a>.
+      <a data-project-link href="https://blazetype.eu/typefaces/tangley/" target="_blank" rel="noopener noreferrer">Blaze</a>.
     </p>
+
+    <div class="specimen-grid" aria-label="Tangley specimens">
+      <figure><img src="slideshow/tangley-site-1.png" alt="Tangley specimen"></figure>
+      <figure><img src="slideshow/tangley-site-2.png" alt="Tangley specimen"></figure>
+      <figure><img src="slideshow/tangley-site-3.png" alt="Tangley specimen"></figure>
+      <figure><img src="slideshow/tangley-site-4.png" alt="Tangley specimen"></figure>
+      <figure><img src="slideshow/tangley-site-5.png" alt="Tangley specimen"></figure>
+      <figure><img src="slideshow/tangley-site-6.png" alt="Tangley specimen"></figure>
+      <figure><img src="slideshow/tangley-site-7.png" alt="Tangley specimen"></figure>
+      <figure><img src="slideshow/tangley-site-8.png" alt="Tangley specimen"></figure>
+      <figure><img src="slideshow/tangley-site-9.png" alt="Tangley specimen"></figure>
+    </div>
   </main>
 
-  <script src="../../site.js"></script>
-  <script src="../../slideshow.js"></script>
-  <script src="../../type-tester.js"></script>
-  <script src="../../draw.js"></script>
+  <script src="../../other/site.js"></script>
+  <script src="../../other/project-md.js"></script>
+  <script>
+    ProjectMd.mount(document.querySelector("[data-project]"), "Project.md");
+  </script>
+  <script src="../../other/type-tester.js"></script>
+  <script src="../../other/draw.js"></script>
 </body>
 </html>

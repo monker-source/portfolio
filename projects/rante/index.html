@@ -1,3 +1,4 @@
+<!-- Template: templates/project/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../../other/tokens.css">
 <style>
   * { box-sizing: border-box; }
 
@@ -343,23 +344,12 @@
   </section>
 
   <main class="project-page">
-    <section class="intro" aria-label="Project">
+    <section class="intro" data-project aria-label="Project">
       <div class="grid intro-menu">
-        <h1>Rante</h1>
-        <ul class="intro-meta">
-          <li><span class="label">Year</span><span>2025</span></li>
-          <li><span class="label">Client</span><span>Rante Blagaya</span></li>
-          <li><span class="label">Deliverables</span><span>Logo</span></li>
-        </ul>
+        <h1></h1>
+        <ul class="intro-meta"></ul>
       </div>
-      <div class="grid intro-copy">
-        <p>
-          Rante is a Berlin-based brand designer, art&#8209;director, educator &amp; researcher. Most importantly — dear friend. She commissioned her personal logo for freelance work that would differ her from faceless design contractors crowd.
-        </p>
-        <p>
-          Logo comes in two optical sizes in Latin and Cyrillic.
-        </p>
-      </div>
+      <div class="grid intro-copy"></div>
     </section>
 
     <article class="story" id="story" aria-label="Story"></article>
@@ -373,12 +363,16 @@
       data-slide-size="720"></section>
   </main>
 
-  <script src="../../site.js"></script>
-  <script src="../../story-md.js"></script>
+  <script src="../../other/site.js"></script>
+  <script src="../../other/project-md.js"></script>
+  <script>
+    ProjectMd.mount(document.querySelector("[data-project]"), "Project.md");
+  </script>
+  <script src="../../other/story-md.js"></script>
   <script>
     StoryMd.load(document.getElementById("story"), "history/story.md", "history/");
   </script>
-  <script src="../../slideshow.js"></script>
-  <script src="../../draw.js"></script>
+  <script src="../../other/slideshow.js"></script>
+  <script src="../../other/draw.js"></script>
 </body>
 </html>

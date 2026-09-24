@@ -2,35 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SASHA — About</title>
+<title>SASHA — Fun</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="../other/tokens.css">
 <style>
   @font-face {
     font-family: "Imperial";
-    src: url("fonts/imperialBetaV01-Regular.woff2") format("woff2");
+    src: url("../fonts/imperialBetaV01-Regular.woff2") format("woff2");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
   }
 
-  :root {
-    --color-muted: #9a9a9a;
-  }
-
   * { box-sizing: border-box; }
-
-  html { height: 100%; }
 
   body {
     margin: 0;
-    min-height: 100%;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
     background: var(--bg);
     color: var(--ink);
     font-family: var(--ui);
@@ -48,12 +38,14 @@
 
   a:hover { color: var(--muted); }
 
+  .is-active { color: inherit; }
+
   .site-header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 30;
+    z-index: 40;
     padding: var(--header-pad-top) var(--pad) var(--header-pad-bottom);
     background: transparent !important;
     background-color: transparent !important;
@@ -83,49 +75,87 @@
     line-height: var(--ui-lead);
   }
 
-  .about {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-section);
-    flex: 1 1 auto;
+  .works {
     padding: var(--gap-section) var(--pad) var(--gap-page);
+    overflow: hidden;
   }
 
-  .about-lead {
-    display: grid;
-    grid-template-columns: var(--cols);
-    gap: var(--col-gap);
-    row-gap: 1.1em;
-    align-items: start;
-  }
-
-  .about-copy,
-  .about-bio,
-  .about-services {
-    margin: 0;
-    font-family: var(--ui);
-    font-size: var(--ui-size);
-    line-height: var(--ui-lead);
-    font-weight: 600;
-    grid-column: 4;
-  }
-
-  .about-bio {
+  .projects {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 1.1em;
+    gap: 0;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 40vh;
   }
 
-  .about-bio p {
+  .project {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-media);
+    z-index: 1;
+  }
+
+  .project:hover {
+    z-index: 5;
+  }
+
+  .project-media {
+    display: block;
+    line-height: 0;
+    width: 100%;
+  }
+
+  .project-media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+  }
+
+  .project-fallback {
     margin: 0;
+    padding: var(--gap-card);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .project[data-place="0"] {
+    width: min(72%, 820px);
+    align-self: flex-start;
+    margin-left: 2%;
+    margin-bottom: -4vh;
+  }
+
+  .project[data-place="1"] {
+    width: min(58%, 680px);
+    align-self: flex-end;
+    margin-right: 3%;
+    margin-top: 8vh;
+    margin-bottom: -6vh;
+  }
+
+  .project[data-place="2"] {
+    width: min(68%, 760px);
+    align-self: center;
+    margin-left: -6%;
+    margin-top: 10vh;
+    margin-bottom: -3vh;
+  }
+
+  .project[data-place="3"] {
+    width: min(62%, 720px);
+    align-self: flex-start;
+    margin-left: 12%;
+    margin-top: 6vh;
+    margin-bottom: -5vh;
   }
 
   .contact {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 15;
     padding: var(--footer-pad-top) var(--pad) var(--footer-pad-bottom);
     background: var(--bg);
   }
@@ -159,15 +189,11 @@
   }
 
   @media (max-width: 800px) {
-    .about-lead,
     .contact-top {
       grid-template-columns: 1fr;
       row-gap: var(--gap-media);
     }
 
-    .about-copy,
-    .about-bio,
-    .about-services,
     .contact-links {
       grid-column: 1;
     }
@@ -175,38 +201,23 @@
     .contact-clock {
       justify-self: start;
     }
+
+    .project[data-place] {
+      width: min(96%, 720px);
+      align-self: center;
+      margin: 0 0 var(--gap-section);
+    }
   }
 </style>
 </head>
 <body>
 
-  <main class="about">
-    <div class="about-lead">
-      <p class="about-copy">
-        Sasha&nbsp;Smirnov&nbsp;— graphic designer specializing in&nbsp;typography and&nbsp;lettering.
-      </p>
-      <div class="about-bio">
-        <p>
-          He designs logotypes and&nbsp;custom lettering&nbsp;— from&nbsp;restrained, editorial marks to&nbsp;bold, high-impact identities&nbsp;— and&nbsp;works on&nbsp;typefaces in&nbsp;both Cyrillic and&nbsp;Latin scripts.
-        </p>
-        <p>
-          He graduated as&nbsp;a&nbsp;book designer from&nbsp;the HSE Art and&nbsp;Design School and, in&nbsp;2025, completed the Expert&nbsp;Class in&nbsp;Type&nbsp;Design at&nbsp;the Plantin&nbsp;Institute for&nbsp;Typography.
-        </p>
-        <p>
-          Freelancing since&nbsp;2021, Sasha has collaborated with&nbsp;design agencies, publishing houses, and&nbsp;IT companies, including&nbsp;ABC&nbsp;Dinamo, Blaze&nbsp;Type, Tuman&nbsp;Agency and&nbsp;Playgama
-        </p>
-      </div>
-      <p class="about-services">
-        Sasha provides following services<br>
-        Custom typeface design<br>
-        Custom letterings and&nbsp;logos<br>
-        Customisation of&nbsp;typeface<br>
-        Typeface revivals from&nbsp;source
-      </p>
-    </div>
-  </main>
+  <section class="works" aria-label="Fun">
+    <div class="projects" id="fun-stuff-list"></div>
+  </section>
 
-  <script src="site.js"></script>
-  <script src="draw.js"></script>
+  <script src="../other/site.js"></script>
+  <script src="fun.js?v=1"></script>
+  <script src="../other/draw.js"></script>
 </body>
 </html>

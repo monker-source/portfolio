@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SASHA — Index</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  @font-face {
+    font-family: "Imperial";
+    src: url("../fonts/imperialBetaV01-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --color-muted: #9a9a9a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--ui);
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 600;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover { color: var(--muted); }
+
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 30;
+    padding: var(--header-pad-top) var(--pad) var(--header-pad-bottom);
+    background: transparent !important;
+    background-color: transparent !important;
+    color: var(--ink);
+  }
+
+  .site-nav {
+    display: grid;
+    grid-template-columns: var(--cols) auto;
+    gap: var(--col-gap);
+    align-items: baseline;
+    font-weight: 600;
+  }
+
+  .site-nav > a {
+    color: var(--ink);
+  }
+
+  .site-nav > a:hover {
+    color: var(--muted);
+  }
+
+  .brand {
+    font-family: var(--ui);
+    font-size: var(--ui-size);
+    font-weight: 600;
+    line-height: var(--ui-lead);
+  }
+
+  .index {
+    padding: var(--space-72) var(--pad) var(--space-72);
+  }
+
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    color: var(--muted);
+  }
+
+  .project {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.2fr;
+    gap: var(--col-gap);
+    align-items: start;
+    padding: var(--space-14) 0;
+    border-top: 1px solid var(--color-rule);
+    color: inherit;
+    transition: color 0.15s ease;
+    cursor: default;
+  }
+
+  .project:last-child {
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  a.project {
+    cursor: pointer;
+  }
+
+  .project:hover,
+  a.project:hover {
+    color: var(--ink);
+  }
+
+  .project-title {
+    margin: 0;
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 600;
+  }
+
+  .project-kind,
+  .project-info {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 600;
+  }
+
+  .project-kind {
+    margin: 0;
+  }
+
+  @media (max-width: 800px) {
+    .project {
+      grid-template-columns: 1fr;
+      row-gap: var(--gap-media);
+    }
+  }
+</style>
+</head>
+<body data-footer="false">
+
+  <main class="index">
+    <div class="projects" id="projects"></div>
+  </main>
+
+  <script src="site.js?v=7"></script>
+  <script>
+    (function () {
+      function renderProject(project) {
+        const href = project.href || null;
+        const el = document.createElement(href ? "a" : "article");
+        el.className = "project";
+        if (href) el.href = href;
+
+        const title = document.createElement("h2");
+        title.className = "project-title";
+        title.textContent = project.title;
+
+        const kind = document.createElement("p");
+        kind.className = "project-kind";
+        kind.textContent = project.kind || "";
+
+        const info = document.createElement("ul");
+        info.className = "project-info";
+        (project.info || []).forEach(function (item) {
+          const li = document.createElement("li");
+          li.textContent = item;
+          info.appendChild(li);
+        });
+
+        el.appendChild(title);
+        el.appendChild(kind);
+        el.appendChild(info);
+        return el;
+      }
+
+      const list = document.getElementById("projects");
+      window.loadProjects().then(function (projects) {
+        if (!list) return;
+        projects.forEach(function (project) {
+          list.appendChild(renderProject(project));
+        });
+      });
+    })();
+  </script>
+
+  <script src="draw.js"></script>
+</body>
+</html>

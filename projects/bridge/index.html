@@ -1,9 +1,9 @@
-<!-- Template: templates/project/index.html -->
+<!-- Template for identity, logo, and other non-type project pages. Copy this folder to projects/<slug>/. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SASHA — Bora</title>
+<title>SASHA — Bridge</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,8 +66,24 @@
     line-height: var(--ui-lead);
   }
 
+  .hero {
+    display: flex;
+    align-items: flex-end;
+    margin: 0;
+    padding: 0 var(--pad) var(--gap-page);
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--bg);
+  }
+
+  .hero img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   .project-page {
-    padding: var(--gap-section) var(--pad) var(--gap-page);
+    padding: 0 var(--pad) var(--gap-page);
   }
 
   .grid {
@@ -257,6 +273,10 @@
 </head>
 <body>
 
+  <section class="hero" aria-label="Bridge">
+    <img src="bridge.svg" alt="Bridge" width="633" height="159">
+  </section>
+
   <main class="project-page">
     <section class="intro" data-project aria-label="Project">
       <div class="grid intro-menu">
@@ -271,7 +291,7 @@
 
     <section
       class="slideshow"
-      aria-label="Bora gallery"
+      aria-label="Project gallery"
       data-slideshow
       data-folder="slideshow/"
       data-manifest="slideshow/slides.json"

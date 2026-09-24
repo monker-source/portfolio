@@ -1,9 +1,9 @@
-<!-- Template: templates/project/history/index.html -->
+<!-- Template: templates/type/history/index.html. Copy with the type project folder. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SASHA — Bora · How it was done</title>
+<title>SASHA — Project · How it was done</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,6 +60,13 @@
     padding: var(--space-32) var(--pad) var(--gap-page);
   }
 
+  .grid {
+    display: grid;
+    grid-template-columns: var(--cols);
+    gap: var(--col-gap);
+    align-items: start;
+  }
+
   .story-head {
     margin: 0 0 var(--space-40);
   }
@@ -78,7 +85,9 @@
     color: var(--muted);
   }
 
-  .story-back:hover { color: var(--ink); }
+  .story-back:hover {
+    color: var(--ink);
+  }
 
   .story {
     display: flex;
@@ -175,6 +184,7 @@
   }
 
   @media (max-width: 800px) {
+    .grid,
     .contact-top {
       grid-template-columns: 1fr;
       row-gap: var(--gap-media);
@@ -184,8 +194,13 @@
       grid-template-columns: 1fr;
     }
 
-    .contact-links { grid-column: 1; }
-    .contact-clock { justify-self: start; }
+    .contact-links {
+      grid-column: 1;
+    }
+
+    .contact-clock {
+      justify-self: start;
+    }
   }
 </style>
 </head>
@@ -193,7 +208,7 @@
 
   <main class="project-page">
     <header class="story-head">
-      <p><a class="story-back" href="../">← Bora</a></p>
+      <p><a class="story-back" href="../">← Project</a></p>
       <h1>How it was done</h1>
     </header>
     <article class="story" id="story" aria-label="Story"></article>
