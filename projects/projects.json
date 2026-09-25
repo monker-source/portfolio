@@ -1,5 +1,18 @@
 [
   {
+    "title": "Tangley",
+    "kind": "Type design",
+    "info": ["Display typeface"],
+    "description": "Loopy typeface loosely inspired by Cy Twombly's graphic in the untitled series",
+    "year": "2025",
+    "slug": "tangley",
+    "href": "projects/tangley/",
+    "preview": "projects/preview/tangley.svg",
+    "illustration": "projects/tangley/tangley-illustration-01.svg",
+    "width": 1280,
+    "height": 800
+  },
+  {
     "title": "Standon",
     "kind": "Type design",
     "info": ["Roman+Italic", "6 weights"],
@@ -42,18 +55,6 @@
     "preview": "projects/audit/audit-hero.png",
     "width": 2160,
     "height": 1350
-  },
-  {
-    "title": "Tangley",
-    "kind": "Type design",
-    "info": ["Display typeface"],
-    "description": "Loopy typeface loosely inspired by Cy Twombly's graphic in the untitled series",
-    "year": "2025",
-    "slug": "tangley",
-    "href": "projects/tangley/",
-    "preview": "projects/preview/tangley.svg",
-    "width": 1280,
-    "height": 800
   },
   {
     "title": "Bridge",

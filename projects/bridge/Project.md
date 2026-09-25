@@ -6,7 +6,9 @@ description: Logo for SDK that will bridge developers and publishers
 client: Playgama
 art-direction: Ivan Korzun
 deliverables: Logo, Icon
-info: Logo, Icon
+info: Wordmark, Icon
 ---
 
 Playgama Bridge is a unified SDK for publishing web games on many platforms with a single integration. Developers write the game once, and Bridge handles the differences between platforms: ads, storage, payments, leaderboards, and the rest.
+
+The task was to adress issues of the current wordmark and redesign icon from a depiction of bridge to more computational look

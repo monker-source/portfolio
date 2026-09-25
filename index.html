@@ -143,13 +143,25 @@
 
   .intro-copy {
     grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     margin: 0;
-    max-width: 52rem;
+    max-width: 62rem;
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
     color: var(--muted);
   }
+
+  .intro-line {
+    display: block;
+  }
+
+  .intro-line:nth-child(2) { margin-left: 10%; }
+  .intro-line:nth-child(3) { margin-left: 16%; }
+  .intro-line:nth-child(5) { margin-left: 8%; }
+  .intro-line:nth-child(7) { margin-left: 14%; }
 
   .intro-name {
     color: var(--ink);
@@ -171,12 +183,22 @@
     min-height: 40vh;
   }
 
+  .project-slot {
+    position: relative;
+    z-index: 1;
+  }
+
+  .project-slot:hover {
+    z-index: 5;
+  }
+
   .project {
     position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     gap: var(--gap-card);
-    z-index: 1;
+    width: 100%;
     padding: calc(var(--ui-size) * 2);
     background: var(--card);
     color: var(--card-ink);
@@ -184,23 +206,24 @@
     container-type: inline-size;
   }
 
-  .project:hover {
-    z-index: 5;
+  .project-illustration {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    color: var(--ink);
+    line-height: 0;
   }
 
-  .project-back {
-    position: absolute;
-    left: 0;
-    z-index: 0;
+  .project-illustration svg {
+    display: block;
     width: 100%;
     height: auto;
-    pointer-events: none;
-    transform: translateY(-50%);
-    opacity: 0;
+    overflow: visible;
   }
 
-  .projects.is-backed .project-back {
-    opacity: 1;
+  .project-illustration path {
+    stroke: currentColor;
+    fill: none;
   }
 
   .project-media {
@@ -274,50 +297,50 @@
   }
 
   /* Scatter positions — larger, pushed to the edges */
-  .project[data-place="0"] {
+  .project-slot[data-place="0"] {
     width: min(64%, 780px);
     align-self: flex-start;
     margin-left: 0;
-    margin-bottom: -4vh;
+    margin-bottom: 2vh;
   }
 
-  .project[data-place="1"] {
+  .project-slot[data-place="1"] {
     width: min(50%, 600px);
     align-self: flex-end;
     margin-right: 0;
-    margin-top: 8vh;
-    margin-bottom: -6vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
   }
 
-  .project[data-place="2"] {
+  .project-slot[data-place="2"] {
     width: min(58%, 700px);
     align-self: flex-start;
     margin-left: 8%;
-    margin-top: 10vh;
-    margin-bottom: -3vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
   }
 
-  .project[data-place="3"] {
+  .project-slot[data-place="3"] {
     width: min(54%, 640px);
     align-self: flex-end;
     margin-right: 6%;
-    margin-top: 6vh;
-    margin-bottom: -5vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
   }
 
-  .project[data-place="4"] {
+  .project-slot[data-place="4"] {
     width: min(52%, 620px);
     align-self: flex-start;
     margin-left: 4%;
-    margin-top: 8vh;
-    margin-bottom: -4vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
   }
 
-  .project[data-place="5"] {
+  .project-slot[data-place="5"] {
     width: min(62%, 740px);
     align-self: flex-end;
     margin-right: 0;
-    margin-top: 10vh;
+    margin-top: 2vh;
   }
 
   .contact {
@@ -376,7 +399,7 @@
       padding-right: var(--pad);
     }
 
-    .project[data-place] {
+    .project-slot[data-place] {
       width: 100%;
       align-self: stretch;
       margin: 0 0 var(--gap-section);
@@ -392,6 +415,10 @@
       grid-column: 1;
       grid-row: auto;
     }
+
+    .intro-line:nth-child(n) {
+      margin-left: 0;
+    }
   }
 </style>
 </head>
@@ -399,11 +426,13 @@
 
   <section class="intro" aria-label="About">
     <p class="intro-copy">
-      <span class="intro-name">SASHA</span>
-      is a graphic designer specializing in typography and lettering.
-      He designs logotypes and custom lettering — from restrained, editorial marks to bold, high-impact identities — and works on typefaces in both Cyrillic and Latin scripts.
-      He graduated as a book designer from the HSE Art and Design School and, in 2025, completed the Expert Class in Type Design at the Plantin Institute for Typography.
-      Freelancing since 2021, Sasha has collaborated with design agencies, publishing houses, and IT companies, including ABC Dinamo, Blaze Type, Tuman Agency and Playgama.
+      <span class="intro-line"><span class="intro-name">SASHA</span> is a graphic designer specializing in typography and lettering.</span>
+      <span class="intro-line">He designs logotypes and custom lettering — from restrained, editorial marks</span>
+      <span class="intro-line">to bold, high-impact identities — and works on typefaces in both Cyrillic and Latin scripts.</span>
+      <span class="intro-line">He graduated as a book designer from the HSE Art and Design School and, in 2025,</span>
+      <span class="intro-line">completed the Expert Class in Type Design at the Plantin Institute for Typography.</span>
+      <span class="intro-line">Freelancing since 2021, Sasha has collaborated with design agencies, publishing houses,</span>
+      <span class="intro-line">and IT companies, including ABC Dinamo, Blaze Type, Tuman Agency and Playgama.</span>
     </p>
   </section>
 
@@ -421,9 +450,7 @@
         const href = project.href || null;
         const el = document.createElement(href ? "a" : "article");
         el.className = "project";
-        el.dataset.place = String(index % 6);
         if (href) el.href = href;
-        if (project.illustration) el.dataset.illustration = project.illustration;
 
         const media = document.createElement("div");
         media.className = "project-media";
@@ -480,36 +507,60 @@
       window.loadProjects().then(ProjectMd.hydrate).then(function (projects) {
         if (!list) return;
 
-        const back = document.createElement("img");
-        back.className = "project-back";
-        back.alt = "";
-        back.setAttribute("aria-hidden", "true");
-        list.appendChild(back);
-
-        function placeBack(project) {
-          back.src = project.dataset.illustration;
-          back.style.top = (project.offsetTop + project.offsetHeight / 2) + "px";
-          list.classList.add("is-backed");
-        }
-
-        function clearBack() {
-          list.classList.remove("is-backed");
+        function placeIllustrations() {
+          const listBox = list.getBoundingClientRect();
+          list.querySelectorAll(".project-slot").forEach(function (slot) {
+            const layer = slot.querySelector(".project-illustration");
+            const card = slot.querySelector(".project");
+            if (!layer || !card || !layer.firstElementChild) return;
+            const slotBox = slot.getBoundingClientRect();
+            layer.style.transform = "none";
+            layer.style.width = listBox.width + "px";
+            layer.style.left = (listBox.left - slotBox.left) + "px";
+            const illH = layer.offsetHeight;
+            const top = slotBox.height / 2 - illH / 2;
+            layer.style.top = top + "px";
+            const cardBox = card.getBoundingClientRect();
+            const listMid = listBox.left + listBox.width / 2;
+            const cardMid = cardBox.left + cardBox.width / 2;
+            const anchorX = cardMid < listMid ? cardBox.right : cardBox.left;
+            const anchorY = cardBox.top + cardBox.height / 2;
+            layer.style.transformOrigin =
+              (anchorX - listBox.left) + "px " + (anchorY - slotBox.top - top) + "px";
+            layer.style.transform = "scale(0.5)";
+          });
         }
 
         projects.forEach(function (project, index) {
+          const slot = document.createElement("div");
+          slot.className = "project-slot";
+          slot.dataset.place = String(index % 6);
+
           const card = renderProject(project, index);
-          if (card.dataset.illustration) {
-            card.addEventListener("mouseenter", function () {
-              placeBack(card);
-            });
-            card.addEventListener("mouseleave", clearBack);
-            card.addEventListener("focus", function () {
-              placeBack(card);
-            });
-            card.addEventListener("blur", clearBack);
+          if (project.illustration) {
+            const layer = document.createElement("div");
+            layer.className = "project-illustration";
+            layer.setAttribute("aria-hidden", "true");
+            slot.appendChild(layer);
+            fetch(project.illustration)
+              .then(function (res) {
+                if (!res.ok) throw new Error("Could not load illustration");
+                return res.text();
+              })
+              .then(function (text) {
+                const parsed = new DOMParser().parseFromString(text, "image/svg+xml");
+                const svg = parsed.querySelector("svg");
+                if (!svg) return;
+                layer.appendChild(document.importNode(svg, true));
+                placeIllustrations();
+              });
           }
-          list.appendChild(card);
+          slot.appendChild(card);
+          list.appendChild(slot);
         });
+
+        placeIllustrations();
+        window.addEventListener("resize", placeIllustrations);
 
         function fitFallbacks() {
           list.querySelectorAll(".project-fallback").forEach(function (el) {
