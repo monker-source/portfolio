@@ -155,6 +155,32 @@
     margin-top: var(--gap-text);
   }
 
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    gap: var(--col-gap);
+    margin: var(--gap-block) 0 0;
+  }
+
+  .gallery-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--col-gap);
+    margin: 0;
+  }
+
+  .gallery figure {
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+
+  .gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   .contact {
     padding: var(--footer-pad-top) var(--pad) var(--footer-pad-bottom);
     background: var(--bg);
@@ -201,6 +227,10 @@
       grid-column: 1;
     }
 
+    .gallery-pair {
+      grid-template-columns: 1fr;
+    }
+
     .contact-clock {
       justify-self: start;
     }
@@ -220,6 +250,20 @@
         <ul class="intro-meta"></ul>
       </div>
       <div class="grid intro-copy"></div>
+    </section>
+
+    <section class="gallery" aria-label="Audit applications">
+      <div class="gallery-pair">
+        <figure>
+          <img src="audit-clothes-1.png" alt="Yandex Audit logo embroidered on a black sweatshirt" width="1620" height="2025">
+        </figure>
+        <figure>
+          <img src="audit-clothes-2.png" alt="Yandex Audit logo on an oversized black sweatshirt" width="1620" height="2025">
+        </figure>
+      </div>
+      <figure>
+        <img src="audit-glasses.jpg" alt="Yandex Audit logo printed on the temple of black sunglasses" width="1748" height="1371">
+      </figure>
     </section>
   </main>
 
