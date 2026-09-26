@@ -175,6 +175,76 @@
     display: none;
   }
 
+  .story {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-block);
+    margin: 0 0 var(--gap-section);
+  }
+
+  .story p {
+    margin: 0 auto;
+    max-width: 36em;
+    font-size: var(--text-md);
+    line-height: var(--lead-body);
+    font-weight: 600;
+  }
+
+  .story em {
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .story-figure {
+    margin: 0 auto calc(var(--gap-after-media) - var(--gap-block));
+    width: min(68%, 880px);
+  }
+
+  .story-figure--wide,
+  .story-figure--pair,
+  .story-figure--grid {
+    width: 100%;
+  }
+
+  .story-figure--pair,
+  .story-figure--grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--col-gap);
+    align-items: start;
+  }
+
+  .story-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 42.5vh;
+    object-fit: contain;
+    object-position: center top;
+    background: transparent;
+    border-radius: var(--radius);
+  }
+
+  .story-figure--wide img,
+  .story-figure--pair img,
+  .story-figure--grid img {
+    max-height: none;
+  }
+
+  .story-figure figcaption {
+    margin: var(--space-10) 0 0;
+    color: var(--muted);
+    font-size: var(--text-xs);
+    line-height: var(--lead-ui);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .story-figure--pair figcaption,
+  .story-figure--grid figcaption {
+    grid-column: 1 / -1;
+  }
+
   .slideshow {
     --slideshow-slide-w: 720px;
     margin: var(--gap-block) 0 var(--space-56);
@@ -273,6 +343,11 @@
       grid-column: 1;
     }
 
+    .story-figure--pair,
+    .story-figure--grid {
+      grid-template-columns: 1fr;
+    }
+
     .contact-clock {
       justify-self: start;
     }
@@ -292,10 +367,9 @@
         <ul class="intro-meta"></ul>
       </div>
       <div class="grid intro-copy"></div>
-      <div class="grid intro-more" hidden>
-        <a href="history/">How it was done</a>
-      </div>
     </section>
+
+    <article class="story" id="story" aria-label="Story"></article>
 
     <section
       class="slideshow"
@@ -310,6 +384,10 @@
   <script src="../../other/project-md.js"></script>
   <script>
     ProjectMd.mount(document.querySelector("[data-project]"), "Project.md");
+  </script>
+  <script src="../../other/story-md.js"></script>
+  <script>
+    StoryMd.load(document.getElementById("story"), "history/story.md", "history/");
   </script>
   <script src="../../other/slideshow.js"></script>
   <script src="../../other/draw.js"></script>
