@@ -95,6 +95,13 @@
       applyInline(p, text.replace(/\s*\n\s*/g, " "));
       mount.appendChild(p);
     });
+
+    if (mount.firstChild && !document.querySelector(".story-head")) {
+      const kicker = document.createElement("p");
+      kicker.className = "story-kicker";
+      kicker.textContent = "How it was done";
+      mount.insertBefore(kicker, mount.firstChild);
+    }
   }
 
   function loadStory(mount, url, assetBase) {

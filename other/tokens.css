@@ -157,3 +157,6 @@ figcaption,
 .theme-swatch[data-theme="paper"] { --swatch: var(--theme-paper-swatch); }
 .theme-swatch[data-theme="black"] { --swatch: var(--theme-black-bg); }
 .theme-swatch[data-theme="colour"] { --swatch: var(--theme-colour-bg); }
+.theme-swatch[data-theme="live"] {
+  --swatch: conic-gradient(#ff0040, #ffe600, #00e05a, #00c8ff, #3a2bff, #ff2bd6, #ff0040);
+}

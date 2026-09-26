@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../other/tokens.css?v=size-half-11">
+<link rel="stylesheet" href="../../other/tokens.css?v=live-13">
 <style>
   * { box-sizing: border-box; }
 
@@ -106,10 +106,13 @@
   }
 
   .intro-menu {
-    align-items: baseline;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
   }
 
   .intro-menu h1 {
+    grid-column: 2 / -1;
+    grid-row: 1;
     font-family: var(--ui);
     font-size: var(--text-xl);
     line-height: var(--lead-tight);
@@ -118,26 +121,25 @@
   }
 
   .intro-meta {
-    grid-column: 2 / -1;
-    justify-self: end;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    justify-self: start;
+    align-self: start;
     margin: 0;
     padding: 0;
     list-style: none;
-    text-align: right;
+    text-align: left;
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
   }
 
   .intro-meta li {
-    display: inline;
-    white-space: nowrap;
+    display: block;
   }
 
-  .intro-meta li + li::before {
-    content: "";
-    display: inline-block;
-    width: 1.75em;
+  .intro-meta li + li {
+    margin-top: 0.35em;
   }
 
   .intro-meta .label {
@@ -148,12 +150,17 @@
   }
 
   .intro-copy {
+    grid-column: 2 / -1;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-text);
     margin-top: var(--gap-block);
   }
 
   .intro-copy p {
-    grid-column: 1 / 3;
-    max-width: 36em;
+    margin: 0;
+    max-width: none !important;
     font-size: var(--text-lg);
     line-height: var(--lead-copy);
     font-weight: 600;
@@ -176,18 +183,35 @@
   }
 
   .story {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-block);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--col-gap);
+    row-gap: var(--gap-block);
     margin: 0 0 var(--gap-section);
   }
 
+  .story p,
+  .story-figure {
+    grid-column: 2 / -1;
+    margin: 0;
+    max-width: none !important;
+  }
+
   .story p {
-    margin: 0 auto;
-    max-width: 36em;
     font-size: var(--text-md);
     line-height: var(--lead-body);
     font-weight: 600;
+  }
+
+  .story p + p {
+    margin-top: 0;
+  }
+
+  .story p.story-kicker {
+    font-size: var(--text-xs);
+    line-height: var(--lead-ui);
+    color: var(--muted);
+    text-align: left;
   }
 
   .story em {
@@ -196,13 +220,13 @@
   }
 
   .story-figure {
-    margin: 0 auto calc(var(--gap-after-media) - var(--gap-block));
-    width: min(68%, 880px);
+    margin-bottom: calc(var(--gap-after-media) - var(--gap-block));
   }
 
   .story-figure--wide,
   .story-figure--pair,
   .story-figure--grid {
+    grid-column: 1 / -1;
     width: 100%;
   }
 
@@ -237,12 +261,18 @@
     font-size: var(--text-xs);
     line-height: var(--lead-ui);
     font-weight: 600;
-    text-align: center;
+    text-align: left;
   }
 
   .story-figure--pair figcaption,
   .story-figure--grid figcaption {
     grid-column: 1 / -1;
+  }
+
+  .story-figure--wide figcaption,
+  .story-figure--pair figcaption,
+  .story-figure--grid figcaption {
+    padding-left: calc(50% + var(--col-gap) / 2);
   }
 
   .slideshow {
@@ -330,22 +360,36 @@
   }
 
   @media (max-width: 800px) {
+    .story,
     .grid,
     .contact-top {
       grid-template-columns: 1fr;
       row-gap: var(--gap-media);
     }
 
-    .intro-copy p,
+    .story p,
+    .story-figure,
+    .story-figure--wide,
+    .story-figure--pair,
+    .story-figure--grid,
+    .intro-menu h1,
+    .intro-copy,
     .intro-more,
     .intro-meta,
     .contact-links {
       grid-column: 1;
+      grid-row: auto;
     }
 
     .story-figure--pair,
     .story-figure--grid {
       grid-template-columns: 1fr;
+    }
+
+    .story-figure--wide figcaption,
+    .story-figure--pair figcaption,
+    .story-figure--grid figcaption {
+      padding-left: 0;
     }
 
     .contact-clock {
@@ -365,8 +409,8 @@
       <div class="grid intro-menu">
         <h1></h1>
         <ul class="intro-meta"></ul>
+        <div class="intro-copy"></div>
       </div>
-      <div class="grid intro-copy"></div>
     </section>
 
     <article class="story" id="story" aria-label="Story"></article>
@@ -380,12 +424,12 @@
       data-slide-size="720"></section>
   </main>
 
-  <script src="../../other/site.js?v=12"></script>
+  <script src="../../other/site.js?v=16"></script>
   <script src="../../other/project-md.js"></script>
   <script>
     ProjectMd.mount(document.querySelector("[data-project]"), "Project.md");
   </script>
-  <script src="../../other/story-md.js"></script>
+  <script src="../../other/story-md.js?v=2"></script>
   <script>
     StoryMd.load(document.getElementById("story"), "history/story.md", "history/");
   </script>

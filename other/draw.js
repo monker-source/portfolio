@@ -1,6 +1,7 @@
 (() => {
   if (window.__SITE_DRAW__) return;
   window.__SITE_DRAW__ = true;
+  return; // drawing button hidden for now
 
   const CFG = {
     LINE_WIDTH: 4,

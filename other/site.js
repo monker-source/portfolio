@@ -22,6 +22,7 @@
     { id: "paper", label: "Paper" },
     { id: "black", label: "Black" },
     { id: "colour", label: "Colour" },
+    { id: "live", label: "Live" },
   ];
 
   function pathFromTo(fromDir, toDir) {
@@ -82,6 +83,137 @@
     return THEMES[0];
   }
 
+  let liveListening = false;
+  let liveFrame = 0;
+  let liveHue = 180;
+  let liveLastX = null;
+  let liveLastY = null;
+  const LIVE_HUE_PER_PX = 0.02;
+
+  function wrapHue(n) {
+    return ((n % 360) + 360) % 360;
+  }
+
+  function hsl(h, s, l, alpha) {
+    const hue = Math.round(wrapHue(h));
+    if (alpha == null) return "hsl(" + hue + " " + s + "% " + l + "%)";
+    return "hsl(" + hue + " " + s + "% " + l + "% / " + alpha + ")";
+  }
+
+  function relLum(h, s, l) {
+    const hue = wrapHue(h);
+    s /= 100;
+    l /= 100;
+    const a = s * Math.min(l, 1 - l);
+    const f = function (n) {
+      const k = (n + hue / 30) % 12;
+      return l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    };
+    const rgb = [f(0), f(8), f(4)].map(function (v) {
+      return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
+  }
+
+  function contrastRatio(a, b) {
+    const hi = Math.max(a, b);
+    const lo = Math.min(a, b);
+    return (hi + 0.05) / (lo + 0.05);
+  }
+
+  function liveTone(hue, bgLum) {
+    const darkC = contrastRatio(relLum(hue, 100, 6), bgLum);
+    const lightC = contrastRatio(relLum(hue, 100, 97), bgLum);
+    const light = lightC > darkC;
+    const l = light ? 97 : 6;
+    let s = 100;
+    let c = contrastRatio(relLum(hue, s, l), bgLum);
+    while (s > 0 && c < 7) {
+      s -= 2;
+      c = contrastRatio(relLum(hue, s, l), bgLum);
+    }
+    return { s: s, l: l, c: c, light: light };
+  }
+
+  function softenLiveTone(hue, bgLum, tone) {
+    const step = tone.light ? -3 : 3;
+    const s = Math.min(tone.s, 70);
+    let l = tone.l;
+    for (let i = 0; i < 10; i++) {
+      const next = l + step;
+      if (next < 6 || next > 97) break;
+      if (contrastRatio(relLum(hue, s, next), bgLum) < 7) break;
+      l = next;
+    }
+    return { s: s, l: l };
+  }
+
+  function livePalette() {
+    const inkHue = liveHue + 180;
+    let fallback = null;
+    for (let d = 0; d <= 36; d += 2) {
+      const levels = d === 0 ? [42] : [42 - d, 42 + d];
+      for (let i = 0; i < levels.length; i++) {
+        const bgL = levels[i];
+        if (bgL < 10 || bgL > 62) continue;
+        const bgLum = relLum(liveHue, 100, bgL);
+        const ink = liveTone(inkHue, bgLum);
+        const muted = softenLiveTone(inkHue, bgLum, ink);
+        const mutedC = contrastRatio(relLum(inkHue, muted.s, muted.l), bgLum);
+        const option = { bgL: bgL, ink: ink, muted: muted, mutedC: mutedC };
+        if (!fallback || mutedC > fallback.mutedC) fallback = option;
+        if (ink.c >= 7 && mutedC >= 7) return option;
+      }
+    }
+    return fallback;
+  }
+
+  function paintLive() {
+    const root = document.documentElement;
+    const palette = livePalette();
+    const inkHue = liveHue + 180;
+    root.style.setProperty("--color-bg", hsl(liveHue, 100, palette.bgL));
+    root.style.setProperty("--color-ink", hsl(inkHue, palette.ink.s, palette.ink.l));
+    root.style.setProperty("--color-muted", hsl(inkHue, palette.muted.s, palette.muted.l));
+    root.style.setProperty("--color-rule", hsl(inkHue, palette.ink.s, palette.ink.l, 0.35));
+  }
+
+  function onLivePointer(event) {
+    if (liveLastX != null) {
+      const dx = event.clientX - liveLastX;
+      const dy = event.clientY - liveLastY;
+      liveHue += Math.hypot(dx, dy) * LIVE_HUE_PER_PX;
+    }
+    liveLastX = event.clientX;
+    liveLastY = event.clientY;
+    if (liveFrame) return;
+    liveFrame = requestAnimationFrame(function () {
+      liveFrame = 0;
+      paintLive();
+    });
+  }
+
+  function setLiveTracking(on) {
+    if (on) {
+      if (!liveListening) {
+        window.addEventListener("pointermove", onLivePointer);
+        liveListening = true;
+      }
+      paintLive();
+      return;
+    }
+    if (liveFrame) {
+      cancelAnimationFrame(liveFrame);
+      liveFrame = 0;
+    }
+    if (liveListening) {
+      window.removeEventListener("pointermove", onLivePointer);
+      liveListening = false;
+    }
+    liveLastX = null;
+    liveLastY = null;
+  }
+
   function applyTheme(theme) {
     const root = document.documentElement;
     [
@@ -97,6 +229,7 @@
     });
 
     root.setAttribute("data-theme", theme.id);
+    setLiveTracking(theme.id === "live");
     try {
       localStorage.setItem(THEME_KEY, theme.id);
     } catch (_) {}
