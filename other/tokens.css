@@ -45,7 +45,7 @@
   --display: var(--font-display);
 
   /* —— Type scale (half the main scale, body lifted to 10px) —— */
-  --text-xs: 8px;   /* captions */
+  --text-xs: 8px;   /* small UI; captions match body size below */
   --text-sm: 9px;   /* secondary UI / back links */
   --text-md: 10px;  /* body / UI */
   --text-lg: 12px;  /* lead copy */
@@ -131,6 +131,12 @@ p.intro-copy {
 .about-bio,
 .about-services {
   grid-column: 3 / -1 !important;
+}
+
+figcaption,
+.tester-note {
+  font-size: var(--text-md) !important;
+  color: color-mix(in srgb, var(--ink) 72%, transparent) !important;
 }
 
 .theme-swatch[data-theme="paper"] { --swatch: var(--theme-paper-swatch); }

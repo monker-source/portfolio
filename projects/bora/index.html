@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../other/tokens.css?v=size-half-10">
+<link rel="stylesheet" href="../../other/tokens.css?v=size-half-11">
 <style>
   * { box-sizing: border-box; }
 
@@ -90,7 +90,7 @@
   }
 
   .intro-menu {
-    align-items: start;
+    align-items: baseline;
   }
 
   .intro-menu h1 {
@@ -102,25 +102,33 @@
   }
 
   .intro-meta {
-    grid-column: 4;
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    column-gap: 1.25em;
-    row-gap: 0;
+    grid-column: 2 / -1;
+    justify-self: end;
     margin: 0;
     padding: 0;
     list-style: none;
+    text-align: right;
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
   }
 
   .intro-meta li {
-    display: contents;
+    display: inline;
+    white-space: nowrap;
+  }
+
+  .intro-meta li + li::before {
+    content: "";
+    display: inline-block;
+    width: 1.75em;
   }
 
   .intro-meta .label {
+    margin-right: 0.55em;
     color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
   }
 
   .intro-copy {
