@@ -105,6 +105,12 @@
   --cols: 1.4fr 1fr 1fr 1.2fr;
 }
 
+/* Drawing control is off for now; this also hides a cached copy of draw.js. */
+#site-draw-toggle,
+#site-draw-canvas {
+  display: none !important;
+}
+
 html[data-theme="black"] {
   --color-bg: var(--theme-black-bg);
   --color-ink: var(--theme-black-ink);
