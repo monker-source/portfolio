@@ -1,10 +1,10 @@
 Bridge is a toolkit that makes developing a mobile game simpler. The client wanted the icon and the lettering changed, and a lot of the details settled along the way. The name is a metaphor: the kit is a bridge between the picture of a game and its realization in code.
 
-![The logo as it arrived, and the logo that left](original-lockup.png)+(final-lockup.png)
+![The logo as it arrived, and the logo that left](original-lockup.webp)+(final-lockup.webp)
 
 The work started by studying how bridges are built, looking for construction ideas that could move into the logo.
 
-![](bridge-draw.png)+(bridge-arch.png)+(bridge-truss.png)+(bridge-cables.png)
+![](bridge-draw.jpg)+(bridge-arch.jpg)+(bridge-truss.jpg)+(bridge-cables.jpg)
 
 In parallel, each letter of the existing logo had to be assessed.
 
@@ -36,6 +36,6 @@ After that came the search for proportions and weights.
 
 Once the lettering was chosen and approved, the icon still had to be reinvented. The original logo used a road-sign bridge. In the new concept the mark shifts toward brackets, a reference to programming.
 
-![](icon-square.png)+(icon-angled.png)+(icon-diamond.png)+(icon-brackets.png)
+![](icon-square.webp)+(icon-angled.webp)+(icon-diamond.webp)+(icon-brackets.webp)
 
 To tie the lettering to the mark, the cuts from the letters were added to the icon. Then the logo went to the client and into the mockups.
