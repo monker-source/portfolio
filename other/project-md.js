@@ -7,10 +7,15 @@
   ];
 
   function applyInline(el, text) {
-    var parts = text.split(/(\*[^*]+\*)/g);
+    var parts = String(text).replace(/\s*¶\s*/g, "¶").split(/(\*[^*]+\*|¶)/g);
     parts.forEach(function (part) {
       if (!part) return;
-      if (part.charAt(0) === "*" && part.charAt(part.length - 1) === "*" && part.length > 2) {
+      if (part === "¶") {
+        var mark = document.createElement("span");
+        mark.className = "pilcrow";
+        mark.textContent = "¶";
+        el.appendChild(mark);
+      } else if (part.charAt(0) === "*" && part.charAt(part.length - 1) === "*" && part.length > 2) {
         var em = document.createElement("em");
         em.textContent = part.slice(1, -1);
         el.appendChild(em);

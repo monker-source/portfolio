@@ -92,15 +92,15 @@
   --gap-after-media: var(--space-80); /* after images, before the next paragraph */
   --gap-section: var(--space-48); /* major section spacing */
   --gap-page: var(--space-80);    /* page bottom / large vertical */
-  --gap-col: var(--space-28);     /* main grid columns */
 
-  --pad: clamp(16px, 2.2vw, 28px);
-  --header-pad-top: var(--space-18);
-  --header-pad-bottom: var(--space-14);
-  --footer-pad-top: var(--space-14);
-  --footer-pad-bottom: var(--space-18);
+  --pad: clamp(8px, 1.1vw, 14px);
+  --gap-col: var(--pad);          /* main grid columns, same as the page inset */
+  --header-pad-top: var(--gap-col);
+  --header-pad-bottom: var(--gap-col);
+  --footer-pad-top: var(--gap-col);
+  --footer-pad-bottom: var(--gap-col);
 
-  --radius: 8px;
+  --radius: 4px;
   --col-gap: var(--gap-col);
   --cols: 1.4fr 1fr 1fr 1.2fr;
 }
@@ -119,14 +119,14 @@ html[data-theme="colour"] {
   --color-rule: var(--theme-colour-rule);
 }
 
-/* Temporary: reading lines twice as long. */
+/* Homepage bio stays on a long measure; project descriptions are full width. */
 p.intro-copy {
   max-width: 104rem !important;
 }
 
 .intro-copy p,
 .story p {
-  max-width: 72em !important;
+  max-width: none !important;
 }
 
 /* Intro paragraphs are grid rows, so column gap and paragraph margin were stacking. */
@@ -136,6 +136,11 @@ p.intro-copy {
 
 .intro-copy p + p {
   margin-top: 0 !important;
+}
+
+.intro-copy .pilcrow {
+  display: inline-block;
+  padding-inline: var(--space-64);
 }
 
 .story p + p {
