@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../other/tokens.css?v=live-20">
+<link rel="stylesheet" href="../../other/tokens.css?v=live-21">
 <style>
   * { box-sizing: border-box; }
 
@@ -242,10 +242,18 @@
 
   @media (max-width: 800px) {
     .intro-menu {
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: var(--gap-stack);
+    }
+
+    .intro-meta {
+      display: flex;
       flex-wrap: wrap;
-      justify-content: flex-start;
+      align-items: baseline;
       column-gap: 1.75em;
       row-gap: var(--gap-stack);
+      width: 100%;
     }
 
     .grid,

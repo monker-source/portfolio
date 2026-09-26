@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../other/tokens.css?v=live-20">
+<link rel="stylesheet" href="../../other/tokens.css?v=live-21">
 <style>
   * { box-sizing: border-box; }
 
@@ -102,7 +102,7 @@
   }
 
   .intro {
-    margin: 0 0 var(--space-40);
+    margin: 0 0 var(--gap-page);
   }
 
   .intro-menu {
@@ -190,10 +190,18 @@
   }
 
   .story p.story-kicker {
-    margin-bottom: var(--gap-block);
-    font-size: var(--text-xs);
-    line-height: var(--lead-ui);
-    color: var(--muted);
+    grid-column: 1;
+    margin: 0;
+    font-size: var(--text-md);
+    line-height: var(--lead-body);
+    font-weight: 600;
+    color: var(--ink);
+    align-self: baseline;
+  }
+
+  .story p.story-kicker + p {
+    margin-top: 0;
+    align-self: baseline;
   }
 
   .story em {
@@ -338,10 +346,18 @@
 
   @media (max-width: 800px) {
     .intro-menu {
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: var(--gap-stack);
+    }
+
+    .intro-meta {
+      display: flex;
       flex-wrap: wrap;
-      justify-content: flex-start;
+      align-items: baseline;
       column-gap: 1.75em;
       row-gap: var(--gap-stack);
+      width: 100%;
     }
 
     .story {
@@ -407,7 +423,7 @@
   <script>
     ProjectMd.mount(document.querySelector("[data-project]"), "Project.md");
   </script>
-  <script src="../../other/story-md.js?v=3"></script>
+  <script src="../../other/story-md.js?v=5"></script>
   <script>
     StoryMd.load(document.getElementById("story"), "history/story.md", "history/");
   </script>

@@ -81,6 +81,7 @@
   --space-64: 64px;
   --space-72: 72px;
   --space-80: 80px;
+  --space-120: 120px;
 
   /* —— Semantic gaps —— */
   --gap-stack: var(--space-2);    /* stacked nav / meta lines */
@@ -90,7 +91,7 @@
   --gap-card: var(--space-16);    /* inside project cards */
   --gap-block: var(--space-28);   /* story blocks, related groups */
   --gap-after-media: calc(var(--gap-block) * 2); /* after images, before the next paragraph */
-  --gap-section: var(--space-48); /* major section spacing */
+  --gap-section: var(--space-120); /* between a description and the story or pictures */
   --gap-page: var(--space-80);    /* page bottom / large vertical */
 
   --pad: clamp(8px, 1.1vw, 14px);
@@ -144,13 +145,17 @@ p.intro-copy {
   margin-top: 0 !important;
 }
 
+.project-page .intro {
+  margin-bottom: var(--gap-section);
+}
+
 .pilcrow {
   display: inline-block;
   padding-inline: var(--space-64);
 }
 
 .story p + p {
-  margin-top: calc(var(--gap-block) / -2);
+  margin-top: 0;
 }
 
 .about-copy,

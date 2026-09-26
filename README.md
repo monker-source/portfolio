@@ -82,7 +82,7 @@ Put the trial font in `source/`.
 
 ### Body and history
 
-Paragraphs under the front matter support `*italic*` with single asterisks. A blank line between paragraphs renders as a pilcrow, with the same space on both sides, in the project description and in the story. The letters stay the same size.
+Paragraphs under the front matter support `*italic*` with single asterisks. A blank line in the project description renders as a pilcrow, with the same space on both sides. In the story, a blank line stays as space between paragraphs. The letters stay the same size.
 
 History text is `history/story.md`. Images use these lines:
 
