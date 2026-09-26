@@ -52,11 +52,11 @@
   --text-lg: 12px;  /* lead copy */
   --text-xl: clamp(25px, 3.4vw, 45px); /* project titles */
 
-  --lead-tight: 1.02;
-  --lead-heading: 1.1;
-  --lead-copy: 1.3;
-  --lead-ui: 1.35;
-  --lead-caption: 1.45;
+  --lead-tight: 1.5;
+  --lead-heading: 1.5;
+  --lead-copy: 1.5;
+  --lead-ui: 1.5;
+  --lead-caption: 1.5;
   --lead-body: 1.5;
 
   --ui-size: var(--text-md);
