@@ -44,12 +44,12 @@
   --ui: var(--font-ui);
   --display: var(--font-display);
 
-  /* —— Type scale (half the main scale) —— */
-  --text-xs: 6px;   /* captions */
-  --text-sm: 7px;   /* secondary UI / back links */
-  --text-md: 8px;   /* body / UI */
-  --text-lg: 9px;   /* lead copy */
-  --text-xl: clamp(20px, 2.75vw, 36px); /* project titles */
+  /* —— Type scale (half the main scale, body lifted to 10px) —— */
+  --text-xs: 8px;   /* captions */
+  --text-sm: 9px;   /* secondary UI / back links */
+  --text-md: 10px;  /* body / UI */
+  --text-lg: 12px;  /* lead copy */
+  --text-xl: clamp(25px, 3.4vw, 45px); /* project titles */
 
   --lead-tight: 1.02;
   --lead-heading: 1.1;
@@ -115,6 +115,22 @@ html[data-theme="colour"] {
   --color-ink: var(--theme-colour-ink);
   --color-muted: var(--theme-colour-muted);
   --color-rule: var(--theme-colour-rule);
+}
+
+/* Temporary: reading lines twice as long. */
+p.intro-copy {
+  max-width: 104rem !important;
+}
+
+.intro-copy p,
+.story p {
+  max-width: 72em !important;
+}
+
+.about-copy,
+.about-bio,
+.about-services {
+  grid-column: 3 / -1 !important;
 }
 
 .theme-swatch[data-theme="paper"] { --swatch: var(--theme-paper-swatch); }
