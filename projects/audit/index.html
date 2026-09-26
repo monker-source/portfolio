@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../other/tokens.css?v=live-18">
+<link rel="stylesheet" href="../../other/tokens.css?v=live-20">
 <style>
   * { box-sizing: border-box; }
 
@@ -106,45 +106,42 @@
   }
 
   .intro-menu {
+    display: flex;
+    justify-content: space-between;
     align-items: baseline;
+    width: 100%;
   }
 
   .intro-menu h1 {
     font-family: var(--ui);
-    font-size: var(--text-xl);
-    line-height: var(--lead-tight);
+    font-size: var(--text-lg);
+    line-height: var(--lead-copy);
     font-weight: 600;
-    letter-spacing: -0.03em;
+    letter-spacing: normal;
   }
 
   .intro-meta {
-    grid-column: 2 / -1;
-    justify-self: end;
+    display: contents;
     margin: 0;
     padding: 0;
     list-style: none;
-    text-align: right;
-    font-size: var(--ui-size);
-    line-height: var(--ui-lead);
+    font-size: var(--text-lg);
+    line-height: var(--lead-copy);
     font-weight: 600;
   }
 
   .intro-meta li {
-    display: inline;
     white-space: nowrap;
-  }
-
-  .intro-meta li + li::before {
-    content: "";
-    display: inline-block;
-    width: 1.75em;
+    font-size: var(--text-lg);
+    line-height: var(--lead-copy);
+    font-weight: 600;
   }
 
   .intro-meta .label {
     margin-right: 0.55em;
     color: var(--muted);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: normal;
   }
 
   .intro-copy {
@@ -223,6 +220,13 @@
   }
 
   @media (max-width: 800px) {
+    .intro-menu {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      column-gap: 1.75em;
+      row-gap: var(--gap-stack);
+    }
+
     .grid,
     .contact-top {
       grid-template-columns: 1fr;
@@ -276,7 +280,7 @@
   </main>
 
   <script src="../../other/site.js?v=16"></script>
-  <script src="../../other/project-md.js?v=2"></script>
+  <script src="../../other/project-md.js?v=6"></script>
   <script>
     ProjectMd.mount(document.querySelector("[data-project]"), "Project.md");
   </script>

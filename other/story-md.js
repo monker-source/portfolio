@@ -1,9 +1,14 @@
 (function (global) {
   function applyInline(el, text) {
-    const parts = text.split(/(\*[^*]+\*)/g);
+    const parts = String(text).replace(/\s*¶\s*/g, "¶").split(/(\*[^*]+\*|¶)/g);
     parts.forEach(function (part) {
       if (!part) return;
-      if (part.charAt(0) === "*" && part.charAt(part.length - 1) === "*" && part.length > 2) {
+      if (part === "¶") {
+        const mark = document.createElement("span");
+        mark.className = "pilcrow";
+        mark.textContent = "¶";
+        el.appendChild(mark);
+      } else if (part.charAt(0) === "*" && part.charAt(part.length - 1) === "*" && part.length > 2) {
         const em = document.createElement("em");
         em.textContent = part.slice(1, -1);
         el.appendChild(em);
@@ -34,6 +39,16 @@
 
   function renderMarkdown(md, mount, assetBase) {
     const blocks = md.trim().split(/\n\s*\n/);
+    const prose = [];
+
+    function flushProse() {
+      if (!prose.length) return;
+      const p = document.createElement("p");
+      applyInline(p, prose.join("¶"));
+      mount.appendChild(p);
+      prose.length = 0;
+    }
+
     blocks.forEach(function (block) {
       const text = block.trim();
       if (!text) return;
@@ -53,6 +68,7 @@
             ? "story-figure story-figure--pair"
             : "story-figure story-figure--grid";
         appendImages(fig, sources, chain[1], assetBase);
+        flushProse();
         mount.appendChild(fig);
         return;
       }
@@ -62,6 +78,7 @@
         const fig = document.createElement("figure");
         fig.className = "story-figure story-figure--wide";
         appendImages(fig, [wide[2]], wide[1], assetBase);
+        flushProse();
         mount.appendChild(fig);
         return;
       }
@@ -78,6 +95,7 @@
           compactPair[1],
           assetBase
         );
+        flushProse();
         mount.appendChild(fig);
         return;
       }
@@ -87,14 +105,15 @@
         const fig = document.createElement("figure");
         fig.className = "story-figure";
         appendImages(fig, [img[2]], img[1], assetBase);
+        flushProse();
         mount.appendChild(fig);
         return;
       }
 
-      const p = document.createElement("p");
-      applyInline(p, text.replace(/\s*\n\s*/g, " "));
-      mount.appendChild(p);
+      prose.push(text.replace(/\s*\n\s*/g, " "));
     });
+
+    flushProse();
 
     if (mount.firstChild && !document.querySelector(".story-head")) {
       const kicker = document.createElement("p");

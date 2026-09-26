@@ -143,14 +143,40 @@
 
     var copy = intro.querySelector(".intro-copy");
     if (!copy) return;
-    copy.textContent = "";
     var paragraphs = doc.paragraphs.slice();
     if (!paragraphs.length && meta.description) paragraphs = [meta.description];
-    paragraphs.forEach(function (text) {
-      var p = document.createElement("p");
-      applyInline(p, text);
-      copy.appendChild(p);
-    });
+    if (!paragraphs.length) return;
+    var target = copy;
+    if (copy.tagName !== "P") {
+      copy.textContent = "";
+      target = document.createElement("p");
+      copy.appendChild(target);
+    } else {
+      copy.textContent = "";
+    }
+    applyInline(target, paragraphs.join("¶"));
+    if (meta.name) markName(target, meta.name);
+  }
+
+  function markName(el, name) {
+    var node = el.firstChild;
+    while (node) {
+      if (node.nodeType === 3) {
+        var at = node.textContent.indexOf(name);
+        if (at !== -1) {
+          var before = node.textContent.slice(0, at);
+          var after = node.textContent.slice(at + name.length);
+          var span = document.createElement("span");
+          span.className = "intro-name";
+          span.textContent = name;
+          if (before) el.insertBefore(document.createTextNode(before), node);
+          el.insertBefore(span, node);
+          node.textContent = after;
+          return;
+        }
+      }
+      node = node.nextSibling;
+    }
   }
 
   function mount(intro, url) {

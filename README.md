@@ -47,7 +47,7 @@ Register the page in `projects/projects.json`:
 
 ## Edit copy
 
-Project text lives in `projects/<slug>/Project.md`. The page intro is filled from that file.
+The home intro is `Intro.md`, using the same body rules as `Project.md`. `name` in the front matter is the word shown in the main text colour.
 
 ### Non-type pages
 
@@ -82,7 +82,7 @@ Put the trial font in `source/`.
 
 ### Body and history
 
-Paragraphs under the front matter support `*italic*` with single asterisks.
+Paragraphs under the front matter support `*italic*` with single asterisks. A blank line between paragraphs renders as a pilcrow, with the same space on both sides, in the project description and in the story. The letters stay the same size.
 
 History text is `history/story.md`. Images use these lines:
 

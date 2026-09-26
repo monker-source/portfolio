@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="other/tokens.css?v=live-18">
+<link rel="stylesheet" href="other/tokens.css?v=live-20">
 <style>
   @font-face {
     font-family: "Imperial";
@@ -144,7 +144,7 @@
   .intro-copy {
     grid-column: 1 / -1;
     margin: 0;
-    max-width: 52rem;
+    max-width: none;
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
@@ -420,15 +420,7 @@
 <body data-nav-reveal>
 
   <section class="intro" aria-label="About">
-    <p class="intro-copy">
-      <span class="intro-name">SASHA</span>
-      is a designer specializing in typography and lettering.
-      He designs logotypes and custom lettering — from restrained wordmark to bold, high-impact letters.
-      He works on typefaces in both Cyrillic and Latin scripts.
-      He graduated as a book designer from the HSE Art and Design School and, in 2025, completed the Expert Class in Type Design at the Plantin Institute for Typography.
-      Freelancing since 2021, Sasha has collaborated with design agencies, publishing houses, and IT companies.
-      Among his clients are ABC Dinamo, Blaze Type, Tuman Agency and Playgama.
-    </p>
+    <p class="intro-copy"></p>
   </section>
 
   <section class="works" id="index" aria-label="Works">
@@ -436,7 +428,10 @@
   </section>
 
   <script src="other/site.js?v=16"></script>
-  <script src="other/project-md.js?v=2"></script>
+  <script src="other/project-md.js?v=6"></script>
+  <script>
+    ProjectMd.mount(document.querySelector(".intro"), "Intro.md");
+  </script>
   <script>
     (function () {
       const list = document.getElementById("projects");

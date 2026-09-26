@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../../other/tokens.css?v=live-18">
+<link rel="stylesheet" href="../../../other/tokens.css?v=live-20">
 <style>
   * { box-sizing: border-box; }
 
@@ -81,13 +81,15 @@
   .story-back:hover { color: var(--ink); }
 
   .story {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-block);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--col-gap);
+    row-gap: var(--gap-block);
     margin: 0 0 var(--space-56);
   }
 
   .story p {
+    grid-column: 2;
     margin: 0;
     max-width: none;
     font-size: var(--text-md);
@@ -96,6 +98,7 @@
   }
 
   .story-figure {
+    grid-column: 1 / -1;
     margin: 0 auto calc(var(--gap-after-media) - var(--gap-block));
     width: min(68%, 880px);
   }
@@ -175,6 +178,14 @@
   }
 
   @media (max-width: 800px) {
+    .story {
+      grid-template-columns: 1fr;
+    }
+
+    .story p {
+      grid-column: 1;
+    }
+
     .contact-top {
       grid-template-columns: 1fr;
       row-gap: var(--gap-media);
@@ -200,7 +211,7 @@
   </main>
 
   <script src="../../../other/site.js?v=16"></script>
-  <script src="../../../other/story-md.js"></script>
+  <script src="../../../other/story-md.js?v=3"></script>
   <script>
     StoryMd.load(document.getElementById("story"), "story.md");
   </script>

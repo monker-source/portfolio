@@ -150,6 +150,9 @@
     root.appendChild(shell);
     root.setAttribute("data-ready", "1");
     fitHeight();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(fitHeight);
+    }
   }
 
   function mountAll(selector) {

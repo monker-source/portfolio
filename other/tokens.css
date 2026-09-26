@@ -89,7 +89,7 @@
   --gap-media: var(--space-16);   /* slideshow / media gutters */
   --gap-card: var(--space-16);    /* inside project cards */
   --gap-block: var(--space-28);   /* story blocks, related groups */
-  --gap-after-media: var(--space-80); /* after images, before the next paragraph */
+  --gap-after-media: calc(var(--gap-block) * 2); /* after images, before the next paragraph */
   --gap-section: var(--space-48); /* major section spacing */
   --gap-page: var(--space-80);    /* page bottom / large vertical */
 
@@ -125,9 +125,9 @@ html[data-theme="colour"] {
   --color-rule: var(--theme-colour-rule);
 }
 
-/* Homepage bio stays on a long measure; project descriptions are full width. */
+/* Homepage bio and project descriptions run to the page edge. */
 p.intro-copy {
-  max-width: 104rem !important;
+  max-width: none !important;
 }
 
 .intro-copy p,
@@ -144,7 +144,7 @@ p.intro-copy {
   margin-top: 0 !important;
 }
 
-.intro-copy .pilcrow {
+.pilcrow {
   display: inline-block;
   padding-inline: var(--space-64);
 }
