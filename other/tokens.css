@@ -44,10 +44,11 @@
   --ui: var(--font-ui);
   --display: var(--font-display);
 
-  /* —— Type scale (half the main scale, body lifted to 10px) —— */
-  --text-xs: 8px;   /* small UI; captions match body size below */
-  --text-sm: 9px;   /* secondary UI / back links */
-  --text-md: 10px;  /* body / UI */
+  /* —— Type scale —— */
+  /* Temporary: UI, sm, and xs share one size. */
+  --text-xs: 12px;
+  --text-sm: 12px;
+  --text-md: 12px;  /* body / UI */
   --text-lg: 12px;  /* lead copy */
   --text-xl: clamp(25px, 3.4vw, 45px); /* project titles */
 
@@ -83,8 +84,9 @@
 
   /* —— Semantic gaps —— */
   --gap-stack: var(--space-2);    /* stacked nav / meta lines */
-  --gap-text: var(--space-14);    /* between paragraphs */
-  --gap-media: var(--space-12);   /* slideshow / media gutters */
+  /* Temporary: media, text, and card share one gap. */
+  --gap-text: var(--space-16);    /* between paragraphs */
+  --gap-media: var(--space-16);   /* slideshow / media gutters */
   --gap-card: var(--space-16);    /* inside project cards */
   --gap-block: var(--space-28);   /* story blocks, related groups */
   --gap-after-media: var(--space-80); /* after images, before the next paragraph */
@@ -125,6 +127,19 @@ p.intro-copy {
 .intro-copy p,
 .story p {
   max-width: 72em !important;
+}
+
+/* Intro paragraphs are grid rows, so column gap and paragraph margin were stacking. */
+.grid.intro-copy {
+  row-gap: calc((var(--col-gap) + var(--gap-text)) / 2);
+}
+
+.intro-copy p + p {
+  margin-top: 0 !important;
+}
+
+.story p + p {
+  margin-top: calc(var(--gap-block) / -2);
 }
 
 .about-copy,
