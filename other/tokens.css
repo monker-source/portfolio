@@ -3,6 +3,23 @@
   Pages keep legacy aliases (--bg, --ink, --ui-size, --col-gap, …) so existing CSS keeps working.
 */
 
+@font-face {
+  font-family: "ABC Areal Semi Mono";
+  src: url("../fonts/ABCArealSemiMono-Medium.woff2") format("woff2");
+  /* One Medium file covers the weights pages already request. */
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ABC Areal Semi Mono";
+  src: url("../fonts/ABCArealSemiMono-MediumItalic.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   /* —— Themes (edit these) —— */
   --theme-paper-bg: #f3f3f6;
@@ -38,8 +55,8 @@
   --card-muted: var(--color-card-muted);
 
   /* —— Fonts —— */
-  --font-ui: "Golos Text", sans-serif;
-  --font-display: "Imperial", serif;
+  --font-ui: "ABC Areal Semi Mono", sans-serif;
+  --font-display: "ABC Areal Semi Mono", sans-serif;
 
   --ui: var(--font-ui);
   --display: var(--font-display);
