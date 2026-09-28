@@ -178,43 +178,6 @@
     z-index: 5;
   }
 
-  .project-back {
-    position: absolute;
-    left: 0;
-    z-index: 0;
-    width: 100%;
-    height: auto;
-    pointer-events: none;
-    transform: translateY(-50%);
-    opacity: 0;
-    color: var(--ink);
-    line-height: 0;
-  }
-
-  .project-back svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    overflow: visible;
-  }
-
-  .project-back path {
-    stroke: currentColor;
-    fill: none;
-    stroke-dasharray: var(--len, 0);
-    stroke-dashoffset: var(--len, 0);
-  }
-
-  .project-back.is-drawn path {
-    stroke-dashoffset: 0;
-    transition: stroke-dashoffset 0.45s ease;
-    transition-delay: calc(var(--i, 0) * 1s);
-  }
-
-  .projects.is-backed .project-back {
-    opacity: 1;
-  }
-
   .project-media {
     display: block;
     line-height: 0;
@@ -395,7 +358,6 @@
         el.className = "project";
         el.dataset.place = String(index % 6);
         if (href) el.href = href;
-        if (project.illustration) el.dataset.illustration = project.illustration;
 
         const media = document.createElement("div");
         media.className = "project-media";
@@ -452,87 +414,8 @@
       window.loadProjects().then(ProjectMd.hydrate).then(function (projects) {
         if (!list) return;
 
-        const back = document.createElement("div");
-        back.className = "project-back";
-        back.setAttribute("aria-hidden", "true");
-        list.appendChild(back);
-
-        const illustrations = Object.create(null);
-        let hovering = false;
-        let activeSrc = "";
-
-        function loadIllustration(src) {
-          if (illustrations[src]) return illustrations[src];
-          illustrations[src] = fetch(src)
-            .then(function (res) {
-              if (!res.ok) throw new Error("Could not load illustration");
-              return res.text();
-            })
-            .then(function (text) {
-              const parsed = new DOMParser().parseFromString(text, "image/svg+xml");
-              const svg = parsed.querySelector("svg");
-              if (!svg) throw new Error("Illustration has no svg");
-              const node = document.importNode(svg, true);
-              back.appendChild(node);
-              const measured = Array.from(node.querySelectorAll("path")).map(function (path) {
-                const box = path.getBBox();
-                return {
-                  path: path,
-                  len: path.getTotalLength(),
-                  x: box.x + box.width / 2,
-                };
-              });
-              node.remove();
-              measured.sort(function (a, b) { return a.x - b.x; });
-              const minX = measured.length ? measured[0].x : 0;
-              const maxX = measured.length ? measured[measured.length - 1].x : 0;
-              const span = Math.max(maxX - minX, 1);
-              measured.forEach(function (item) {
-                item.path.style.setProperty("--len", item.len + "px");
-                item.path.style.setProperty("--i", String((item.x - minX) / span));
-              });
-              return node;
-            });
-          return illustrations[src];
-        }
-
-        function placeBack(project) {
-          hovering = true;
-          const src = project.dataset.illustration;
-          activeSrc = src;
-          back.style.top = (project.offsetTop + project.offsetHeight / 2) + "px";
-          loadIllustration(src).then(function (svg) {
-            if (!hovering || activeSrc !== src) return;
-            if (svg.parentNode !== back) back.replaceChildren(svg);
-            back.classList.remove("is-drawn");
-            void back.offsetWidth;
-            list.classList.add("is-backed");
-            requestAnimationFrame(function () {
-              if (!hovering || activeSrc !== src) return;
-              back.classList.add("is-drawn");
-            });
-          });
-        }
-
-        function clearBack() {
-          hovering = false;
-          list.classList.remove("is-backed");
-          back.classList.remove("is-drawn");
-        }
-
         projects.forEach(function (project, index) {
-          const card = renderProject(project, index);
-          if (card.dataset.illustration) {
-            card.addEventListener("mouseenter", function () {
-              placeBack(card);
-            });
-            card.addEventListener("mouseleave", clearBack);
-            card.addEventListener("focus", function () {
-              placeBack(card);
-            });
-            card.addEventListener("blur", clearBack);
-          }
-          list.appendChild(card);
+          list.appendChild(renderProject(project, index));
         });
 
         function fitFallbacks() {

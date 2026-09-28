@@ -252,19 +252,12 @@
       "}",
       ".site-nav{position:relative;align-items:baseline}",
       ".site-nav > a.is-inverted .nav-label{opacity:0}",
-      ".nav-contrast,.swatch-contrast{",
+      ".nav-contrast{",
       "position:fixed;z-index:50;margin:0;pointer-events:none;",
       "mix-blend-mode:difference;opacity:0;",
-      "}",
-      ".nav-contrast{",
       "color:#fff;white-space:nowrap;",
       "user-select:none;-webkit-user-select:none;",
       "}",
-      ".swatch-contrast{",
-      "padding:0;border-radius:100%;border:1px solid #fff;background:#fff;",
-      "box-sizing:border-box;",
-      "}",
-      ".swatch-contrast.is-on{outline:1px solid #fff;outline-offset:2px}",
       ".nav-end{position:relative;grid-column:-1;justify-self:end;align-self:center;width:max-content}",
       ".theme-swatches{",
       "display:flex;align-items:center;justify-self:end;align-self:center;",
@@ -273,12 +266,11 @@
       "}",
       ".theme-swatch{",
       "width:10px;height:10px;margin:5px;padding:0;border-radius:100%;",
-      "border:1px solid var(--ink);background:var(--swatch);",
+      "border:1px solid #111111;background:var(--swatch);",
       "cursor:pointer;appearance:none;-webkit-appearance:none;",
       "mix-blend-mode:normal;",
       "}",
-      ".theme-swatch.is-inverted{opacity:0}",
-      ".theme-swatch[aria-pressed='true']{outline:1px solid var(--ink);outline-offset:2px}",
+      ".theme-swatch[aria-pressed='true']{outline:1px solid #111111;outline-offset:2px}",
       ".contact-links{grid-column:3;justify-self:start;text-align:left}",
       ".contact-clock{grid-column:5;justify-self:end}",
       "img.ink-svg{",
@@ -577,7 +569,7 @@
       const el = stack[i];
       if (
         el.classList &&
-        (el.classList.contains("nav-contrast") || el.classList.contains("swatch-contrast"))
+        el.classList.contains("nav-contrast")
       ) {
         continue;
       }
@@ -604,17 +596,20 @@
 
   function coversContent(rect, page) {
     if (!rect.width || !rect.height) return false;
-    const y = rect.top + rect.height / 2;
-    const inset = Math.min(2, rect.width / 3);
-    const xs = [rect.left + inset, rect.left + rect.width / 2, rect.right - inset];
-    for (let i = 0; i < xs.length; i++) {
-      if (behindIsContent(xs[i], y, page)) return true;
+    const insetX = Math.min(2, rect.width / 3);
+    const xs = [rect.left + insetX, rect.left + rect.width / 2, rect.right - insetX];
+    const ys = [rect.top + 1, rect.top + rect.height / 2, rect.bottom - 1];
+    for (let yi = 0; yi < ys.length; yi++) {
+      for (let xi = 0; xi < xs.length; xi++) {
+        if (behindIsContent(xs[xi], ys[yi], page)) return true;
+      }
     }
     return false;
   }
 
   let contrastFrame = 0;
   let contrastTrack = 0;
+  let contrasting = false;
 
   function textOrigin(el) {
     const range = document.createRange();
@@ -651,6 +646,13 @@
   }
 
   function updateMenuContrast() {
+    if (contrasting) return;
+    contrasting = true;
+    applyMenuContrast();
+    contrasting = false;
+  }
+
+  function applyMenuContrast() {
     const page = pageColor();
     if (!page) return;
     const shown = menuOpacity();
@@ -684,27 +686,6 @@
       }
     });
 
-    document.querySelectorAll(".nav-end .theme-swatch").forEach(function (btn) {
-      const rect = btn.getBoundingClientRect();
-      const on = coversContent(rect, page);
-      btn.classList.toggle("is-inverted", on);
-      const ghost = contrastNode(btn, "swatch-contrast");
-      ghost.classList.toggle("is-on", btn.getAttribute("aria-pressed") === "true");
-      if (on && shown > 0) {
-        ghost.style.display = "block";
-        ghost.style.opacity = String(shown);
-        ghost.style.left = rect.left + "px";
-        ghost.style.top = rect.top + "px";
-        ghost.style.width = rect.width + "px";
-        ghost.style.height = rect.height + "px";
-        const next = ghost.getBoundingClientRect();
-        ghost.style.left = rect.left + (rect.left - next.left) + "px";
-        ghost.style.top = rect.top + (rect.top - next.top) + "px";
-      } else {
-        ghost.style.display = "none";
-        ghost.style.opacity = "0";
-      }
-    });
   }
 
   function trackMenuContrast() {
@@ -721,6 +702,7 @@
   }
 
   function scheduleMenuContrast() {
+    updateMenuContrast();
     if (contrastFrame) return;
     contrastFrame = requestAnimationFrame(function () {
       contrastFrame = 0;
@@ -744,8 +726,7 @@
         const target = records[i].target;
         if (
           target.classList &&
-          (target.classList.contains("nav-contrast") ||
-            target.classList.contains("swatch-contrast"))
+          target.classList.contains("nav-contrast")
         ) {
           continue;
         }

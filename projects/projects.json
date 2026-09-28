@@ -8,7 +8,6 @@
     "slug": "tangley",
     "href": "projects/tangley/",
     "preview": "projects/preview/tangley.svg",
-    "illustration": "projects/tangley/tangley-illustration-01.svg",
     "width": 1280,
     "height": 800
   },
@@ -65,7 +64,6 @@
     "slug": "bridge",
     "href": "projects/bridge/",
     "preview": "projects/bridge/Bridge-preview.webp",
-    "illustration": "projects/bridge/bridge-illustration-01.svg",
     "width": 1019,
     "height": 546
   }
