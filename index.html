@@ -38,7 +38,7 @@
 
   a.project,
   a.project:hover {
-    color: var(--card-ink);
+    color: var(--ink);
   }
 
   .is-active { color: inherit; }
@@ -167,9 +167,9 @@
     flex-direction: column;
     gap: var(--gap-card);
     z-index: 1;
-    padding: calc(var(--ui-size) * 2);
-    background: var(--card);
-    color: var(--card-ink);
+    padding: 0;
+    background: transparent;
+    color: var(--ink);
     border-radius: var(--radius);
     container-type: inline-size;
   }
@@ -200,7 +200,7 @@
     margin: 0;
     width: max-content;
     font-family: var(--display);
-    color: var(--card-ink);
+    color: var(--ink);
     font-size: 18cqw;
     font-weight: 400;
     letter-spacing: -0.02em;
@@ -219,7 +219,7 @@
   .project-title {
     display: none;
     margin: 0;
-    color: var(--card-ink);
+    color: var(--ink);
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
@@ -230,7 +230,7 @@
     grid-row: 1;
     margin: 0;
     max-width: var(--desc-max);
-    color: var(--card-ink);
+    color: var(--ink);
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
@@ -241,7 +241,7 @@
     grid-row: 1;
     margin: 0;
     justify-self: end;
-    color: var(--card-muted);
+    color: var(--muted);
     font-size: var(--ui-size);
     line-height: var(--ui-lead);
     font-weight: 600;
