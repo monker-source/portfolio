@@ -5,7 +5,7 @@ year: 2025
 description: Logo for an internal audit division, reflecting the ongoing, investigative nature of fraud detection and compliance work.
 client: Yandex
 art-direction: Holystic studio
-deliverables: Logo
+deliverables: Logo, Guidebook
 info: Cyrillic
 ---
 

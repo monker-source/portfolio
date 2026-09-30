@@ -1,5 +1,17 @@
 [
   {
+    "title": "Audit",
+    "kind": "Logo",
+    "info": ["Cyrillic"],
+    "description": "Logo for an internal audit division, reflecting the ongoing, investigative nature of fraud detection and compliance work.",
+    "year": "2025",
+    "slug": "audit",
+    "href": "projects/audit/",
+    "preview": "projects/audit/audit-hero.png",
+    "width": 2160,
+    "height": 1350
+  },
+  {
     "title": "Tangley",
     "kind": "Type design",
     "info": ["Display typeface"],
@@ -20,6 +32,18 @@
     "slug": "standon"
   },
   {
+    "title": "Rante",
+    "kind": "Logo",
+    "info": ["Optical variations", "Cyrillic"],
+    "description": "Personal logo for Berlin-based art‑director to stand out among designers",
+    "year": "2025",
+    "slug": "rante",
+    "href": "projects/rante/",
+    "preview": "projects/rante/history/Rante-hero.jpeg",
+    "width": 1920,
+    "height": 1080
+  },
+  {
     "title": "Bora",
     "kind": "Logo",
     "info": ["Optical variations", "Cyrillic"],
@@ -30,30 +54,6 @@
     "preview": "projects/preview/bora.svg",
     "width": 602,
     "height": 255
-  },
-  {
-    "title": "Rante",
-    "kind": "Logo",
-    "info": ["Optical variations", "Cyrillic"],
-    "description": "Personal logo for Berlin-based art‑director to stand out among designers",
-    "year": "2025",
-    "slug": "rante",
-    "href": "projects/rante/",
-    "preview": "projects/preview/rante.svg",
-    "width": 602,
-    "height": 191
-  },
-  {
-    "title": "Audit",
-    "kind": "Logo",
-    "info": ["Cyrillic"],
-    "description": "Logo for an internal audit division, reflecting the ongoing, investigative nature of fraud detection and compliance work.",
-    "year": "2025",
-    "slug": "audit",
-    "href": "projects/audit/",
-    "preview": "projects/audit/audit-hero.png",
-    "width": 2160,
-    "height": 1350
   },
   {
     "title": "Bridge",
