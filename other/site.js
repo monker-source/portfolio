@@ -3,8 +3,8 @@
     city: "Madison",
     timeZone: "America/Chicago",
     nav: [
-      { label: "SASHA", href: "index.html", brand: true },
-      { label: "Works", href: "index.html#index" },
+      { label: "SASHA", href: "home.html", brand: true },
+      { label: "Works", href: "home.html#index" },
       { label: "Fun", href: "fun-stuff/" },
     ],
     footer: {
@@ -64,7 +64,7 @@
 
   function navFolder(href) {
     const path = href.split("#")[0].split("?")[0].replace(/\/$/, "");
-    if (!path || path === "index.html") return "";
+    if (!path || path === "index.html" || path === "home.html") return "";
     return path.replace(/\/index\.html$/, "");
   }
 

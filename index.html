@@ -6,447 +6,102 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="other/tokens.css?v=live-24">
 <style>
-  :root {
-    --desc-max: 640px;
-  }
-
-  * { box-sizing: border-box; }
-
-  html {
-    scroll-behavior: smooth;
-    background: var(--bg);
-  }
-
-  body {
+  html, body {
+    height: 100%;
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: var(--ui);
-    font-size: var(--ui-size);
-    line-height: var(--ui-lead);
-    font-weight: 600;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
   }
 
-  a {
+  .gate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    box-sizing: border-box;
+    min-height: 100%;
+    padding: var(--pad);
     color: inherit;
+    text-align: center;
     text-decoration: none;
   }
 
-  a:hover { color: var(--muted); }
-
-  a.project,
-  a.project:hover {
-    color: var(--ink);
-  }
-
-  .is-active { color: inherit; }
-
-  .site-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 40;
-    padding: var(--header-pad-top) var(--pad) var(--header-pad-bottom);
-    background: transparent !important;
-    background-color: transparent !important;
-    color: var(--ink);
-  }
-
-  body[data-nav-reveal] .site-header {
-    position: fixed;
-    left: 0;
-    right: 0;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-6px);
-    transition: opacity 0.25s ease, transform 0.25s ease;
-  }
-
-  body[data-nav-reveal] .site-header.is-visible {
-    opacity: 1;
-    pointer-events: auto;
-    transform: none;
-  }
-
-  .site-nav {
-    display: grid;
-    grid-template-columns: var(--cols) auto;
-    gap: var(--col-gap);
-    align-items: baseline;
-    font-weight: 600;
-  }
-
-  .site-nav a {
-    color: var(--ink);
-  }
-
-  .site-nav a:hover {
+  .gate:hover {
     color: var(--muted);
   }
 
-  .theme-swatches {
-    display: flex;
-    align-items: center;
-    justify-self: end;
-    align-self: center;
-    gap: var(--gap-stack);
+  .gate-title,
+  .gate-note {
     margin: 0;
-    padding: 0;
   }
 
-  .theme-swatch {
-    width: 10px;
-    height: 10px;
-    margin: 5px;
-    padding: 0;
-    border-radius: 100%;
-    border: 1px solid var(--ink);
-    background: var(--swatch);
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-  }
-
-  .theme-swatch[aria-pressed="true"] {
-    outline: 1px solid var(--ink);
-    outline-offset: 2px;
-  }
-
-  .brand {
-    font-family: var(--ui);
-    font-size: var(--ui-size);
-    font-weight: 600;
-    line-height: var(--ui-lead);
-  }
-
-  /* —— Intro (name + bio) —— */
-  .intro {
-    padding: var(--pad) var(--pad) var(--space-64);
-    display: grid;
-    grid-template-columns: var(--cols);
-    gap: var(--col-gap);
-  }
-
-  .intro-copy {
-    grid-column: 1 / -1;
-    margin: 0;
-    max-width: none;
-    font-size: var(--ui-size);
-    line-height: var(--ui-lead);
-    font-weight: 600;
-    color: var(--muted);
-  }
-
-  .intro-name {
-    color: var(--ink);
-  }
-
-  /* —— Project grid —— */
-  .works {
-    padding: var(--space-28) var(--pad) var(--gap-page);
-    overflow: hidden;
-  }
-
-  .projects {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: var(--space-16);
+  .gate-title {
     width: 100%;
-    margin: 0 auto;
-    align-items: start;
-    min-height: 40vh;
-  }
-
-  .project {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-card);
-    z-index: 1;
-    padding: 0;
-    background: transparent;
-    color: var(--ink);
-    border-radius: var(--radius);
-    container-type: inline-size;
-  }
-
-  .project:hover {
-    z-index: 5;
-  }
-
-  .project-media {
-    display: block;
-    line-height: 0;
-    width: 100%;
-    aspect-ratio: var(--ratio, auto);
-  }
-
-  .project-media img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
-  .project-media:has(.project-fallback) {
-    line-height: normal;
-  }
-
-  .project-fallback {
-    margin: 0;
-    width: max-content;
     font-family: var(--display);
-    color: var(--ink);
-    font-size: 18cqw;
     font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 0.9;
+    font-size: calc((100vw - 2 * var(--pad)) / 7.25);
+    letter-spacing: -0.05em;
+    line-height: 1;
+  }
+
+  .gate-note {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: var(--ui);
+    font-weight: 600;
+    font-size: clamp(16px, 2vw, 22px);
+    line-height: 1;
+    letter-spacing: normal;
     white-space: nowrap;
-  }
-
-  .project-meta {
-    display: grid;
-    grid-template-columns: minmax(0, var(--desc-max)) 1fr max-content;
-    column-gap: var(--col-gap);
-    align-items: start;
-    justify-content: space-between;
-  }
-
-  .project-title {
-    display: none;
-    margin: 0;
-    color: var(--ink);
-    font-size: var(--ui-size);
-    line-height: var(--ui-lead);
-    font-weight: 600;
-  }
-
-  .project-description {
-    grid-column: 1;
-    grid-row: 1;
-    margin: 0;
-    max-width: var(--desc-max);
-    color: var(--ink);
-    font-size: var(--ui-size);
-    line-height: var(--ui-lead);
-    font-weight: 600;
-  }
-
-  .project-kind {
-    grid-column: 3;
-    grid-row: 1;
-    margin: 0;
-    justify-self: end;
-    color: var(--muted);
-    font-size: var(--ui-size);
-    line-height: var(--ui-lead);
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  /* Pairs fill one row. Outer edges share one left line and one right line. */
-  .project[data-place="0"] { grid-column: span 9; }
-  .project[data-place="1"] { grid-column: span 3; }
-  .project[data-place="2"] { grid-column: span 4; }
-  .project[data-place="3"] { grid-column: span 8; }
-  .project[data-place="4"] { grid-column: span 7; }
-  .project[data-place="5"] { grid-column: span 5; }
-
-  .contact {
-    padding: var(--footer-pad-top) var(--pad) var(--footer-pad-bottom);
-    background: var(--bg);
-  }
-
-  .contact-top {
-    display: grid;
-    grid-template-columns: var(--cols);
-    gap: var(--col-gap);
-    align-items: start;
-  }
-
-  .contact-headline {
-    margin: 0;
-    font-size: var(--ui-size);
-    font-weight: 600;
-    line-height: var(--ui-lead);
-  }
-
-  .contact-links {
-    grid-column: 3;
     display: flex;
-    flex-direction: column;
-    gap: var(--gap-stack);
-    font-weight: 600;
-  }
-
-  .contact-clock {
-    justify-self: end;
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  @media (max-width: 800px) {
-    .contact-top {
-      grid-template-columns: 1fr;
-      row-gap: var(--gap-media);
-    }
-
-    .theme-swatches {
-      justify-self: start;
-    }
-
-    .contact-links {
-      grid-column: 1;
-    }
-
-    .contact-clock {
-      justify-self: start;
-    }
-
-    .works {
-      padding-left: var(--pad);
-      padding-right: var(--pad);
-    }
-
-    .projects {
-      grid-template-columns: 1fr;
-    }
-
-    .project[data-place] {
-      grid-column: 1 / -1;
-    }
-
-    .project-meta {
-      grid-template-columns: 1fr;
-    }
-
-    .project-title,
-    .project-description,
-    .project-kind {
-      grid-column: 1;
-      grid-row: auto;
-    }
+    justify-content: space-between;
+    align-items: baseline;
   }
 </style>
 </head>
-<body data-nav-reveal>
-
-  <section class="intro" aria-label="About">
-    <p class="intro-copy"></p>
-  </section>
-
-  <section class="works" id="index" aria-label="Works">
-    <div class="projects" id="projects"></div>
-  </section>
-
-  <script src="other/site.js?v=19"></script>
-  <script src="other/project-md.js?v=6"></script>
-  <script>
-    ProjectMd.mount(document.querySelector(".intro"), "Intro.md");
-  </script>
+<body>
+  <a class="gate" href="home.html">
+    <p class="gate-title">SITE UNDER</p>
+    <p class="gate-note"><span>come</span><span>back</span><span>later</span></p>
+    <p class="gate-title">CONSTRUCTION</p>
+  </a>
   <script>
     (function () {
-      const list = document.getElementById("projects");
-
-      function renderProject(project, index) {
-        const href = project.href || null;
-        const el = document.createElement(href ? "a" : "article");
-        el.className = "project";
-        el.dataset.place = String(index % 6);
-        if (href) el.href = href;
-
-        const media = document.createElement("div");
-        media.className = "project-media";
-
-        if (project.width && project.height) {
-          media.style.setProperty(
-            "--ratio",
-            project.width + " / " + project.height
-          );
-        }
-
-        if (project.preview) {
-          const img = document.createElement("img");
-          img.src = project.preview + "?v=" + (project.width || 0) + "x" + (project.height || 0);
-          img.alt = project.title;
-          img.loading = "lazy";
-          if (project.width && project.height) {
-            img.width = project.width;
-            img.height = project.height;
-          }
-          media.appendChild(img);
-        } else {
-          const fallback = document.createElement("p");
-          fallback.className = "project-fallback";
-          fallback.textContent = project.title;
-          media.appendChild(fallback);
-        }
-
-        const meta = document.createElement("div");
-        meta.className = "project-meta";
-
-        const title = document.createElement("h2");
-        title.className = "project-title";
-        title.textContent = project.title;
-
-        const description = document.createElement("p");
-        description.className = "project-description";
-        description.textContent =
-          project.description || "Placeholder description for this project.";
-
-        const kind = document.createElement("p");
-        kind.className = "project-kind";
-        kind.textContent = project.kind || "";
-
-        meta.appendChild(title);
-        meta.appendChild(description);
-        meta.appendChild(kind);
-
-        el.appendChild(media);
-        el.appendChild(meta);
-        return el;
+      function ink(el) {
+        var host = el.querySelector("span:last-child") || el;
+        var sample = el.classList.contains("gate-note") ? "later" : el.textContent;
+        var range = document.createRange();
+        range.selectNodeContents(host);
+        var rect = range.getBoundingClientRect();
+        var canvas = document.createElement("canvas").getContext("2d");
+        canvas.font = getComputedStyle(el).font;
+        var measured = canvas.measureText(sample);
+        var fontHeight = measured.fontBoundingBoxAscent + measured.fontBoundingBoxDescent;
+        var scale = fontHeight ? rect.height / fontHeight : 1;
+        return {
+          top: rect.top + (measured.fontBoundingBoxAscent - measured.actualBoundingBoxAscent) * scale,
+          bottom: rect.bottom - (measured.fontBoundingBoxDescent - measured.actualBoundingBoxDescent) * scale
+        };
       }
 
-      window.loadProjects().then(ProjectMd.hydrate).then(function (projects) {
-        if (!list) return;
-
-        projects.forEach(function (project, index) {
-          list.appendChild(renderProject(project, index));
-        });
-
-        function fitFallbacks() {
-          list.querySelectorAll(".project-fallback").forEach(function (el) {
-            const parent = el.parentElement;
-            const parentW = parent.clientWidth;
-            if (!parentW) return;
-            el.style.width = "max-content";
-            el.style.fontSize = "100px";
-            const textW = el.getBoundingClientRect().width;
-            if (!textW) return;
-            el.style.fontSize = (100 * parentW) / textW + "px";
-          });
+      function stack() {
+        var lines = Array.prototype.slice.call(document.querySelectorAll(".gate-title, .gate-note"));
+        lines.forEach(function (el) { el.style.marginTop = "0px"; });
+        for (var i = 1; i < lines.length; i++) {
+          var gap = ink(lines[i]).top - ink(lines[i - 1]).bottom;
+          lines[i].style.marginTop = (1 - gap) + "px";
         }
+      }
 
-        function scheduleFit() {
-          requestAnimationFrame(function () {
-            fitFallbacks();
-            requestAnimationFrame(fitFallbacks);
-          });
-        }
+      function layout() {
+        stack();
+      }
 
-        scheduleFit();
-        if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(scheduleFit);
-        }
-        window.addEventListener("resize", scheduleFit);
-      });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+      layout();
+      window.addEventListener("resize", layout);
     })();
   </script>
-
-  <script src="other/draw.js"></script>
 </body>
 </html>

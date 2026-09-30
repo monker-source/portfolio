@@ -26,6 +26,7 @@ If they say no, stop.
 Preview with `python3 serve.py` (`http://127.0.0.1:8080`). Open each live page and exercise the changed behavior. A single screenshot of one screen is not the check.
 
 - `/`
+- `/home.html`
 - `/fun-stuff/`
 - `/other/about.html`
 - `/other/index.html`
