@@ -28,6 +28,7 @@ Preview with `python3 serve.py` (`http://127.0.0.1:8080`). Open each live page a
 - `/`
 - `/home.html`
 - `/fun-stuff/`
+- `/process/`
 - `/other/about.html`
 - `/other/index.html`
 - `/projects/audit/`

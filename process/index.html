@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SASHA — Process</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../other/tokens.css?v=live-25">
+<style>
+  * { box-sizing: border-box; }
+
+  html {
+    background: var(--bg);
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--ui);
+    font-size: var(--ui-size);
+    line-height: var(--ui-lead);
+    font-weight: 600;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover { color: var(--muted); }
+
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    padding: var(--header-pad-top) var(--pad) var(--header-pad-bottom);
+    background: transparent !important;
+    background-color: transparent !important;
+    color: var(--ink);
+  }
+
+  .site-nav {
+    display: grid;
+    grid-template-columns: var(--cols) auto;
+    gap: var(--col-gap);
+    align-items: baseline;
+    font-weight: 600;
+  }
+
+  .site-nav > a {
+    color: var(--ink);
+  }
+
+  .site-nav > a:hover {
+    color: var(--muted);
+  }
+
+  .brand {
+    font-family: var(--ui);
+    font-size: var(--ui-size);
+    font-weight: 600;
+    line-height: var(--ui-lead);
+  }
+
+  .process {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-64) var(--pad) var(--space-28);
+  }
+
+  .story {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-block);
+    margin: 0;
+    min-height: 0;
+  }
+
+  .intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--col-gap);
+    align-items: start;
+  }
+
+  .intro p {
+    grid-column: 2;
+    margin: 0;
+    font-size: var(--text-large);
+    line-height: var(--lead-body);
+    font-weight: 600;
+  }
+
+  .intro .story-kicker {
+    grid-column: 1;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    align-items: start;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-text);
+    min-width: 0;
+  }
+
+  .step p {
+    margin: 0;
+    font-size: var(--text-normal);
+    line-height: var(--lead-body);
+    font-weight: 600;
+  }
+
+  .story em {
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  .contact {
+    padding: var(--footer-pad-top) var(--pad) var(--footer-pad-bottom);
+    background: var(--bg);
+  }
+
+  .contact-top {
+    display: grid;
+    grid-template-columns: var(--cols);
+    gap: var(--col-gap);
+    align-items: start;
+  }
+
+  .contact-headline {
+    margin: 0;
+    font-size: var(--ui-size);
+    font-weight: 600;
+    line-height: var(--ui-lead);
+  }
+
+  .contact-links {
+    grid-column: 3;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-stack);
+    font-weight: 600;
+  }
+
+  .contact-clock {
+    justify-self: end;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 800px) {
+    .intro,
+    .steps {
+      grid-template-columns: 1fr;
+    }
+
+    .intro p,
+    .intro .story-kicker {
+      grid-column: 1;
+    }
+
+    .steps {
+      row-gap: var(--gap-block);
+    }
+
+    .contact-top {
+      grid-template-columns: 1fr;
+      row-gap: var(--gap-media);
+    }
+
+    .contact-links { grid-column: 1; }
+    .contact-clock { justify-self: start; }
+  }
+</style>
+</head>
+<body>
+
+  <main class="process">
+    <article class="story" id="story" aria-label="Process"></article>
+  </main>
+
+  <script src="../other/site.js?v=20"></script>
+  <script src="../other/story-md.js?v=6"></script>
+  <script>
+    fetch("story.md")
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.status);
+        return res.text();
+      })
+      .then(function (md) {
+        const story = document.getElementById("story");
+        StoryMd.render(md, story);
+
+        const intro = document.createElement("div");
+        intro.className = "intro";
+        const steps = document.createElement("div");
+        steps.className = "steps";
+        let column = null;
+
+        Array.from(story.children).forEach(function (node) {
+          if (node.classList.contains("story-step")) {
+            column = document.createElement("section");
+            column.className = "step";
+            steps.appendChild(column);
+            column.appendChild(node);
+          } else if (column) {
+            column.appendChild(node);
+          } else {
+            intro.appendChild(node);
+          }
+        });
+
+        story.append(intro, steps);
+      })
+      .catch(function () {
+        const p = document.createElement("p");
+        p.textContent = "Story could not be loaded.";
+        document.getElementById("story").appendChild(p);
+      });
+  </script>
+  <script src="../other/draw.js?v=2"></script>
+</body>
+</html>

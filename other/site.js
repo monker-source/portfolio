@@ -5,6 +5,7 @@
     nav: [
       { label: "SASHA", href: "home.html", brand: true },
       { label: "Works", href: "home.html#index" },
+      { label: "Process", href: "process/" },
       { label: "Fun", href: "fun-stuff/" },
     ],
     footer: {
@@ -280,7 +281,7 @@
       "mask-mode:alpha;",
       "}",
       "@media (max-width:800px){",
-      ".site-nav{grid-template-columns:max-content max-content max-content minmax(0,1fr);align-items:center}",
+      ".site-nav{grid-template-columns:max-content max-content max-content max-content minmax(0,1fr);align-items:center}",
       ".site-nav > a{grid-column:auto;grid-row:1;white-space:nowrap}",
       ".site-nav > .nav-end{grid-column:-1;grid-row:1;justify-self:end;align-self:center}",
       ".contact-top{grid-template-columns:minmax(0,1fr) auto;align-items:baseline}",

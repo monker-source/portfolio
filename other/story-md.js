@@ -106,13 +106,27 @@
         return;
       }
 
+      const heading = text.match(/^(#{1,2})\s+(\S.*)$/);
+      if (heading && text.indexOf("\n") === -1) {
+        flushProse();
+        const el = document.createElement("p");
+        el.className = heading[1].length === 1 ? "story-kicker" : "story-step";
+        applyInline(el, heading[2].trim());
+        mount.appendChild(el);
+        return;
+      }
+
       prose.push(text.replace(/\s*\n\s*/g, " "));
     });
 
     flushProse();
 
     const firstText = mount.querySelector("p");
-    if (firstText && !document.querySelector(".story-head")) {
+    if (
+      firstText &&
+      !document.querySelector(".story-head") &&
+      !mount.querySelector(".story-kicker")
+    ) {
       const kicker = document.createElement("p");
       kicker.className = "story-kicker";
       kicker.textContent = "How it was done";
