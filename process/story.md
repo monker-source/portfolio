@@ -1,6 +1,6 @@
 # How I work
 
-Every project is different, but most of the time it follows five steps. In the beginning we have a free interview, so you can see exactly what you're getting into before you commit to anything.
+Every project is different, but most of the time it follows five steps. In the beginning we have a free of charge interview, so you can see exactly what you're getting into before you commit to anything.
 
 ## 1. Initial interview (free)
 

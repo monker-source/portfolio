@@ -105,17 +105,28 @@
   }
 
   .steps {
+    flex: 1 1 auto;
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     column-gap: var(--col-gap);
-    align-items: start;
+    align-items: stretch;
   }
 
   .step {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--gap-text);
     min-width: 0;
+    height: 100%;
+  }
+
+  .step .story-step {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    white-space: nowrap;
   }
 
   .step p {
@@ -123,6 +134,13 @@
     font-size: var(--text-normal);
     line-height: var(--lead-body);
     font-weight: 600;
+  }
+
+  .step-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-text);
+    margin-top: auto;
   }
 
   .story em {
@@ -175,7 +193,22 @@
     }
 
     .steps {
+      flex: none;
       row-gap: var(--gap-block);
+    }
+
+    .step {
+      height: auto;
+    }
+
+    .step .story-step {
+      position: static;
+      transform: none;
+      white-space: normal;
+    }
+
+    .step-copy {
+      margin-top: 0;
     }
 
     .contact-top {
@@ -212,14 +245,32 @@
         steps.className = "steps";
         let column = null;
 
+        const circled = "①②③④⑤⑥⑦⑧⑨";
+
+        function encircle(title) {
+          Array.from(title.childNodes).forEach(function (node) {
+            if (node.nodeType !== 3) return;
+            node.textContent = node.textContent.replace(
+              /^(\d+)\.\s*/,
+              function (_, digit) {
+                const mark = circled[Number(digit) - 1];
+                return (mark || digit + ".") + " ";
+              }
+            );
+          });
+        }
+
         Array.from(story.children).forEach(function (node) {
           if (node.classList.contains("story-step")) {
             column = document.createElement("section");
             column.className = "step";
+            const copy = document.createElement("div");
+            copy.className = "step-copy";
+            column.append(node, copy);
             steps.appendChild(column);
-            column.appendChild(node);
+            encircle(node);
           } else if (column) {
-            column.appendChild(node);
+            column.querySelector(".step-copy").appendChild(node);
           } else {
             intro.appendChild(node);
           }
