@@ -3,10 +3,10 @@
     city: "Madison",
     timeZone: "America/Chicago",
     nav: [
-      { label: "SASHA", href: "home.html", brand: true },
-      { label: "Works", href: "home.html#index" },
-      { label: "Process", href: "process/" },
-      { label: "Fun", href: "fun-stuff/" },
+      { label: "SASHA", href: "home.html", brand: true, col: 1 },
+      /* { label: "Works", href: "home.html#index", col: 2 }, */
+      { label: "Process", href: "process/", col: 3 },
+      { label: "Fun", href: "fun-stuff/", col: 5 },
     ],
     footer: {
       id: "contact",
@@ -248,10 +248,14 @@
       "}",
       ".site-nav,.contact-top{",
       "display:grid;",
-      "grid-template-columns:var(--cols) var(--end-col, auto);",
+      "grid-template-columns:repeat(5,minmax(0,1fr));",
       "gap:var(--col-gap);",
       "}",
       ".site-nav{position:relative;align-items:baseline}",
+      ".site-nav > a[data-col='1']{grid-column:1}",
+      ".site-nav > a[data-col='2']{grid-column:2}",
+      ".site-nav > a[data-col='3']{grid-column:3}",
+      ".site-nav > a[data-col='5']{grid-column:5;grid-row:1;justify-self:start;width:max-content}",
       ".site-nav > a.is-inverted .nav-label{opacity:0}",
       ".nav-contrast{",
       "position:fixed;z-index:50;margin:0;pointer-events:none;",
@@ -259,7 +263,7 @@
       "color:#fff;white-space:nowrap;",
       "user-select:none;-webkit-user-select:none;",
       "}",
-      ".nav-end{position:relative;grid-column:-1;justify-self:end;align-self:center;width:max-content}",
+      ".nav-end{position:relative;grid-column:5;grid-row:1;justify-self:end;align-self:center;width:max-content}",
       ".theme-swatches{",
       "display:flex;align-items:center;justify-self:end;align-self:center;",
       "gap:var(--gap-stack);margin:0;padding:0;list-style:none;",
@@ -272,6 +276,7 @@
       "mix-blend-mode:normal;",
       "}",
       ".theme-swatch[aria-pressed='true']{outline:1px solid #111111;outline-offset:2px}",
+      ".contact-headline,.contact-clock{color:var(--muted)}",
       ".contact-links{grid-column:3;justify-self:start;text-align:left}",
       ".contact-clock{grid-column:5;justify-self:end}",
       "img.ink-svg{",
@@ -347,6 +352,7 @@
       const a = document.createElement("a");
       a.href = siteHref(item.href);
       a.setAttribute("aria-label", item.label);
+      if (item.col) a.setAttribute("data-col", String(item.col));
       if (item.brand) a.classList.add("brand");
       if (isActive(item)) a.classList.add("is-active");
 

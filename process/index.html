@@ -48,7 +48,7 @@
 
   .site-nav {
     display: grid;
-    grid-template-columns: var(--cols) auto;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: var(--col-gap);
     align-items: baseline;
     font-weight: 600;
@@ -108,24 +108,21 @@
     flex: 1 1 auto;
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-rows: 1fr auto auto;
     column-gap: var(--col-gap);
-    align-items: stretch;
   }
 
   .step {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-text);
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
     min-width: 0;
-    height: 100%;
   }
 
   .step .story-step {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
+    grid-row: 2;
+    align-self: start;
+    margin: 0 0 calc(3 * var(--lead-body) * 1em);
     white-space: nowrap;
   }
 
@@ -137,10 +134,15 @@
   }
 
   .step-copy {
+    grid-row: 3;
+    align-self: end;
     display: flex;
     flex-direction: column;
     gap: var(--gap-text);
-    margin-top: auto;
+  }
+
+  .step:not(:first-child) .story-step {
+    margin-bottom: 0;
   }
 
   .story em {
@@ -155,7 +157,7 @@
 
   .contact-top {
     display: grid;
-    grid-template-columns: var(--cols);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: var(--col-gap);
     align-items: start;
   }
@@ -194,21 +196,24 @@
 
     .steps {
       flex: none;
-      row-gap: var(--gap-block);
+      grid-template-rows: none;
+      row-gap: calc(2 * var(--lead-body) * 1em);
     }
 
     .step {
-      height: auto;
+      display: flex;
+      flex-direction: column;
+      grid-row: auto;
     }
 
-    .step .story-step {
-      position: static;
-      transform: none;
+    .step .story-step,
+    .step:not(:first-child) .story-step {
+      margin: 0 0 calc(var(--lead-body) * 1em);
       white-space: normal;
     }
 
     .step-copy {
-      margin-top: 0;
+      align-self: auto;
     }
 
     .contact-top {
@@ -227,7 +232,7 @@
     <article class="story" id="story" aria-label="Process"></article>
   </main>
 
-  <script src="../other/site.js?v=20"></script>
+  <script src="../other/site.js?v=23"></script>
   <script src="../other/story-md.js?v=6"></script>
   <script>
     fetch("story.md")

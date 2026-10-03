@@ -8,7 +8,7 @@ We talk through what you need, and I outline several options at different sizes.
 
 A typeface can be a single weight or a full family with a wide range of characters, and some projects also need technical work so the font behaves properly on websites and apps. We choose the option that best fits your goals and budget.
 
-At this step we agree who holds which rights to the work, meaning who owns what and how it may be used. And we choose a payment structure that suits you. Most often it's 30% after research, 40% after sketches, and 30% after final artwork and presentation. If it does not suit you we can always discuss alternatives
+At this step we agree who holds which rights to the work, meaning who owns what and how it may be used. And we choose a payment structure that suits you.
 
 ## 2. Proposal
 

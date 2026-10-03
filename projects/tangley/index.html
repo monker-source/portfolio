@@ -326,9 +326,20 @@
     color: var(--muted);
   }
 
-  .tester-note a {
+  .tester-note a,
+  .share-note a {
     text-decoration: underline;
     text-underline-offset: 2px;
+  }
+
+  .share-note {
+    margin: var(--gap-after-media) auto 0;
+    max-width: 36em;
+    text-align: center;
+    font-size: var(--text-xs);
+    line-height: var(--lead-caption);
+    font-weight: 600;
+    color: var(--muted);
   }
 
   .specimen-grid {
@@ -476,9 +487,13 @@
       <figure><img src="slideshow/tangley-site-9.png" alt="Tangley specimen"></figure>
       <figure class="specimen-wide"><img src="slideshow/tangley-site-7.png" alt="Tangley specimen"></figure>
     </div>
+
+    <p class="share-note">
+      I am always happy to see the font in use. Want to share yours? <a href="mailto:sasha.sm-v@ya.ru">Email me</a>.
+    </p>
   </main>
 
-  <script src="../../other/site.js?v=20"></script>
+  <script src="../../other/site.js?v=23"></script>
   <script src="../../other/project-md.js?v=6"></script>
   <script>
     ProjectMd.mount(document.querySelector("[data-project]"), "Project.md");

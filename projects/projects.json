@@ -29,7 +29,10 @@
     "info": ["Roman+Italic", "6 weights"],
     "description": "Placeholder description for Standon — a short note about the project goes here.",
     "year": "2025",
-    "slug": "standon"
+    "slug": "standon",
+    "preview": "projects/standon/standon-preview.jpg",
+    "width": 1920,
+    "height": 1080
   },
   {
     "title": "Rante",
